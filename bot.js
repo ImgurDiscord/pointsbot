@@ -69,7 +69,7 @@ bot.on("message", message => {
 	}
 	
 	// Bot Commands
-	if (message.content.startsWith("$mystats")) {
+	if (message.content.startsWith(".mystats")) {
 		message.channel.sendMessage(`${message.author.username}, you have ${userData.points} points.`);
 	}
 });
@@ -98,7 +98,7 @@ bot.on("ready", () => {
 
 
 bot.on("message", msg => {
-	if (msg.content.startsWith("$ping")) {
+	if (msg.content.startsWith(".ping")) {
         msg.channel.sendMessage("Don't worry, I'm still alive :)");
     }
 });
