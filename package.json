@@ -4,6 +4,7 @@
   "description": "Custom Discord Bot for Imgur Discord chat :)",
   "main": "bot.js",
   "scripts": {
+    "start": "node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
