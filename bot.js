@@ -2,8 +2,7 @@ var Discord = require("discord.js");
 const bot = new Discord.Client();
 const fs = require("fs");
 var givenPoints = new Discord.Collection();
-var express = require("express");
-var app = express();
+var numberOne = new Discord.Collection();
 var userData;
 var userId;
 
@@ -24,11 +23,6 @@ bot.on("message", message => {
 	
 	if(!points[message.author.id]) points[message.author.id] = {points: 0, rank: 0};
 	fs.writeFile('./points.json', JSON.stringify(points), console.error);
-	
-	/*
-	points[message.author.id].points++;
-	message.channel.sendMessage(`1 Point added.`);
-	*/
 	
 	userData = points[message.author.id];
 	
@@ -69,13 +63,12 @@ bot.on("message", message => {
 	}
 	
 	// Bot Commands
-	if (message.content.startsWith("$mystats")) {
+	if (message.content.startsWith(".mystats")) {
 		message.channel.sendMessage(`${message.author.username}, you have ${userData.points} points.`);
 	}
 });
 
 function checkPoints() {
-	console.log(userId);
 	if (givenPoints.get(userId) == userId) {
 		if(!userData) {
 			return;
@@ -92,21 +85,10 @@ function checkPoints() {
 
 setInterval(checkPoints, 180000)
 
-bot.on("ready", () => {
-    console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
-	});
-
-
 bot.on("message", msg => {
-	if (msg.content.startsWith("$ping")) {
+	if (msg.content.startsWith(".ping")) {
         msg.channel.sendMessage("Don't worry, I'm still alive :)");
-    }
+    }	
 });
 
 bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
-
-app.use(express.static('./client'));
-
-app.listen (process.env.PORT || 3000, function(){
-    console.log('App listening on port 3000')
-})
