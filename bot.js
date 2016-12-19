@@ -2,6 +2,8 @@ var Discord = require("discord.js");
 const bot = new Discord.Client();
 const fs = require("fs");
 var givenPoints = new Discord.Collection();
+var express = require("express");
+var app = express();
 var userData;
 var userId;
 
@@ -102,3 +104,9 @@ bot.on("message", msg => {
 });
 
 bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
+
+app.use(express.static('./client'));
+
+app.listen (process.env.PORT || 3000, function(){
+    console.log('App listening on port 3000')
+})

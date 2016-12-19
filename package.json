@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ImgurDiscord/pointsbot#readme",
   "dependencies": {
-    "discord.js": "^10.0.1"
+    "discord.js": "^10.0.1",
+    "express": "^4.14.0"
   }
 }
