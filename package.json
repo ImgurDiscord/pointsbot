@@ -1,0 +1,23 @@
+{
+  "name": "giraffebot",
+  "version": "1.0.0",
+  "description": "Custom Discord Bot for Imgur Discord chat :)",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamza765/GiraffeBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamza765/GiraffeBot/issues"
+  },
+  "homepage": "https://github.com/hamza765/GiraffeBot#readme",
+  "dependencies": {
+    "discord.js": "^10.0.1"
+  }
+}
