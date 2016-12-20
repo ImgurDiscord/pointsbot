@@ -1,5 +1,6 @@
 var Discord = require("discord.js");
 const bot = new Discord.Client();
+
 const fs = require("fs");
 var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
