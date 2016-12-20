@@ -125,7 +125,7 @@ bot.on("message", msg => {
     }
 	if (msg.content.startsWith(".help")) {
 		numone = numberOne.random();
-        msg.channel.sendMessage("`Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.`");
+        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.```");
     }
 });
 
