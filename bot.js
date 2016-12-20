@@ -65,7 +65,7 @@ bot.on("message", message => {
 	}
 	
 	// Bot Commands
-	if (message.content.startsWith(".mystats")) {
+	if (message.content.startsWith(".stats")) {
 		message.channel.sendMessage(`${message.author.username}, you have ${userData.points} points.`);
 	}
 });
@@ -125,7 +125,7 @@ bot.on("message", msg => {
     }
 	if (msg.content.startsWith(".help")) {
 		numone = numberOne.random();
-        msg.channel.sendMessage("`Commands:\n.ping - Ping the bot.\n.mystats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.`");
+        msg.channel.sendMessage("`Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.`");
     }
 });
 
