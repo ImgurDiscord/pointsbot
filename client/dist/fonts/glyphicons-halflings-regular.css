@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "glyphicons-halflings-regular";
+    src: url("glyphicons-halflings-regular.eot"); /* IE9 */
+    src: url("glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("glyphicons-halflings-regular.woff") format("woff"), /* chrome, firefox */
+    url("glyphicons-halflings-regular.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("glyphicons-halflings-regular.svg#glyphicons-halflings-regular") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+
