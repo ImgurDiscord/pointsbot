@@ -27,57 +27,17 @@ bot.on("message", message => {
     if (message.author.bot) return;
 
     userId = message.author.id;
-	uPoints = 0;
-	uLevel = 'Neutral';
-	
+    uPoints = 0;
+    uLevel = 'Neutral';
+
     givenPoints.set(message.author.id, message.author.id);
-	
-	addUser(uLevel, uPoints, userId, function(err, result) {
-		if (err) {
-			console.log(err);
-		}
-		console.log(result);
-	});
 
-    //userData = points[message.author.id];
-
-	/*
-    if (userData.points >= 0 && userData.points <= 499 && userData.rank != "Neutral") {
-        let member = message.guild.member(userData);
-        userData.rank = "Neutral";
-        message.member.addRole(neutral);
-    }
-    if (userData.points >= 500 && userData.points <= 999 && userData.rank != "Liked") {
-        message.member.removeRole(neutral);
-        let member = message.guild.member(userData);
-        userData.rank = "Liked";
-        message.member.addRole(liked);
-    }
-    if (userData.points >= 1000 && userData.points <= 1999 && userData.rank != "Trusted") {
-        message.member.removeRole(liked);
-        let member = message.guild.member(userData);
-        userData.rank = "Trusted";
-        message.member.addRole(trusted);
-    }
-    if (userData.points >= 2000 && userData.points <= 3499 && userData.rank != "Idolized") {
-        message.member.removeRole(trusted);
-        let member = message.guild.member(userData);
-        userData.rank = "Idolized";
-        message.member.addRole(idolized);
-    }
-    if (userData.points >= 3500 && userData.points <= 4999 && userData.rank != "Renowned") {
-        message.member.removeRole(idolized);
-        let member = message.guild.member(userData);
-        userData.rank = "Renowned";
-        message.member.addRole(renowned);
-    }
-    if (userData.points >= 5000 && userData.rank != "Glorious") {
-        message.member.removeRole(renowned);
-        let member = message.guild.member(userData);
-        userData.rank = "Glorious";
-        message.member.addRole(glorious);
-    }
-	*/
+    addUser(uLevel, uPoints, userId, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result);
+    });
 
     // Bot Commands
     if (message.content.startsWith(".stats")) {
@@ -86,23 +46,23 @@ bot.on("message", message => {
 });
 
 function checkPoints() {
-	console.log("checking a thing");
-	var dbuserId;
-	getUser(userId, function(err, result) {
-		if (err) {
-			console.log(err);
-		}
-		console.log(result);
-		console.log("thing checked successfully");
-		dbuserId = result;
-	});
-	
-	
-	if (givenPoints.get(userId) == userId) {
-		
-	} else {
-		console.log('No available users found.');
-	}
+    console.log(userId);
+    var dbuserId;
+    getUser(userId, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result.rows);
+        dbuserId = result;
+    });
+
+
+
+    if (givenPoints.get(userId) == userId) {
+
+    } else {
+        console.log('No available users found.');
+    }
 }
 
 setInterval(checkPoints, 20000)
@@ -136,7 +96,7 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
     if (msg.content.startsWith(".ping")) {
-        msg.channel.sendMessage("Don't worry, I'm still alive :)");
+        msg.channel.sendMessage("2. Don't worry, I'm still alive :)");
     }
     if (msg.content.startsWith(".numone")) {
         numone = numberOne.random();
@@ -146,9 +106,9 @@ bot.on("message", msg => {
         numone = numberOne.random();
         msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.```");
     }
-	if (msg.content.startsWith(".ching")) {
+    if (msg.content.startsWith(".ching")) {
         numone = numberOne.random();
-        msg.channel.sendMessage("chong"); 
+        msg.channel.sendMessage("chong");
     }
 });
 
@@ -184,7 +144,6 @@ function getUser(id, cb) {
         if (err) {
             cb(err, null);
         }
-		
         cb(null, result);
     });
 }
@@ -204,7 +163,7 @@ function updateUser(level, pts, id, cb) {
             cb(err, null);
         //console.log(result);
         cb(null, result);
-		
+
     });
 }
 
