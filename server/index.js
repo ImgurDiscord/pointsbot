@@ -10,7 +10,6 @@ import Discord from 'discord.js';
 const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
-var userData;
 var userId;
 var numone;
 var uPoints;
@@ -36,36 +35,110 @@ bot.on("message", message => {
         if (err) {
             console.log(err);
         }
-        console.log(result);
     });
+	
+	getInfo(userId, function(err, result) {
+		if (err) {
+			console.log(err);
+		}
+		var curPoints = result.rows[0].points;
+		var curRank = result.rows[0].rank;
+		
+		if (curPoints >= 0 && curPoints <= 499 && curRank != "Neutral") {
+			let member = message.guild.member(userId);
+			updateRank("Neutral", userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			message.member.addRole(neutral);
+		}
+		if (curPoints >= 500 && curPoints <= 999 && curRank != "Liked") {
+			let member = message.guild.member(userId);
+			message.member.removeRole(neutral);
+			updateRank("Liked", userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			message.member.addRole(liked);
+		}
+		if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Liked") {
+			let member = message.guild.member(userId);
+			message.member.removeRole(liked);
+			updateRank("Trusted", userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			message.member.addRole(trusted);
+		}
+		if (curPoints >= 2000 && curPoints <= 3499 && curRank != "Trusted") {
+			let member = message.guild.member(userId);
+			message.member.removeRole(trusted);
+			updateRank("Idolized", userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			message.member.addRole(idolized);
+		}
+		if (curPoints >= 3500 && curPoints <= 4999 && curRank != "Idolized") {
+			let member = message.guild.member(userId);
+			message.member.removeRole(idolized);
+			updateRank("Renowned", userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			message.member.addRole(renowned);
+		}
+		if (curPoints.points >= 5000 && curRank != "Glorious") {
+			let member = message.guild.member(userId);
+			message.member.removeRole(renowned);
+			updateRank("Glorious", userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			message.member.addRole(glorious);
+		}
+	});
 
     // Bot Commands
     if (message.content.startsWith(".stats")) {
-        message.channel.sendMessage(`${message.author.username}, you have ${userData.points} points.`);
+        message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
     }
 });
 
 function checkPoints() {
-    console.log(userId);
-    var dbuserId;
+    //console.log(userId);
+    var idExists;
+	
     getUser(userId, function(err, result) {
         if (err) {
             console.log(err);
         }
-        console.log(result.rows);
-        dbuserId = result;
+        //console.log(result.rows[0].exists);
+        idExists = result.rows[0].exists;
+		
+		if (givenPoints.get(userId) == userId) {
+			console.log("user exists. giving points now!");
+		if (idExists == 1) {
+			updateUser(userId, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+				console.log("User updated successfully :D")
+			});
+		}
+		} else {
+			console.log('No available users found.');
+		}
     });
-
-
-
-    if (givenPoints.get(userId) == userId) {
-
-    } else {
-        console.log('No available users found.');
-    }
 }
 
-setInterval(checkPoints, 20000)
+setInterval(checkPoints, 20000);
 
 bot.on("ready", () => {
     console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
@@ -127,20 +200,18 @@ app.use(morgan('dev')); // log requests to the console
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-/*test vars
-var rank = 'idolized';
-var apoints = 6;
-var eyeD = 125;
-
-getUser(userId, function(err, result) {
-    if (err) {
-        console.log(err);
-    }
-    console.log(result);
-}); */
 
 function getUser(id, cb) {
-    query(`SELECT * FROM users WHERE user_id = '${id}'`, function(err, result) {
+    query(`SELECT (EXISTS(SELECT * FROM users WHERE user_id = '${id}'))::int`, function(err, result) {
+        if (err) {
+            cb(err, null);
+        }
+        cb(null, result);
+    });
+}
+
+function getInfo(id, cb) {
+    query(`SELECT points, rank FROM users WHERE user_id = '${id}'`, function(err, result) {
         if (err) {
             cb(err, null);
         }
@@ -157,8 +228,18 @@ function addUser(level, pts, id, cb) {
     });
 }
 
-function updateUser(level, pts, id, cb) {
-    query(`INSERT INTO users(user_id, rank, points) VALUES ('${id}', '${level}', '${pts}') ON CONFLICT (user_id) DO NOTHING`, function(err, result) {
+function updateUser(id, cb) {
+    query(`UPDATE users SET points = points + 1 WHERE user_id = '${id}'`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+
+    });
+}
+
+function updateRank(rank, id, cb) {
+    query(`UPDATE users SET rank = '${rank}' WHERE user_id = '${id}'`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
