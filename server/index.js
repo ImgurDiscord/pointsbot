@@ -12,7 +12,9 @@ var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
 var userData;
 var userId;
-let points = JSON.parse(fs.readFileSync('./points.json', 'utf8'));
+var numone;
+var uPoints;
+var uLevel;
 
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
@@ -25,13 +27,21 @@ bot.on("message", message => {
     if (message.author.bot) return;
 
     userId = message.author.id;
+	uPoints = 0;
+	uLevel = 'Neutral';
+	
     givenPoints.set(message.author.id, message.author.id);
+	
+	addUser(uLevel, uPoints, userId, function(err, result) {
+		if (err) {
+			console.log(err);
+		}
+		console.log(result);
+	});
 
-    if (!points[message.author.id]) points[message.author.id] = { points: 0, rank: 0 };
-    fs.writeFile('./points.json', JSON.stringify(points), console.error);
+    //userData = points[message.author.id];
 
-    userData = points[message.author.id];
-
+	/*
     if (userData.points >= 0 && userData.points <= 499 && userData.rank != "Neutral") {
         let member = message.guild.member(userData);
         userData.rank = "Neutral";
@@ -67,6 +77,7 @@ bot.on("message", message => {
         userData.rank = "Glorious";
         message.member.addRole(glorious);
     }
+	*/
 
     // Bot Commands
     if (message.content.startsWith(".stats")) {
@@ -75,22 +86,26 @@ bot.on("message", message => {
 });
 
 function checkPoints() {
-    console.log(userId);
-    if (givenPoints.get(userId) == userId) {
-        if (!userData) {
-            return;
-        } else {
-            console.log('User exists; giving points.')
-            userData.points++;
-            fs.writeFile('./points.json', JSON.stringify(points), console.error);
-            givenPoints.clear();
-        }
-    } else {
-        console.log('No available users found.');
-    }
+	console.log("checking a thing");
+	var dbuserId;
+	getUser(userId, function(err, result) {
+		if (err) {
+			console.log(err);
+		}
+		console.log(result);
+		console.log("thing checked successfully");
+		dbuserId = result;
+	});
+	
+	
+	if (givenPoints.get(userId) == userId) {
+		
+	} else {
+		console.log('No available users found.');
+	}
 }
 
-setInterval(checkPoints, 180000)
+setInterval(checkPoints, 20000)
 
 bot.on("ready", () => {
     console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
@@ -131,6 +146,10 @@ bot.on("message", msg => {
         numone = numberOne.random();
         msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.```");
     }
+	if (msg.content.startsWith(".ching")) {
+        numone = numberOne.random();
+        msg.channel.sendMessage("chong"); 
+    }
 });
 
 bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
@@ -148,30 +167,48 @@ app.use(morgan('dev')); // log requests to the console
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//test vars
+/*test vars
 var rank = 'idolized';
 var apoints = 6;
 var eyeD = 125;
-getUser(eyeD, function(err, result) {
+
+getUser(userId, function(err, result) {
     if (err) {
         console.log(err);
     }
     console.log(result);
-});
+}); */
 
 function getUser(id, cb) {
-    //just the function you use to make queries
-    query(`SELECT * FROM users WHERE user_id='${id}'`, function(err, result) {
+    query(`SELECT * FROM users WHERE user_id = '${id}'`, function(err, result) {
         if (err) {
             cb(err, null);
         }
+		
+        cb(null, result);
+    });
+}
 
-        cb(null, result.rows);
+function addUser(level, pts, id, cb) {
+    query(`INSERT INTO users(user_id, rank, points) VALUES ('${id}', '${level}', '${pts}') ON CONFLICT (user_id) DO NOTHING`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+    });
+}
+
+function updateUser(level, pts, id, cb) {
+    query(`INSERT INTO users(user_id, rank, points) VALUES ('${id}', '${level}', '${pts}') ON CONFLICT (user_id) DO NOTHING`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+		
     });
 }
 
 // function addUser(level, pts, id, cb) {
-//     //just the function you use to make queries
 //     query(`INSERT INTO users(user_id, rank, points) VALUES ('${id}', '${level}', '${pts}')`, function(err, result) {
 //         if (err)
 //             cb(err, null);
