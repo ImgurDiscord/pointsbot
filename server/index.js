@@ -93,7 +93,7 @@ bot.on("message", message => {
 			});
 			message.member.addRole(renowned);
 		}
-		if (curPoints.points >= 5000 && curRank != "Glorious") {
+		if (curPoints >= 5000 && curRank != "Glorious") {
 			let member = message.guild.member(userId);
 			message.member.removeRole(renowned);
 			updateRank("Glorious", userId, function(err, result) {
@@ -170,7 +170,7 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
     if (msg.content.startsWith(".ping")) {
-        msg.channel.sendMessage("2. Don't worry, I'm still alive :)");
+        msg.channel.sendMessage("Don't worry, I'm still alive :)");
     }
     if (msg.content.startsWith(".numone")) {
         numone = numberOne.random();
