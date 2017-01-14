@@ -103,12 +103,13 @@ bot.on("message", message => {
 			});
 			message.member.addRole(glorious);
 		}
+		
+		if (message.content.startsWith(".stats")) {
+        message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
+		}
 	});
 
-    // Bot Commands
-    if (message.content.startsWith(".stats")) {
-        message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
-    }
+
 });
 
 function checkPoints() {
@@ -138,7 +139,7 @@ function checkPoints() {
     });
 }
 
-setInterval(checkPoints, 20000);
+setInterval(checkPoints, 180000);
 
 bot.on("ready", () => {
     console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
