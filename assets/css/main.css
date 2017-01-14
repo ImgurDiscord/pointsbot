@@ -1,0 +1,170 @@
+.center {
+    vertical-align: middle;
+    text-align: center;
+    margin: auto;
+}
+
+.left {
+    vertical-align: middle;
+    text-align: left;
+    margin: auto;
+}
+
+.textContainer { 
+    height: 100%; 
+    line-height: 4em;
+}
+
+.textContainer h3,
+.textContainer p {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.arrow {
+    margin-top: 10px;
+    margin-bottom: 7px;
+}
+
+.scroll-x {
+    overflow-x: auto;
+}
+
+.wordwrap {
+    white-space: pre-wrap;
+    /* CSS3 */
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+    white-space: -pre-wrap;
+    /* Opera <7 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* IE */
+}
+
+.dropdown-menu {
+    cursor: pointer;
+}
+
+.alert p .btn {
+    display:inline;
+}
+
+/* Gauge Meter */
+
+.GaugeMeter {
+    Position: Relative;
+    Text-Align: Center;
+    Overflow: Hidden;
+    Cursor: Default;
+}
+
+.GaugeMeter SPAN,
+.GaugeMeter B {
+    Margin: 0 23%;
+    Width: 54%;
+    Position: Absolute;
+    Text-align: Center;
+    Display: Inline-Block;
+    Color: RGBa(0, 0, 0, .8);
+    Font-Weight: 100;
+    Font-Family: "Open Sans", Arial;
+    Overflow: Hidden;
+    White-Space: NoWrap;
+    Text-Overflow: Ellipsis;
+}
+
+.GaugeMeter[data-style="Semi"] B {
+    Margin: 0 10%;
+    Width: 80%;
+}
+
+.GaugeMeter S,
+.GaugeMeter U {
+    Text-Decoration: None;
+    Font-Size: .49em;
+    Opacity: .5;
+}
+
+.GaugeMeter B {
+    Color: Black;
+    Font-Weight: 300;
+    Opacity: .8;
+}
+
+
+/*Text fading in & out*/
+
+@keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-flicker {
+    -webkit-animation: flickerAnimation 2s infinite;
+    -moz-animation: flickerAnimation 2s infinite;
+    -o-animation: flickerAnimation 2s infinite;
+    animation: flickerAnimation 2s infinite;
+}
+
+.pink-alert {
+    background-color: #FCDFE2;
+    border: 1px solid;
+    border-color: #ed557e;
+    color: #99101f;
+    margin-bottom: 15px;
+    padding-top: 5px;
+}
+
+.link {
+    cursor: pointer !important;
+}
+
+#btnbox {
+    height: 100px;
+    overflow-y: scroll;
+}

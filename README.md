@@ -1,4 +1,1 @@
-# GiraffeBot
-Custom Discord Bot for Imgur Discord chat :)
-
-Written in Node.JS
+Boilerplate for Node/Express/PGSQL App

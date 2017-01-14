@@ -1,24 +1,45 @@
 {
-  "name": "pointsbot",
+  "name": "node-template",
   "version": "1.0.0",
-  "description": "Custom Discord Bot for Imgur Discord chat :)",
-  "main": "bot.js",
+  "description": "Boilerplate for Node/Express/PGSQL App",
+  "main": "index.js",
   "scripts": {
-    "start": "node bot.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ImgurDiscord/pointsbot.git"
+    "url": "git+https://github.com/hamza765/node-template.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ImgurDiscord/pointsbot/issues"
+    "url": "https://github.com/hamza765/node-template/issues"
   },
-  "homepage": "https://github.com/ImgurDiscord/pointsbot#readme",
+  "homepage": "https://github.com/hamza765/node-template#readme",
   "dependencies": {
+    "babel": "^5.8.21",
+    "body-parser": "^1.0.1",
     "discord.js": "^10.0.1",
-    "express": "^4.14.0"
+    "express": "^4.0.0",
+    "morgan": "^1.0.0",
+    "nodemon": "^1.11.0",
+    "pg": "^4.4.3",
+    "pg-pool": "^1.6.0"
+  },
+  "devDependencies": {
+    "del": "^2.2.1",
+    "fontmin": "^0.9.6",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-css": "^0.1.0",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.4",
+    "merge-stream": "^1.0.0",
+    "pump": "^1.0.1",
+    "run-sequence": "^1.2.1"
   }
 }
