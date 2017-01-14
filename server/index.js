@@ -65,7 +65,7 @@ bot.on("message", message => {
 			});
 			message.member.addRole(liked);
 		}
-		if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Liked") {
+		if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Trusted") {
 			let member = message.guild.member(userId);
 			message.member.removeRole(liked);
 			updateRank("Trusted", userId, function(err, result) {
@@ -75,7 +75,7 @@ bot.on("message", message => {
 			});
 			message.member.addRole(trusted);
 		}
-		if (curPoints >= 2000 && curPoints <= 3499 && curRank != "Trusted") {
+		if (curPoints >= 2000 && curPoints <= 3499 && curRank != "Idolized") {
 			let member = message.guild.member(userId);
 			message.member.removeRole(trusted);
 			updateRank("Idolized", userId, function(err, result) {
@@ -85,7 +85,7 @@ bot.on("message", message => {
 			});
 			message.member.addRole(idolized);
 		}
-		if (curPoints >= 3500 && curPoints <= 4999 && curRank != "Idolized") {
+		if (curPoints >= 3500 && curPoints <= 4999 && curRank != "Renowned") {
 			let member = message.guild.member(userId);
 			message.member.removeRole(idolized);
 			updateRank("Renowned", userId, function(err, result) {
@@ -182,12 +182,13 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        numone = numberOne.random();
-        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.numone - Get a random mystery 'We Are Number One' meme video.```");
+        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.ranks - Display possible ranks.\n.numone - Get a random mystery 'We Are Number One' meme video.```");
     }
     if (msg.content.startsWith(".ching")) {
-        numone = numberOne.random();
         msg.channel.sendMessage("chong");
+    }
+	if (msg.content.startsWith(".ranks")) {
+        msg.channel.sendMessage("```Ranks:\n-Neutral: 0-499 points\n-Liked: 500-999 points\n-Trusted: 1000-1999 points\n-Idolized: 2000-3499 points\n-Renowned: 3500-4999 points\n-Glorious: 5000+ points");
     }
 });
 
