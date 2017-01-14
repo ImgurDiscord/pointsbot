@@ -14,6 +14,7 @@ var userId;
 var numone;
 var uPoints;
 var uLevel;
+var userName;
 
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
@@ -28,8 +29,9 @@ bot.on("message", message => {
     userId = message.author.id;
     uPoints = 0;
     uLevel = 'Neutral';
-
-    givenPoints.set(message.author.id, message.author.id);
+    userName = message.author.username;
+	
+    givenPoints.set(message.author.username, message.author.id);
 
     addUser(uLevel, uPoints, userId, function(err, result) {
         if (err) {
@@ -105,7 +107,7 @@ bot.on("message", message => {
 		}
 		
 		if (message.content.startsWith(".stats")) {
-        message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
+			message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
 		}
 	});
 
@@ -113,6 +115,7 @@ bot.on("message", message => {
 });
 
 function checkPoints() {
+	console.log(givenPoints);
     //console.log(userId);
     var idExists;
 	
@@ -123,16 +126,18 @@ function checkPoints() {
         //console.log(result.rows[0].exists);
         idExists = result.rows[0].exists;
 		
-		if (givenPoints.get(userId) == userId) {
+		if (givenPoints.get(userName) == userId) {
 			console.log("user exists. giving points now!");
-		if (idExists == 1) {
-			updateUser(userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-				console.log("User updated successfully :D")
+			givenPoints.forEach(function(userId, userName, givenPoints) {
+				console.log(userId);
+				updateUser(userId, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+					console.log("User updated successfully :D")
+					givenPoints.clear();
+				});
 			});
-		}
 		} else {
 			console.log('No available users found.');
 		}
