@@ -38,11 +38,7 @@ bot.on("message", message => {
     uPoints = 0;
     uLevel = 'Neutral';
     userName = message.author.username;
-	nickName = message.member.nickname;
-	
-	if (nickName = null) {
-		nickName = message.author.username;
-	}
+	nickName = message.member.displayName;
 
     givenPoints.set(message.author.username, message.author.id);
 
