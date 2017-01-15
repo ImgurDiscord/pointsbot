@@ -15,6 +15,7 @@ var numone;
 var uPoints;
 var uLevel;
 var userName;
+var nickName;
 
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
@@ -30,10 +31,16 @@ bot.on("message", message => {
     uPoints = 0;
     uLevel = 'Neutral';
     userName = message.author.username;
+	nickName = message.member.nickname;
 
     givenPoints.set(message.author.username, message.author.id);
 
     addUser(uLevel, uPoints, userId, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+    });
+	updateUsername(nickName, userId, function(err, result) {
         if (err) {
             console.log(err);
         }
@@ -216,6 +223,21 @@ bot.on("message", msg => {
             msg.channel.sendMessage("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die: " + num);
         }
     }
+	if (msg.content.startsWith(".leaders")) {
+		
+		getLeaders(function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+			var leaderMsg = "";
+			
+			for (i = 0; i < 11; i++) {
+				leaderMsg += i + ") ["+ result.rows[i].username + "] with "+ result.rows[i].points + "points.\n\n";
+			}
+			msg.channel.sendMessage("```Top 10 Leaderboard:\n" + leaderMsg + "```");
+		});
+		
+    }
 });
 
 bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
@@ -261,6 +283,16 @@ function addUser(level, pts, id, cb) {
     });
 }
 
+function updateUsername(username, id, cb) {
+    query(`UPDATE users SET username = '${username}' WHERE user_id = '${id}'`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+
+    });
+}
+
 function updateUser(id, cb) {
     query(`UPDATE users SET points = points + 1 WHERE user_id = '${id}'`, function(err, result) {
         if (err)
@@ -273,6 +305,16 @@ function updateUser(id, cb) {
 
 function updateRank(rank, id, cb) {
     query(`UPDATE users SET rank = '${rank}' WHERE user_id = '${id}'`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+
+    });
+}
+
+function getLeaders(cb) {
+    query(`SELECT points, username FROM users ORDER BY points DESC LIMIT 11`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
