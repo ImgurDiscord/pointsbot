@@ -246,9 +246,9 @@ bot.on("message", msg => {
 		
     }
 	if (msg.content.startsWith(".slots")) {
-		firstSlot = randomInt(1, 5);
-		secondSlot = randomInt(1, 5);
-		thirdSlot = randomInt(1, 5);
+		firstSlot = randomInt(1, 7);
+		secondSlot = randomInt(1, 7);
+		thirdSlot = randomInt(1, 7);
 		
 		if (firstSlot == 1) {
 			Slot1 = "❤";
@@ -260,6 +260,8 @@ bot.on("message", msg => {
 			Slot1 = "✿";
 		} else if (firstSlot == 5) {
 			Slot1 = "✡";
+		} else if (firstSlot == 6) {
+			Slot1 = "✩";
 		}
 		
 		if (secondSlot == 1) {
@@ -272,6 +274,8 @@ bot.on("message", msg => {
 			Slot2 = "✿";
 		} else if (secondSlot == 5) {
 			Slot2 = "✡";
+		} else if (secondSlot == 6) {
+			Slot2 = "✩";
 		}
 		
 		if (thirdSlot == 1) {
@@ -284,6 +288,8 @@ bot.on("message", msg => {
 			Slot3 = "✿";
 		} else if (thirdSlot == 5) {
 			Slot3 = "✡";
+		} else if (thirdSlot == 6) {
+			Slot3 = "✩";
 		}
 		
 		var winmessage;
@@ -297,11 +303,13 @@ bot.on("message", msg => {
 			winmessage = "Go and smell the roses. You got three in a row!";
 		} else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
 			winmessage = "What are you, jewish?";
+		} else if (Slot1 == "✩" && Slot2 == "✩" && Slot3 == "✩") {
+			winmessage = "You're a star! 3 in a row!";
 		} else {
 			winmessage = "Better luck next time...";
 		}
 		
-        msg.reply("```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
+        msg.reply("Pulled Lever:\n```▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n▌ " + Slot1 + " ▋ " + Slot2 + "  ▋ " + Slot3 + " ▐\n██████████████████\n```" + winmessage);
     }
 	if (msg.content.startsWith(".insult")) {
 		//var args = msg.content.split(" ");
