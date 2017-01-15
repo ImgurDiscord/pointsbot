@@ -7,6 +7,7 @@ import api from './api';
 import query from './lib/db.js';
 import fs from 'fs';
 import Discord from 'discord.js';
+import cleverbot from 'cleverbot.io';
 const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
@@ -23,7 +24,8 @@ var thirdSlot = 0;
 var Slot1;
 var Slot2;
 var Slot3;
-
+var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
+cbot.setNick("imguraffe")
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
     var liked = message.guild.roles.find("name", "Liked");
@@ -38,7 +40,7 @@ bot.on("message", message => {
     uPoints = 0;
     uLevel = 'Neutral';
     userName = message.author.username;
-	nickName = message.member.displayName;
+    nickName = message.member.displayName;
 
     givenPoints.set(message.author.username, message.author.id);
 
@@ -47,7 +49,7 @@ bot.on("message", message => {
             console.log(err);
         }
     });
-	updateUsername(nickName, userId, function(err, result) {
+    updateUsername(nickName, userId, function(err, result) {
         if (err) {
             console.log(err);
         }
@@ -196,7 +198,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.stats` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine!\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`");
+        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.stats` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine!\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text>`");
     }
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
@@ -230,119 +232,127 @@ bot.on("message", msg => {
             msg.channel.sendMessage("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die: " + num);
         }
     }
-	if (msg.content.startsWith(".leaders")) {
-		
-		getLeaders(function(err, result) {
-			if (err) {
-				console.log(err);
-			}
-			var leaderMsg = "";
-			
-			for (i = 0; i < 10; i++) {
-				var ii = i + 1;
-				leaderMsg += ":small_blue_diamond:" + ii + ") **["+ result.rows[i].username + "]** with **"+ result.rows[i].points + "** points.\n\n";
-			}
-			msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
-		});
-		
+    if (msg.content.startsWith(".leaders")) {
+
+        getLeaders(function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            var leaderMsg = "";
+
+            for (i = 0; i < 10; i++) {
+                var ii = i + 1;
+                leaderMsg += ":small_blue_diamond:" + ii + ") **[" + result.rows[i].username + "]** with **" + result.rows[i].points + "** points.\n\n";
+            }
+            msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
+        });
+
     }
-	if (msg.content.startsWith(".slots")) {
-		firstSlot = randomInt(1, 7);
-		secondSlot = randomInt(1, 7);
-		thirdSlot = randomInt(1, 7);
-		
-		if (firstSlot == 1) {
-			Slot1 = "❤";
-		} else if (firstSlot == 2) {
-			Slot1 = "☮";
-		} else if (firstSlot == 3) {
-			Slot1 = "卐";
-		} else if (firstSlot == 4) {
-			Slot1 = "✿";
-		} else if (firstSlot == 5) {
-			Slot1 = "✡";
-		} else if (firstSlot == 6) {
-			Slot1 = "✩";
-		}
-		
-		if (secondSlot == 1) {
-			Slot2 = "❤";
-		} else if (secondSlot == 2) {
-			Slot2 = "☮";
-		} else if (secondSlot == 3) {
-			Slot2 = "卐";
-		} else if (secondSlot == 4) {
-			Slot2 = "✿";
-		} else if (secondSlot == 5) {
-			Slot2 = "✡";
-		} else if (secondSlot == 6) {
-			Slot2 = "✩";
-		}
-		
-		if (thirdSlot == 1) {
-			Slot3 = "❤";
-		} else if (thirdSlot == 2) {
-			Slot3 = "☮";
-		} else if (thirdSlot == 3) {
-			Slot3 = "卐";
-		} else if (thirdSlot == 4) {
-			Slot3 = "✿";
-		} else if (thirdSlot == 5) {
-			Slot3 = "✡";
-		} else if (thirdSlot == 6) {
-			Slot3 = "✩";
-		}
-		
-		var winmessage;
-		if (Slot1 == "❤" && Slot2 == "❤" && Slot3 == "❤") {
-			winmessage = "3 hearts in a row!";
-		} else if (Slot1 == "☮" && Slot2 == "☮" && Slot3 == "☮") {
-			winmessage = "3 peace signs in a row. World peace for everyone :D";
-		} else if (Slot1 == "卐" && Slot2 == "卐" && Slot3 == "卐") {
-			winmessage = "Hitler would be proud.";
-		} else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
-			winmessage = "Go and smell the roses. You got three in a row!";
-		} else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
-			winmessage = "What are you, jewish?";
-		} else if (Slot1 == "✩" && Slot2 == "✩" && Slot3 == "✩") {
-			winmessage = "You're a star! 3 in a row!";
-		} else {
-			winmessage = "Better luck next time...";
-		}
-		
+    if (msg.content.startsWith(".slots")) {
+        firstSlot = randomInt(1, 7);
+        secondSlot = randomInt(1, 7);
+        thirdSlot = randomInt(1, 7);
+
+        if (firstSlot == 1) {
+            Slot1 = "❤";
+        } else if (firstSlot == 2) {
+            Slot1 = "☮";
+        } else if (firstSlot == 3) {
+            Slot1 = "卐";
+        } else if (firstSlot == 4) {
+            Slot1 = "✿";
+        } else if (firstSlot == 5) {
+            Slot1 = "✡";
+        } else if (firstSlot == 6) {
+            Slot1 = "✩";
+        }
+
+        if (secondSlot == 1) {
+            Slot2 = "❤";
+        } else if (secondSlot == 2) {
+            Slot2 = "☮";
+        } else if (secondSlot == 3) {
+            Slot2 = "卐";
+        } else if (secondSlot == 4) {
+            Slot2 = "✿";
+        } else if (secondSlot == 5) {
+            Slot2 = "✡";
+        } else if (secondSlot == 6) {
+            Slot2 = "✩";
+        }
+
+        if (thirdSlot == 1) {
+            Slot3 = "❤";
+        } else if (thirdSlot == 2) {
+            Slot3 = "☮";
+        } else if (thirdSlot == 3) {
+            Slot3 = "卐";
+        } else if (thirdSlot == 4) {
+            Slot3 = "✿";
+        } else if (thirdSlot == 5) {
+            Slot3 = "✡";
+        } else if (thirdSlot == 6) {
+            Slot3 = "✩";
+        }
+
+        var winmessage;
+        if (Slot1 == "❤" && Slot2 == "❤" && Slot3 == "❤") {
+            winmessage = "3 hearts in a row!";
+        } else if (Slot1 == "☮" && Slot2 == "☮" && Slot3 == "☮") {
+            winmessage = "3 peace signs in a row. World peace for everyone :D";
+        } else if (Slot1 == "卐" && Slot2 == "卐" && Slot3 == "卐") {
+            winmessage = "Hitler would be proud.";
+        } else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
+            winmessage = "Go and smell the roses. You got three in a row!";
+        } else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
+            winmessage = "What are you, jewish?";
+        } else if (Slot1 == "✩" && Slot2 == "✩" && Slot3 == "✩") {
+            winmessage = "You're a star! 3 in a row!";
+        } else {
+            winmessage = "Better luck next time...";
+        }
+
         msg.reply("Pulled Lever:\n```▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n▌ " + Slot1 + " ▋ " + Slot2 + "  ▋ " + Slot3 + " ▐\n██████████████████\n```" + winmessage);
     }
-	if (msg.content.startsWith(".insult")) {
-		//var args = msg.content.split(" ");
-		var insultee = msg.mentions.users.first();
-		
-		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly", "infectious", "lumpish", "mangled", "artless", "warped", "wayward", "skinny", "puny", "fat", "chubby", "obtuse", "pencil-thin", "skinny-penised", "chinese", "dying", "nigger whipping", "misshapen", "pregnant", "decrepit", "bitter", "racist", "petty"];
-		var randadj = adj[Math.floor(Math.random() * adj.length)];
-		var randadj2 = adj[Math.floor(Math.random() * adj.length)];
-		var randadj3 = adj[Math.floor(Math.random() * adj.length)];
-		
-		var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "dissapointment", "forgotten orphan", " carpet muncher", "cum chugger", "bellend", "spawn of satan", "nit-wit", "chink", "cum rag", "thunder cunt", "alabama hot pocket", "reject Ken doll", "social reject", "man servant", "guy", "black man", "white man", "asian man", "indian man", "creeper", "pedophile", "crank whore", "cuntbag", "ding-head", "doofus", "cockbag", "basket-case", "crotch fruit", "crap-fest"];
-		var randnoun = noun[Math.floor(Math.random() * noun.length)];
-		var randnoun2 = noun[Math.floor(Math.random() * noun.length)];
-		
-		if (randnoun == randnoun2) {
-			randnoun2 = noun[Math.floor(Math.random() * noun.length)];
-		}
-		
-		var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a(n) **${randnoun}**, balls deep fucking a **${randnoun2}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as a(n) **${randadj}** **${randnoun}.**`, `I would never talk about a(n) **${randadj}** **${randnoun}** such as ${insultee}.`, `Kill yourself ${insultee}, you **${randadj}** **${randnoun}**.`, `${insultee}, your personality reminds me of a(n) **${randadj}** **${randnoun}**, but worse.`]
-		var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
-		
-		if (randadj == "friendly" && randnoun == "guy") {
-			updateUser(userId, 5, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-				randinsult += "\nAw what a nice thing to say! Have some free points. On me :)";
-            });
-		}
-		
-        msg.channel.sendMessage(randinsult);
+    if (msg.content.startsWith(".insult")) {
+        //var args = msg.content.split(" ");
+        var insultee = msg.mentions.users.first();
+
+        var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly", "infectious", "lumpish", "mangled", "artless", "warped", "wayward", "skinny", "puny", "fat", "chubby", "obtuse", "pencil-thin", "skinny-penised", "chinese", "dying", "nigger whipping", "misshapen", "pregnant", "decrepit", "bitter", "racist", "petty"];
+        var randadj = adj[Math.floor(Math.random() * adj.length)];
+        var randadj2 = adj[Math.floor(Math.random() * adj.length)];
+        var randadj3 = adj[Math.floor(Math.random() * adj.length)];
+
+        var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "disappointment", "forgotten orphan", " carpet muncher", "cum chugger", "bellend", "spawn of satan", "nit-wit", "chink", "cum rag", "thunder cunt", "alabama hot pocket", "reject Ken doll", "social reject", "man servant", "guy", "black man", "white man", "asian man", "indian man", "creeper", "pedophile", "crank whore", "cuntbag", "ding-head", "doofus", "cockbag", "basket-case", "crotch fruit", "crap-fest"];
+        var randnoun = noun[Math.floor(Math.random() * noun.length)];
+        var randnoun2 = noun[Math.floor(Math.random() * noun.length)];
+
+        if (randnoun == randnoun2) {
+            randnoun2 = noun[Math.floor(Math.random() * noun.length)];
         }
+
+        var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a(n) **${randnoun}**, balls deep fucking a **${randnoun2}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as a(n) **${randadj}** **${randnoun}.**`, `I would never talk about a(n) **${randadj}** **${randnoun}** such as ${insultee}.`, `Kill yourself ${insultee}, you **${randadj}** **${randnoun}**.`, `${insultee}, your personality reminds me of a(n) **${randadj}** **${randnoun}**, but worse.`]
+        var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
+
+        if (randadj == "friendly" && randnoun == "guy") {
+            updateUser(userId, 5, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                randinsult += "\nAw what a nice thing to say! Have some free points. On me :)";
+            });
+        }
+
+        msg.channel.sendMessage(randinsult);
+    }
+    if (msg.content.startsWith('<@!257853452573605890>')) {
+        var line = msg.content.slice(msg.content.indexOf('>') + 2);
+        cbot.create(function(err, session) {
+            cbot.ask(line, function(err, response) {
+                msg.reply(response); // Will likely be: "Living in a lonely world"
+            });
+        });
+    }
 });
 
 function randomInt(low, high) {
