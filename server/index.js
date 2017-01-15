@@ -313,7 +313,7 @@ bot.on("message", msg => {
 		var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "dissapointment", "forgotten orphan"];
 		var randnoun = noun[Math.floor(Math.random() * noun.length)];
 		
-		var insulttemplates = [`${insultee}, you are a ${randadj} ${randnoun}.`, `${insultee} is nothing more but a ${randadj} ${randnoun}`]
+		var insulttemplates = [`${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`]
 		var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 		
         msg.channel.sendMessage(randinsult);
