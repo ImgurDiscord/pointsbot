@@ -301,7 +301,7 @@ bot.on("message", msg => {
 			winmessage = "Better luck next time...";
 		}
 		
-        msg.reply(```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
+        msg.reply("```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
     }
 });
 
