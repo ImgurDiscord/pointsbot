@@ -182,7 +182,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.ranks - Display possible ranks.\n.numone - Get a random mystery 'We Are Number One' meme video.```");
+        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.ranks - Display possible ranks.\n.numone - Get a random mystery 'We Are Number One' meme video.\n.roll - Roll a X sided die Y amount of times -> .roll <sides> <times to roll>```");
     }
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
