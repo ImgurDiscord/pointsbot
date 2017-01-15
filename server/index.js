@@ -121,7 +121,7 @@ bot.on("message", message => {
         }
 
         if (message.content.startsWith(".stats")) {
-            message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
+            message.channel.sendMessage(`${message.author}, you have ${curPoints} points.`);
         }
     });
 
@@ -301,7 +301,7 @@ bot.on("message", msg => {
 			winmessage = "Better luck next time...";
 		}
 		
-        msg.channel.sendMessage("```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
+        msg.reply(```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
     }
 });
 
