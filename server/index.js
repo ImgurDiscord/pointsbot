@@ -309,11 +309,14 @@ bot.on("message", msg => {
 		
 		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)"];
 		var randadj = adj[Math.floor(Math.random() * adj.length)];
+		var randadj2 = adj[Math.floor(Math.random() * adj.length)];
+		var randadj3 = adj[Math.floor(Math.random() * adj.length)];
 		
 		var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "dissapointment", "forgotten orphan"];
 		var randnoun = noun[Math.floor(Math.random() * noun.length)];
+		var randnoun2 = noun[Math.floor(Math.random() * noun.length)];
 		
-		var insulttemplates = [`${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`]
+		var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a **${randnoun}**, balls deep fucking a **${randnoun2}.**`]
 		var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 		
         msg.channel.sendMessage(randinsult);
