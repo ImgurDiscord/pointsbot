@@ -189,7 +189,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.ranks - Display possible ranks.\n.numone - Get a random mystery 'We Are Number One' meme video.\n.roll - Roll a X sided die Y amount of times -> .roll <sides> <times to roll>```");
+        msg.channel.sendMessage("```Commands:\n.ping - Ping the bot.\n.stats - Check how many points you have.\n.ranks - Display possible ranks.\n.numone - Get a random mystery 'We Are Number One' meme video.\n.roll - Roll a X sided die Y amount of times -> .roll <sides> <times to roll>\n.leaders - Display the leaderboard.```");
     }
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
@@ -231,8 +231,8 @@ bot.on("message", msg => {
 			}
 			var leaderMsg = "";
 			
-			for (i = 0; i < 11; i++) {
-				leaderMsg += i + ") ["+ result.rows[i].username + "] with "+ result.rows[i].points + "points.\n\n";
+			for (i = 0; i < 10; i++) {
+				leaderMsg += i+1 + ") ["+ result.rows[i].username + "] with "+ result.rows[i].points + "points.\n\n";
 			}
 			msg.channel.sendMessage("```Top 10 Leaderboard:\n" + leaderMsg + "```");
 		});
