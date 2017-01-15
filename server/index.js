@@ -303,6 +303,21 @@ bot.on("message", msg => {
 		
         msg.reply("```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
     }
+	if (msg.content.startsWith(".insult")) {
+		//var args = msg.content.split(" ");
+		var insultee = msg.mentions.users.first();
+		
+		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)"];
+		var randadj = adj[Math.floor(Math.random() * adj.length)];
+		
+		var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "dissapointment", "forgotten orphan"];
+		var randnoun = noun[Math.floor(Math.random() * noun.length)];
+		
+		var insulttemplates = [`${insultee}, you are a ${randadj} ${randnoun}.`, `${insultee} is nothing more but a ${randadj} ${randnoun}`]
+		var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
+		
+        msg.channel.sendMessage(randinsult);
+        }
 });
 
 function randomInt(low, high) {
