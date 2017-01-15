@@ -121,7 +121,7 @@ bot.on("message", message => {
         }
 
         if (message.content.startsWith(".stats")) {
-            message.channel.sendMessage(`${message.author}, you have ${curPoints} points.`);
+            message.channel.sendMessage(`${message.author}, you have **${curPoints}** points.`);
         }
     });
 
@@ -144,7 +144,7 @@ function checkPoints() {
             console.log("user exists. giving points now!");
             givenPoints.forEach(function(userId, userName, givenPoints) {
                 console.log(userId);
-                updateUser(userId, function(err, result) {
+                updateUser(userId, 1, function(err, result) {
                     if (err) {
                         console.log(err);
                     }
@@ -316,7 +316,7 @@ bot.on("message", msg => {
 		//var args = msg.content.split(" ");
 		var insultee = msg.mentions.users.first();
 		
-		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly", "infectious", "lumpish", "mangled", "artless", "warped", "wayward", "skinny", "puny", "fat", "chubby", "obtuse", "pencil-thin", "skinny-penised"];
+		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly", "infectious", "lumpish", "mangled", "artless", "warped", "wayward", "skinny", "puny", "fat", "chubby", "obtuse", "pencil-thin", "skinny-penised", "chinese", "dying", "nigger whipping", "misshapen", "pregnant", "decrepit", "bitter", "racist", "petty"];
 		var randadj = adj[Math.floor(Math.random() * adj.length)];
 		var randadj2 = adj[Math.floor(Math.random() * adj.length)];
 		var randadj3 = adj[Math.floor(Math.random() * adj.length)];
@@ -329,8 +329,17 @@ bot.on("message", msg => {
 			randnoun2 = noun[Math.floor(Math.random() * noun.length)];
 		}
 		
-		var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a **${randnoun}**, balls deep fucking a **${randnoun2}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as a(n) **${randadj}** **${randnoun}.**`, `I would never talk about a(n) **${randadj}** **${randnoun}** such as ${insultee}.`]
+		var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a(n) **${randnoun}**, balls deep fucking a **${randnoun2}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as a(n) **${randadj}** **${randnoun}.**`, `I would never talk about a(n) **${randadj}** **${randnoun}** such as ${insultee}.`, `Kill yourself ${insultee}, you **${randadj}** **${randnoun}**.`, `${insultee}, your personality reminds me of a(n) **${randadj}** **${randnoun}**, but worse.`]
 		var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
+		
+		if (randadj == "friendly" && randnoun == "guy") {
+			updateUser(userId, 5, function(err, result) {
+				if (err) {
+					console.log(err);
+				}
+				randinsult += "\nAw what a nice thing to say! Have some free points. On me :)";
+            });
+		}
 		
         msg.channel.sendMessage(randinsult);
         }
@@ -393,8 +402,8 @@ function updateUsername(username, id, cb) {
     });
 }
 
-function updateUser(id, cb) {
-    query(`UPDATE users SET points = points + 1 WHERE user_id = '${id}'`, function(err, result) {
+function updateUser(id, pAmount, cb) {
+    query(`UPDATE users SET points = points + '${pAmount}' WHERE user_id = '${id}'`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
