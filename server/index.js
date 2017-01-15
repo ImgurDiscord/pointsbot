@@ -239,9 +239,10 @@ bot.on("message", msg => {
 			var leaderMsg = "";
 			
 			for (i = 0; i < 10; i++) {
-				leaderMsg += i+1 + ") ["+ result.rows[i].username + "] with "+ result.rows[i].points + "points.\n\n";
+				var ii = i + 1;
+				leaderMsg += ":small_blue_diamond:" + ii + ") **["+ result.rows[i].username + "]** with **"+ result.rows[i].points + "** points.\n\n";
 			}
-			msg.channel.sendMessage("```Top 10 Leaderboard:\n" + leaderMsg + "```");
+			msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
 		});
 		
     }
