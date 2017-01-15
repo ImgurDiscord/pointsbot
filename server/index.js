@@ -30,7 +30,7 @@ bot.on("message", message => {
     uPoints = 0;
     uLevel = 'Neutral';
     userName = message.author.username;
-	
+
     givenPoints.set(message.author.username, message.author.id);
 
     addUser(uLevel, uPoints, userId, function(err, result) {
@@ -38,109 +38,109 @@ bot.on("message", message => {
             console.log(err);
         }
     });
-	
-	getInfo(userId, function(err, result) {
-		if (err) {
-			console.log(err);
-		}
-		var curPoints = result.rows[0].points;
-		var curRank = result.rows[0].rank;
-		
-		if (curPoints >= 0 && curPoints <= 499 && curRank != "Neutral") {
-			let member = message.guild.member(userId);
-			updateRank("Neutral", userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-			});
-			message.member.addRole(neutral);
-		}
-		if (curPoints >= 500 && curPoints <= 999 && curRank != "Liked") {
-			let member = message.guild.member(userId);
-			message.member.removeRole(neutral);
-			updateRank("Liked", userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-			});
-			message.member.addRole(liked);
-		}
-		if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Trusted") {
-			let member = message.guild.member(userId);
-			message.member.removeRole(liked);
-			updateRank("Trusted", userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-			});
-			message.member.addRole(trusted);
-		}
-		if (curPoints >= 2000 && curPoints <= 3499 && curRank != "Idolized") {
-			let member = message.guild.member(userId);
-			message.member.removeRole(trusted);
-			updateRank("Idolized", userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-			});
-			message.member.addRole(idolized);
-		}
-		if (curPoints >= 3500 && curPoints <= 4999 && curRank != "Renowned") {
-			let member = message.guild.member(userId);
-			message.member.removeRole(idolized);
-			updateRank("Renowned", userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-			});
-			message.member.addRole(renowned);
-		}
-		if (curPoints >= 5000 && curRank != "Glorious") {
-			let member = message.guild.member(userId);
-			message.member.removeRole(renowned);
-			updateRank("Glorious", userId, function(err, result) {
-				if (err) {
-					console.log(err);
-				}
-			});
-			message.member.addRole(glorious);
-		}
-		
-		if (message.content.startsWith(".stats")) {
-			message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
-		}
-	});
+
+    getInfo(userId, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        var curPoints = result.rows[0].points;
+        var curRank = result.rows[0].rank;
+
+        if (curPoints >= 0 && curPoints <= 499 && curRank != "Neutral") {
+            let member = message.guild.member(userId);
+            updateRank("Neutral", userId, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            message.member.addRole(neutral);
+        }
+        if (curPoints >= 500 && curPoints <= 999 && curRank != "Liked") {
+            let member = message.guild.member(userId);
+            message.member.removeRole(neutral);
+            updateRank("Liked", userId, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            message.member.addRole(liked);
+        }
+        if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Trusted") {
+            let member = message.guild.member(userId);
+            message.member.removeRole(liked);
+            updateRank("Trusted", userId, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            message.member.addRole(trusted);
+        }
+        if (curPoints >= 2000 && curPoints <= 3499 && curRank != "Idolized") {
+            let member = message.guild.member(userId);
+            message.member.removeRole(trusted);
+            updateRank("Idolized", userId, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            message.member.addRole(idolized);
+        }
+        if (curPoints >= 3500 && curPoints <= 4999 && curRank != "Renowned") {
+            let member = message.guild.member(userId);
+            message.member.removeRole(idolized);
+            updateRank("Renowned", userId, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            message.member.addRole(renowned);
+        }
+        if (curPoints >= 5000 && curRank != "Glorious") {
+            let member = message.guild.member(userId);
+            message.member.removeRole(renowned);
+            updateRank("Glorious", userId, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+            message.member.addRole(glorious);
+        }
+
+        if (message.content.startsWith(".stats")) {
+            message.channel.sendMessage(`${message.author.username}, you have ${curPoints} points.`);
+        }
+    });
 
 
 });
 
 function checkPoints() {
-	console.log(givenPoints);
+    console.log(givenPoints);
     //console.log(userId);
     var idExists;
-	
+
     getUser(userId, function(err, result) {
         if (err) {
             console.log(err);
         }
         //console.log(result.rows[0].exists);
         idExists = result.rows[0].exists;
-		
-		if (givenPoints.get(userName) == userId) {
-			console.log("user exists. giving points now!");
-			givenPoints.forEach(function(userId, userName, givenPoints) {
-				console.log(userId);
-				updateUser(userId, function(err, result) {
-					if (err) {
-						console.log(err);
-					}
-					console.log("User updated successfully :D")
-					givenPoints.clear();
-				});
-			});
-		} else {
-			console.log('No available users found.');
-		}
+
+        if (givenPoints.get(userName) == userId) {
+            console.log("user exists. giving points now!");
+            givenPoints.forEach(function(userId, userName, givenPoints) {
+                console.log(userId);
+                updateUser(userId, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    console.log("User updated successfully :D")
+                    givenPoints.clear();
+                });
+            });
+        } else {
+            console.log('No available users found.');
+        }
     });
 }
 
@@ -187,8 +187,34 @@ bot.on("message", msg => {
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
     }
-	if (msg.content.startsWith(".ranks")) {
+    if (msg.content.startsWith(".ranks")) {
         msg.channel.sendMessage("```Ranks:\n-Neutral: 0-499 points\n-Liked: 500-999 points\n-Trusted: 1000-1999 points\n-Idolized: 2000-3499 points\n-Renowned: 3500-4999 points\n-Glorious: 5000+ points```");
+    }
+    if (msg.content.startsWith(".roll")) {
+        var mess = msg.content.split(' ');
+        var sided = parseInt(mess[1]);
+        if (isNaN(sided)) {
+            sided = 6;
+        }
+        if (sided > 1337) {
+            sided = 1337;
+        }
+        var times = parseInt(mess[2]);
+        if (isNaN(times)) {
+            times = 1;
+        }
+        if (times > 5) {
+            times = 5;
+        }
+        var num = 0;
+        for (var i = 0; i < times; i++) {
+            num += Math.floor((Math.random() * sided) + 1);
+        }
+        if (times > 1) {
+            msg.channel.sendMessage("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die " + times + " times: " + num);
+        } else {
+            msg.channel.sendMessage("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die: " + num);
+        }
     }
 });
 
