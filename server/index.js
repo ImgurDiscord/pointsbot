@@ -188,7 +188,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("chong");
     }
 	if (msg.content.startsWith(".ranks")) {
-        msg.channel.sendMessage("```Ranks:\n-Neutral: 0-499 points\n-Liked: 500-999 points\n-Trusted: 1000-1999 points\n-Idolized: 2000-3499 points\n-Renowned: 3500-4999 points\n-Glorious: 5000+ points");
+        msg.channel.sendMessage("```Ranks:\n-Neutral: 0-499 points\n-Liked: 500-999 points\n-Trusted: 1000-1999 points\n-Idolized: 2000-3499 points\n-Renowned: 3500-4999 points\n-Glorious: 5000+ points```");
     }
 });
 
