@@ -73,7 +73,6 @@ bot.on("message", message => {
         }
         if (curPoints >= 250 && curPoints <= 499 && curRank != "Liked") {
             let member = message.guild.member(userId);
-            message.member.removeRole(neutral);
             updateRank("Liked", userId, function(err, result) {
                 if (err) {
                     console.log(err);
