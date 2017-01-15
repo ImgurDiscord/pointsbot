@@ -307,16 +307,20 @@ bot.on("message", msg => {
 		//var args = msg.content.split(" ");
 		var insultee = msg.mentions.users.first();
 		
-		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)"];
+		var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly"];
 		var randadj = adj[Math.floor(Math.random() * adj.length)];
 		var randadj2 = adj[Math.floor(Math.random() * adj.length)];
 		var randadj3 = adj[Math.floor(Math.random() * adj.length)];
 		
-		var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "dissapointment", "forgotten orphan"];
+		var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "dissapointment", "forgotten orphan", " carpet muncher", "cum chugger", "bellend", "spawn of satan", "nit-wit", "chink", "cum rag", "thunder cunt", "alabama hot pocket", "reject Ken doll", "social reject", "man servant", "guy", "black man", "white man", "asian man"];
 		var randnoun = noun[Math.floor(Math.random() * noun.length)];
 		var randnoun2 = noun[Math.floor(Math.random() * noun.length)];
 		
-		var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a **${randnoun}**, balls deep fucking a **${randnoun2}.**`]
+		if (randnoun == randnoun2) {
+			randnoun2 = noun[Math.floor(Math.random() * noun.length)];
+		}
+		
+		var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a **${randnoun}**, balls deep fucking a **${randnoun2}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as a **${randadj}** **${randnoun}.**`, `I would never talk about a **${randadj}** **${randnoun}** such as ${insultee}.`]
 		var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 		
         msg.channel.sendMessage(randinsult);
