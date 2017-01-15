@@ -17,6 +17,13 @@ var uLevel;
 var userName;
 var nickName;
 
+var firstSlot = 0;
+var secondSlot = 0;
+var thirdSlot = 0;
+var Slot1;
+var Slot2;
+var Slot3;
+
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
     var liked = message.guild.roles.find("name", "Liked");
@@ -238,7 +245,69 @@ bot.on("message", msg => {
 		});
 		
     }
+	if (msg.content.startsWith(".slots")) {
+		firstSlot = randomInt(1, 5);
+		secondSlot = randomInt(1, 5);
+		thirdSlot = randomInt(1, 5);
+		
+		if (firstSlot == 1) {
+			Slot1 = "❤";
+		} else if (firstSlot == 2) {
+			Slot1 = "☮";
+		} else if (firstSlot == 3) {
+			Slot1 = "卐";
+		} else if (firstSlot == 4) {
+			Slot1 = "✿";
+		} else if (firstSlot == 5) {
+			Slot1 = "✡";
+		}
+		
+		if (secondSlot == 1) {
+			Slot2 = "❤";
+		} else if (secondSlot == 2) {
+			Slot2 = "☮";
+		} else if (secondSlot == 3) {
+			Slot2 = "卐";
+		} else if (secondSlot == 4) {
+			Slot2 = "✿";
+		} else if (secondSlot == 5) {
+			Slot2 = "✡";
+		}
+		
+		if (thirdSlot == 1) {
+			Slot3 = "❤";
+		} else if (thirdSlot == 2) {
+			Slot3 = "☮";
+		} else if (thirdSlot == 3) {
+			Slot3 = "卐";
+		} else if (thirdSlot == 4) {
+			Slot3 = "✿";
+		} else if (thirdSlot == 5) {
+			Slot3 = "✡";
+		}
+		
+		var winmessage;
+		if (Slot1 == "❤" && Slot2 == "❤" && Slot3 == "❤") {
+			winmessage = "3 hearts in a row!";
+		} else if (Slot1 == "☮" && Slot2 == "☮" && Slot3 == "☮") {
+			winmessage = "3 peace signs in a row. World peace for everyone :D";
+		} else if (Slot1 == "卐" && Slot2 == "卐" && Slot3 == "卐") {
+			winmessage = "Hitler would be proud.";
+		} else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
+			winmessage = "Go and smell the roses. You got three in a row!";
+		} else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
+			winmessage = "What are you, jewish?";
+		} else {
+			winmessage = "Better luck next time...";
+		}
+		
+        msg.channel.sendMessage("```Pulled Lever:\n/=============\\\n| " + Slot1 + " | " + Slot2 + " | " + Slot3 + " |\n\\=============/\n" + winmessage + "```");
+    }
 });
+
+function randomInt(low, high) {
+    return Math.floor(Math.random() * (high - low) + low);
+};
 
 bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
 
