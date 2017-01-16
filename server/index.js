@@ -394,7 +394,7 @@ bot.on("message", msg => {
 							}
 						});
 					}
-					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n[JACKPOT: " + jackpot + " points.]\n" + winmessage);
+					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n`[JACKPOT: " + jackpot + " points.]`\n" + winmessage);
 				} else {
 					msg.channel.sendMessage(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
 				}
