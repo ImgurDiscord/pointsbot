@@ -452,12 +452,8 @@ bot.on("message", msg => {
 
         var comptemplates = [`${target}, you are a ${randadj} ${randnoun}. We appreciate you :)`, `${target}, you are the best there ever was, you ${randadj} ${randnoun}.`];
         var randrandcomp = comptemplates[Math.floor(Math.random() * comptemplates.length)];
-
-		if (target == undefined) {
-			msg.channel.sendMessage(`${msg.author, you didn't specify a person. Try again.}`);
-		} else {
+		
 			msg.channel.sendMessage(randcomp);
-		}
     }
     if (msg.content.startsWith('<@!257853452573605890>')) {
         var line = msg.content.slice(msg.content.indexOf('>') + 2);
