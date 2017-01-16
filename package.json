@@ -21,6 +21,7 @@
   "dependencies": {
     "babel": "^5.8.21",
     "body-parser": "^1.0.1",
+    "cat-facts": "^1.0.2",
     "cleverbot.io": "^1.0.4",
     "discord.js": "^11.0.0",
     "express": "^4.0.0",
