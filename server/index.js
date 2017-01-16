@@ -205,7 +205,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.points` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine! Costs **5** points to play.\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.");
+        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.points` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine! Costs **5** points to play.\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`.compliment` - Send some good words to someone in the Discord server. Usage: `.compliment <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.");
     }
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
@@ -427,10 +427,41 @@ bot.on("message", msg => {
                     console.log(err);
                 }
                 randinsult += "\nAw what a nice thing to say! Have some free points. On me :)";
+				msg.channel.sendMessage(randinsult);
             });
+        } else {
+		if (target == undefined) {
+			msg.channel.sendMessage(`${msg.author, you didn't specify a person. Try again.}`);
+		} else {
+			msg.channel.sendMessage(randinsult);
+		}
+		}
+
+    }
+	if (msg.content.startsWith(".compliment")) {
+        var target = msg.mentions.users.first();
+
+        var adj = ["friendly", "nice", "awesome", "cute", "amazing", "spectacular", "intriguing", "flattering", "lovely", "humble", "perfect", "appreciated", "great", "smiling", "humorous", "breathtaking", "cool", "courageous", "ambitious", "affectionate", "adventurous", "compassionate", "considerate"];
+        var randadj = adj[Math.floor(Math.random() * adj.length)];
+        var randadj2 = adj[Math.floor(Math.random() * adj.length)];
+        var randadj3 = adj[Math.floor(Math.random() * adj.length)];
+
+        var noun = ["human", "person", "winner", "prodigy", "guy", "ray of sunshine", "smart cookie", "eager beaver", "champ", "charmer", "babe", "hard worker", "idolizer", "individual", "homemaker", "inspirer", "intellectual"];
+        var randnoun = noun[Math.floor(Math.random() * noun.length)];
+        var randnoun2 = noun[Math.floor(Math.random() * noun.length)];
+
+        if (randnoun == randnoun2) {
+            randnoun2 = noun[Math.floor(Math.random() * noun.length)];
         }
 
-        msg.channel.sendMessage(randinsult);
+        var comptemplates = [`${target}, you are a ${randadj} ${randnoun}. We appreciate you :)`, `${target}, you are the best there ever was, you ${randadj} ${randnoun}.`];
+        var randrandcomp = comptemplates[Math.floor(Math.random() * comptemplates.length)];
+
+		if (target == undefined) {
+			msg.channel.sendMessage(`${msg.author, you didn't specify a person. Try again.}`);
+		} else {
+			msg.channel.sendMessage(randcomp);
+		}
     }
     if (msg.content.startsWith('<@!257853452573605890>')) {
         var line = msg.content.slice(msg.content.indexOf('>') + 2);
