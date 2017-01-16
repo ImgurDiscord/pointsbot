@@ -430,11 +430,7 @@ bot.on("message", msg => {
 				msg.channel.sendMessage(randinsult);
             });
         } else {
-		if (target == undefined) {
-			msg.channel.sendMessage(`${msg.author, you didn't specify a person. Try again.}`);
-		} else {
 			msg.channel.sendMessage(randinsult);
-		}
 		}
 
     }
