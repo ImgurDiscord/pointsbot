@@ -451,7 +451,7 @@ bot.on("message", msg => {
         }
 
         var comptemplates = [`${target}, you are a ${randadj} ${randnoun}. We appreciate you :)`, `${target}, you are the best there ever was, you ${randadj} ${randnoun}.`];
-        var randrandcomp = comptemplates[Math.floor(Math.random() * comptemplates.length)];
+        var randcomp = comptemplates[Math.floor(Math.random() * comptemplates.length)];
 		
 			msg.channel.sendMessage(randcomp);
     }
