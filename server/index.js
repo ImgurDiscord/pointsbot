@@ -432,7 +432,8 @@ bot.on("message", msg => {
 
         msg.channel.sendMessage(randinsult);
     }
-    if (msg.content.startsWith('<@!257853452573605890>')) {
+    //<@!257853452573605890>
+    if (msg.content.startsWith('.giraffe') || msg.content.startsWith('<@!257853452573605890>')) {
         var line = msg.content.slice(msg.content.indexOf('>') + 2);
         chat(line, function (response) {
             msg.reply(response);
