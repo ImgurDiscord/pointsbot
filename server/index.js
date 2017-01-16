@@ -142,7 +142,6 @@ bot.on("message", message => {
 });
 
 function checkPoints() {
-    console.log(givenPoints);
     //console.log(userId);
     var idExists;
 
@@ -154,14 +153,11 @@ function checkPoints() {
         idExists = result.rows[0].exists;
 
         if (givenPoints.get(userName) == userId) {
-            console.log("user exists. giving points now!");
             givenPoints.forEach(function(userId, userName, givenPoints) {
-                console.log(userId);
                 updateUser(userId, 1, function(err, result) {
                     if (err) {
                         console.log(err);
                     }
-                    console.log("User updated successfully :D")
                     givenPoints.clear();
                 });
             });
