@@ -261,12 +261,13 @@ bot.on("message", msg => {
 				console.log(err);
 			}
 			var pointsLeft = result.rows[0].points - 5;
+			var pointsLeft2 = result.rows[0].points;
 			getJackpot(function(err, results) {
 				if (err) {
 					console.log(err);
 				}
 				var jackpot = results.rows[0].jpoints;
-				if (pointsLeft >= 5) {
+				if (pointsLeft2 >= 5) {
 					subtractPoints(userId, 5, function(err, result) {
 						if (err) {
 							console.log(err);
