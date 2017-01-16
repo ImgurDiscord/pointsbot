@@ -261,11 +261,11 @@ bot.on("message", msg => {
 				console.log(err);
 			}
 			var pointsLeft = result.rows[0].points - 5;
-			getJackpot(function(err, result) {
+			getJackpot(function(err, results) {
 				if (err) {
 					console.log(err);
 				}
-				var jackpot = result.rows[0].jpoints;
+				var jackpot = results.rows[0].jpoints;
 				if (pointsLeft >= 5) {
 					subtractPoints(userId, 5, function(err, result) {
 						if (err) {
@@ -537,7 +537,7 @@ function updateUser(id, pAmount, cb) {
 }
 
 function getJackpot(cb) {
-    query(`SELECT jpoints FROM jackpot WHERE id = 1`, function(err, result) {
+    query(`SELECT jpoints FROM jackpot`, function(err, result) {
         if (err) {
             cb(err, null);
         }
@@ -546,7 +546,7 @@ function getJackpot(cb) {
 }
 
 function addJackpot(jAmount, cb) {
-    query(`UPDATE jackpot SET jpoints = jpoints + '${jAmount}' WHERE id = 1`, function(err, result) {
+    query(`UPDATE jackpot SET jpoints = jpoints + '${jAmount}'`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
@@ -556,7 +556,7 @@ function addJackpot(jAmount, cb) {
 }
 
 function subtractJackpot(jAmount, cb) {
-    query(`UPDATE jackpot SET jpoints = '${jAmount}' WHERE id = 1`, function(err, result) {
+    query(`UPDATE jackpot SET jpoints = '${jAmount}'`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
