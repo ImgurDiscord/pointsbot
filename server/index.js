@@ -25,6 +25,7 @@ var thirdSlot = 0;
 var Slot1;
 var Slot2;
 var Slot3;
+var jackpot = 0;
 
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
@@ -208,7 +209,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.stats` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine!\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text>`");
+        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.stats` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine! Costs **5** points to play.\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text>`");
     }
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
@@ -259,70 +260,135 @@ bot.on("message", msg => {
 
     }
     if (msg.content.startsWith(".slots")) {
-        firstSlot = randomInt(1, 7);
-        secondSlot = randomInt(1, 7);
-        thirdSlot = randomInt(1, 7);
-
-        if (firstSlot == 1) {
-            Slot1 = "❤";
-        } else if (firstSlot == 2) {
-            Slot1 = "☮";
-        } else if (firstSlot == 3) {
-            Slot1 = "卐";
-        } else if (firstSlot == 4) {
-            Slot1 = "✿";
-        } else if (firstSlot == 5) {
-            Slot1 = "✡";
-        } else if (firstSlot == 6) {
-            Slot1 = "✩";
-        }
-
-        if (secondSlot == 1) {
-            Slot2 = "❤";
-        } else if (secondSlot == 2) {
-            Slot2 = "☮";
-        } else if (secondSlot == 3) {
-            Slot2 = "卐";
-        } else if (secondSlot == 4) {
-            Slot2 = "✿";
-        } else if (secondSlot == 5) {
-            Slot2 = "✡";
-        } else if (secondSlot == 6) {
-            Slot2 = "✩";
-        }
-
-        if (thirdSlot == 1) {
-            Slot3 = "❤";
-        } else if (thirdSlot == 2) {
-            Slot3 = "☮";
-        } else if (thirdSlot == 3) {
-            Slot3 = "卐";
-        } else if (thirdSlot == 4) {
-            Slot3 = "✿";
-        } else if (thirdSlot == 5) {
-            Slot3 = "✡";
-        } else if (thirdSlot == 6) {
-            Slot3 = "✩";
-        }
-
-        var winmessage;
-        if (Slot1 == "❤" && Slot2 == "❤" && Slot3 == "❤") {
-            winmessage = "3 hearts in a row!";
-        } else if (Slot1 == "☮" && Slot2 == "☮" && Slot3 == "☮") {
-            winmessage = "3 peace signs in a row. World peace for everyone :D";
-        } else if (Slot1 == "卐" && Slot2 == "卐" && Slot3 == "卐") {
-            winmessage = "Hitler would be proud.";
-        } else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
-            winmessage = "Go and smell the roses. You got three in a row!";
-        } else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
-            winmessage = "What are you, jewish?";
-        } else if (Slot1 == "✩" && Slot2 == "✩" && Slot3 == "✩") {
-            winmessage = "You're a star! 3 in a row!";
-        } else {
-            winmessage = "Better luck next time...";
-        }
-
-        msg.reply("Pulled Lever:\n```▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n▌ " + Slot1 + " ▋ " + Slot2 + "  ▋ " + Slot3 + " ▐\n██████████████████\n```" + winmessage);
+		getInfo(userId, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+			var pointsLeft = result.rows[0].points;
+			if (result.rows[0].points >= 5) {
+				subtractPoints(userId, 5, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				
+				firstSlot = randomInt(1, 8);
+				secondSlot = randomInt(1, 8);
+				thirdSlot = randomInt(1, 8);
+		
+				if (firstSlot == 1) {
+					Slot1 = "❤";
+				} else if (firstSlot == 2) {
+					Slot1 = "☮";
+				} else if (firstSlot == 3) {
+					Slot1 = "卐";
+				} else if (firstSlot == 4) {
+					Slot1 = "✿";
+				} else if (firstSlot == 5) {
+					Slot1 = "✡";
+				} else if (firstSlot == 6) {
+					Slot1 = " ☺ ";
+				} else if (firstSlot == 7) {
+					Slot1 = "$";
+				}
+		
+				if (secondSlot == 1) {
+					Slot2 = "❤";
+				} else if (secondSlot == 2) {
+					Slot2 = "☮";
+				} else if (secondSlot == 3) {
+					Slot2 = "卐";
+				} else if (secondSlot == 4) {
+					Slot2 = "✿";
+				} else if (secondSlot == 5) {
+					Slot2 = "✡";
+				} else if (secondSlot == 6) {
+					Slot2 = " ☺ ";
+				} else if (secondSlot == 7) {
+					Slot2 = "$";
+				}
+		
+				if (thirdSlot == 1) {
+					Slot3 = "❤";
+				} else if (thirdSlot == 2) {
+					Slot3 = "☮";
+				} else if (thirdSlot == 3) {
+					Slot3 = "卐";
+				} else if (thirdSlot == 4) {
+					Slot3 = "✿";
+				} else if (thirdSlot == 5) {
+					Slot3 = "✡";
+				} else if (thirdSlot == 6) {
+					Slot3 = " ☺ ";
+				} else if (thirdSlot == 7) {
+					Slot3 = "$";
+				}
+		
+				var winmessage;
+				if (Slot1 == "❤" && Slot2 == "❤" && Slot3 == "❤") {
+					winmessage = "3 hearts in a row! You win 10 points.";
+					updateUser(userId, 10, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == "☮" && Slot2 == "☮" && Slot3 == "☮") {
+					winmessage = "3 peace signs in a row. World peace for everyone :D\nYou win 15 points.";
+					updateUser(userId, 15, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == "卐" && Slot2 == "卐" && Slot3 == "卐") {
+					winmessage = "Hitler would be proud. You win 5 points.";
+					updateUser(userId, 5, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
+					winmessage = "Go and smell the roses. You got three in a row!\nYou win 10 points.";
+					updateUser(userId, 10, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
+					winmessage = "What are you, jewish? You win 15 points...I guess.";
+					updateUser(userId, 15, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == " ☺ " && Slot2 == " ☺ " && Slot3 == " ☺ ") {
+					winmessage = "Let's see that smile, you got three in a row!\nYou win 25 points!";
+					updateUser(userId, 25, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == "$" && Slot2 == "$" && Slot3 == "$") {
+					winmessage = "JACKPOT! You win " + jackpot + " points. Congrats!";
+					
+					if (jackpot > 0) {
+						updateUser(userId, jackpot, function(err, result) {
+							if (err) {
+								console.log(err);
+							}
+							jackpot = 0;
+						});
+					} else {
+						msg.channel.sendMessage(`There's nothing in the jackpot. Play a bit more and build it up big.`);
+					}
+				} else {
+					winmessage = "Better luck next time...";
+					jackpot += 3;
+				}
+				msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n```▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n▌ " + Slot1 + " ▋ " + Slot2 + "  ▋ " + Slot3 + " ▐\n██████████████████\n██████████████████\nJackpot: " + jackpot + " points```" + winmessage);
+			} else {
+				msg.channel.sendMessage(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
+			}
+		});
     }
     if (msg.content.startsWith(".insult")) {
         //var args = msg.content.split(" ");
@@ -428,6 +494,15 @@ function updateUser(id, pAmount, cb) {
         //console.log(result);
         cb(null, result);
 
+    });
+}
+
+function subtractPoints(id, pAmount, cb) {
+    query(`UPDATE users SET points = points - '${pAmount}' WHERE user_id = '${id}'`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
     });
 }
 
