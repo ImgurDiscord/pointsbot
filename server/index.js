@@ -456,7 +456,7 @@ bot.on("message", msg => {
 		
 			msg.channel.sendMessage(randcomp);
     }
-    if (msg.content.startsWith('<@!257853452573605890>' || '.giraffe' || '.Giraffe')) {
+    if (msg.content.startsWith('<@!257853452573605890>') || msg.content.startsWith('.giraffe') || msg.content.startsWith('.Giraffe')) {
         var line = msg.content.slice(msg.content.indexOf('>') + 2);
         chat(line, function (response) {
             msg.reply(response);
