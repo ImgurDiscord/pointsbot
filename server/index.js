@@ -17,6 +17,7 @@ var uPoints;
 var uLevel;
 var userName;
 var nickName;
+var chat;
 
 var firstSlot = 0;
 var secondSlot = 0;
@@ -24,8 +25,18 @@ var thirdSlot = 0;
 var Slot1;
 var Slot2;
 var Slot3;
+
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
-cbot.setNick("imguraffe")
+cbot.setNick("imguraffe");
+cbot.create(function(err, session) {
+    chat = function(line, callback) {
+        cbot.ask(line, function(err, response) {
+            callback(response);
+        });
+    };
+});
+
+
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
     var liked = message.guild.roles.find("name", "Liked");
@@ -346,11 +357,10 @@ bot.on("message", msg => {
     }
     if (msg.content.startsWith('<@!257853452573605890>')) {
         var line = msg.content.slice(msg.content.indexOf('>') + 2);
-        cbot.create(function(err, session) {
-            cbot.ask(line, function(err, response) {
-                msg.reply(response); // Will likely be: "Living in a lonely world"
-            });
-        });
+        chat(line, function (response) {
+            msg.reply(response);
+        })
+
     }
 });
 
