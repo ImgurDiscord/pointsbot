@@ -202,7 +202,7 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
     if (msg.content.startsWith(".ping")) {
-        msg.channel.sendMessage("Don't worry, I'm still alive :)");
+        msg.channel.sendMessage("Bada ping bada pong.");
     }
     if (msg.content.startsWith(".numone")) {
         numone = numberOne.random();
@@ -326,43 +326,43 @@ bot.on("message", msg => {
 		
 				var winmessage;
 				if (Slot1 == "❤" && Slot2 == "❤" && Slot3 == "❤") {
-					winmessage = "3 hearts in a row! You win 10 points.";
-					updateUser(userId, 10, function(err, result) {
+					winmessage = "3 hearts in a row! You win 45 points.";
+					updateUser(userId, 45, function(err, result) {
 						if (err) {
 							console.log(err);
 						}
 					});
 				} else if (Slot1 == "☮" && Slot2 == "☮" && Slot3 == "☮") {
-					winmessage = "3 peace signs in a row. World peace for everyone :D\nYou win 15 points.";
-					updateUser(userId, 15, function(err, result) {
+					winmessage = "3 peace signs in a row. World peace for everyone :D\nYou win 50 points.";
+					updateUser(userId, 50, function(err, result) {
 						if (err) {
 							console.log(err);
 						}
 					});
 				} else if (Slot1 == "卐" && Slot2 == "卐" && Slot3 == "卐") {
-					winmessage = "Hitler would be proud. You win 5 points.";
-					updateUser(userId, 5, function(err, result) {
-						if (err) {
-							console.log(err);
-						}
-					});
-				} else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
-					winmessage = "Go and smell the roses. You got three in a row!\nYou win 10 points.";
-					updateUser(userId, 10, function(err, result) {
-						if (err) {
-							console.log(err);
-						}
-					});
-				} else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
-					winmessage = "What are you, jewish? You win 15 points...I guess.";
+					winmessage = "Hitler would be proud. You win 15 points.";
 					updateUser(userId, 15, function(err, result) {
 						if (err) {
 							console.log(err);
 						}
 					});
+				} else if (Slot1 == "✿" && Slot2 == "✿" && Slot3 == "✿") {
+					winmessage = "Go and smell the roses. You got three in a row!\nYou win 45 points.";
+					updateUser(userId, 45, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
+				} else if (Slot1 == "✡" && Slot2 == "✡" && Slot3 == "✡") {
+					winmessage = "What are you, jewish? You win 35 points...I guess.";
+					updateUser(userId, 35, function(err, result) {
+						if (err) {
+							console.log(err);
+						}
+					});
 				} else if (Slot1 == " ☺ " && Slot2 == " ☺ " && Slot3 == " ☺ ") {
-					winmessage = "Let's see that smile, you got three in a row!\nYou win 25 points!";
-					updateUser(userId, 25, function(err, result) {
+					winmessage = "Let's see that smile, you got three in a row!\nYou win 60 points!";
+					updateUser(userId, 60, function(err, result) {
 						if (err) {
 							console.log(err);
 						}
@@ -382,7 +382,7 @@ bot.on("message", msg => {
 					}
 				} else {
 					winmessage = "Better luck next time...";
-					jackpot += 3;
+					jackpot += 8;
 				}
 				msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n```▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n▌ " + Slot1 + " ▋ " + Slot2 + "  ▋ " + Slot3 + " ▐\n██████████████████\n██████████████████\nJackpot: " + jackpot + " points```" + winmessage);
 			} else {
@@ -411,7 +411,7 @@ bot.on("message", msg => {
         var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 
         if (randadj == "friendly" && randnoun == "guy") {
-            updateUser(userId, 5, function(err, result) {
+            updateUser(userId, 50, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -427,6 +427,11 @@ bot.on("message", msg => {
             msg.reply(response);
         })
 
+    }
+	if (msg.content.startsWith(".funfact")) {
+		var funfacts = ["Banging your head against a wall burns 150 calories an hour.", "When hippos are upset, their sweat turns red.", "The average woman uses her height in lipstick every 5 years.", "Billy goats urinate on their own heads to smell more attractive to females.", "During your lifetime, you will produce enough saliva to fill two swimming pools."];
+		var randfacts = funfacts[Math.floor(Math.random() * funfacts.length)];
+        msg.reply(randfacts);
     }
 });
 
