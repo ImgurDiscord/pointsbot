@@ -255,7 +255,7 @@ bot.on("message", msg => {
             msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
         });
 
-    }
+    } /*
     if (msg.content.startsWith(".slots")) {
 		getInfo(userId, function(err, result) {
 			if (err) {
@@ -395,14 +395,14 @@ bot.on("message", msg => {
 							}
 						});
 					}
-					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n[JACKPOT: " + jackpot + " points.]\n" + winmessage);
+					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n`[JACKPOT: " + jackpot + " points.]`\n" + winmessage);
 				} else {
 					msg.channel.sendMessage(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
 				}
 			});
 			
 		});
-    }
+    } */
     if (msg.content.startsWith(".insult")) {
         //var args = msg.content.split(" ");
         var insultee = msg.mentions.users.first();
@@ -542,7 +542,7 @@ function updateUser(id, pAmount, cb) {
     });
 }
 
-function getJackpot(cb) {
+/* function getJackpot(cb) {
     query(`SELECT jpoints FROM jackpot`, function(err, result) {
         if (err) {
             cb(err, null);
@@ -569,7 +569,7 @@ function subtractJackpot(jAmount, cb) {
         cb(null, result);
 
     });
-}
+} */
 
 function subtractPoints(id, pAmount, cb) {
     query(`UPDATE users SET points = points - '${pAmount}' WHERE user_id = '${id}'`, function(err, result) {
