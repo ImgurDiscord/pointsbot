@@ -473,6 +473,20 @@ bot.on("message", msg => {
         let randomfact = cats.random();
         msg.reply(randomfact);
     }
+	if(msg.content.startsWith(".ttt")) {
+		var gamestart = false;
+		if {gamestart = false} {
+			var gamestart = true;
+		
+			var player2 = msg.mentions.users.first();
+			var player1 = msg.author;
+			
+			msg.channel.sendMessage(`${player2}, ${player1} has challenged you to a game of Tic Tac Toe.\n\nDo you accept?`);
+			if(msg.content.startsWith("Yes")) {
+				
+			}
+		}	
+    }
 });
 
 function randomInt(low, high) {
