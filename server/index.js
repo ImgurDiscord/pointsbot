@@ -39,6 +39,9 @@ cbot.create(function(err, session) {
     };
 });
 
+bot.on("guildMemberAdd", (member) => {
+	member.guild.defaultChannel.sendMessage(`Welcome ${member.user.username} to the server.`);
+});
 
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
