@@ -67,6 +67,12 @@ bot.on("message", message => {
             console.log(err);
         }
     });
+	
+	var chnlname = message.channel.name;
+	
+	if (chnlname !== "bot_commands") {
+		givenPoints.set(message.author.username, message.author.id);
+	}
 
     getInfo(userId, function(err, result) {
         if (err) {
@@ -472,20 +478,6 @@ bot.on("message", msg => {
     if(msg.content.startsWith(".catfact")) {
         let randomfact = cats.random();
         msg.reply(randomfact);
-    }
-	if(msg.content.startsWith(".ttt")) {
-		var gamestart = false;
-		if {gamestart = false} {
-			var gamestart = true;
-		
-			var player2 = msg.mentions.users.first();
-			var player1 = msg.author;
-			
-			msg.channel.sendMessage(`${player2}, ${player1} has challenged you to a game of Tic Tac Toe.\n\nDo you accept?`);
-			if(msg.content.startsWith("Yes")) {
-				
-			}
-		}	
     }
 });
 
