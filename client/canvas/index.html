@@ -16,6 +16,7 @@
 </head>
 
 <body>
+	<script src=".server/index.js"></script>
 	<canvas id="myCanvas" width="220" height="230"
 	style="border:1px solid #d3d3d3;">
 	Your browser does not support the canvas element.
@@ -26,8 +27,21 @@
 	var ctx = canvas.getContext("2d");
 	ctx.font = "30px Arial";
 	ctx.fillText("Hello World",10,50);
-	ctx.fillStyle = "#4e5054";
+	ctx.fillStyle = "#656565";
 	ctx.fillRect(0,0,220,230);
+	ctx.fillStyle = "#8b8c8f";
+	ctx.fillRect(0,50,220,230);
+	ctx.fillStyle = "#a6a7a9";
+	ctx.fillRect(0,50,220,50);
+	ctx.beginPath();
+	ctx.arc(110,75,50,0,2*Math.PI);
+	ctx.fillStyle = "#8b8c8f";
+	ctx.fill();
+	ctx.arc(110,75,50,0,2*Math.PI);
+	ctx.strokeStyle="#b3b3b6";
+	ctx.lineWidth = 10;
+	ctx.stroke();
+	
 	var dataURL = canvas.toDataURL('image/png');
 	
 	document.write(dataURL);

@@ -67,6 +67,12 @@ bot.on("message", message => {
             console.log(err);
         }
     });
+	
+	var chnlname = message.channel.name;
+	
+	if (chnlname !== "bot_commands") {
+		givenPoints.set(message.author.username, message.author.id);
+	}
 
     getInfo(userId, function(err, result) {
         if (err) {
