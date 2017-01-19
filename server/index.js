@@ -26,7 +26,8 @@ var thirdSlot = 0;
 var Slot1;
 var Slot2;
 var Slot3;
-var jackpot = 0;
+//var jackpot = 0;
+var bullets = 6;
 
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
@@ -478,6 +479,21 @@ bot.on("message", msg => {
     if(msg.content.startsWith(".catfact")) {
         let randomfact = cats.random();
         msg.reply(randomfact);
+    }
+	if(msg.content.startsWith(".roulette")) {
+		var num = randomInt(0, 7);
+		var bulletnum = randomInt(0, 7);
+		
+		if (num == bulletnum) {
+			msg.channel.sendMessage(`:boom::gun: You've been shot!`);
+			bullets = 6;
+		} else {
+			msg.channel.sendMessage(`Phew. You made it through alive.`);
+			bullets = bullets - 1;
+		}
+		if (bullets == 0) {
+			bullets = 6;
+		}
     }
 });
 
