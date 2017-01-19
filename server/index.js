@@ -135,7 +135,7 @@ bot.on("message", message => {
         }
 
         if (message.content.startsWith(".points")) {
-            message.channel.sendMessage(`${message.author}, you have **${curPoints}** points.`);
+            message.channel.sendMessage(`${message.author}, you have **${curPoints}** points. Rank: ${curRank}`);
         }
     });
 
@@ -250,7 +250,7 @@ bot.on("message", msg => {
 
             for (i = 0; i < 10; i++) {
                 var ii = i + 1;
-                leaderMsg += ":small_blue_diamond:" + ii + ") **[" + result.rows[i].username + "]** with **" + result.rows[i].points + "** points.\n\n";
+                leaderMsg += ":small_blue_diamond:" + ii + ") **[" + result.rows[i].username + "]** with **" + result.rows[i].points + "** points. __Rank:__ **" + result.rows[i].rank + "**\n\n";
             }
             msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
         });
@@ -591,7 +591,7 @@ function updateRank(rank, id, cb) {
 }
 
 function getLeaders(cb) {
-    query(`SELECT points, username FROM users ORDER BY points DESC LIMIT 11`, function(err, result) {
+    query(`SELECT points, username, rank FROM users ORDER BY points DESC LIMIT 11`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
