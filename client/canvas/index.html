@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Canvas</title>
+  <meta name="description" content="Canvas Imaging">
+  <meta name="author" content="TabloidA">
+
+  <!--<link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+	<canvas id="myCanvas" width="220" height="230"
+	style="border:1px solid #d3d3d3;">
+	Your browser does not support the canvas element.
+	</canvas>
+
+	<script>
+	var canvas = document.getElementById("myCanvas");
+	var ctx = canvas.getContext("2d");
+	ctx.font = "30px Arial";
+	ctx.fillText("Hello World",10,50);
+	ctx.fillStyle = "#4e5054";
+	ctx.fillRect(0,0,220,230);
+	var dataURL = canvas.toDataURL('image/png');
+	
+	document.write(dataURL);
+	</script>
+</body>
+</html>

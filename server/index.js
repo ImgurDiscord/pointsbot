@@ -206,7 +206,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
     if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.points` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.slots` - Try your luck with the slot machine! Costs **5** points to play.\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`.compliment` - Send some good words to someone in the Discord server. Usage: `.compliment <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text> or .giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.");
+        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.points` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`.compliment` - Send some good words to someone in the Discord server. Usage: `.compliment <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text> or .giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.\n:black_small_square:`.catfact` - Get a random cat fact from the bot.");
     }
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
@@ -255,7 +255,7 @@ bot.on("message", msg => {
             msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
         });
 
-    }
+    } /*
     if (msg.content.startsWith(".slots")) {
 		getInfo(userId, function(err, result) {
 			if (err) {
@@ -395,14 +395,14 @@ bot.on("message", msg => {
 							}
 						});
 					}
-					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n[JACKPOT: " + jackpot + " points.]\n" + winmessage);
+					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n`[JACKPOT: " + jackpot + " points.]`\n" + winmessage);
 				} else {
 					msg.channel.sendMessage(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
 				}
 			});
 			
 		});
-    }
+    } */
     if (msg.content.startsWith(".insult")) {
         //var args = msg.content.split(" ");
         var insultee = msg.mentions.users.first();
@@ -542,7 +542,7 @@ function updateUser(id, pAmount, cb) {
     });
 }
 
-function getJackpot(cb) {
+/* function getJackpot(cb) {
     query(`SELECT jpoints FROM jackpot`, function(err, result) {
         if (err) {
             cb(err, null);
@@ -569,7 +569,7 @@ function subtractJackpot(jAmount, cb) {
         cb(null, result);
 
     });
-}
+} */
 
 function subtractPoints(id, pAmount, cb) {
     query(`UPDATE users SET points = points - '${pAmount}' WHERE user_id = '${id}'`, function(err, result) {
