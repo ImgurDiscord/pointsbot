@@ -143,10 +143,6 @@ bot.on("message", message => {
             });
             message.member.addRole(glorious);
         }
-
-        if (message.content.startsWith(".points")) {
-            message.channel.sendMessage(`${message.author}, you have **${curPoints}** points. Rank: ${curRank}`);
-        }
     });
 
 
@@ -498,6 +494,40 @@ bot.on("message", msg => {
 			bullets = 6;
 		}
     }
+	if(msg.content.startsWith(".profile")) {
+		getInfo(userId, function(err, result) {
+			var rank = result.rows[0].rank;
+			var points = result.rows[0].points;
+			
+			if (err) {
+				console.log(err);
+			}
+			msg.channel.sendMessage("", {embed: {
+				color: 3447003,
+				author: {
+					name: msg.member.displayName
+				},
+				description: ' ',
+				fields: [
+					{
+					name: 'Rank:',
+					value: '```http\n' + rank + '```'
+					},
+					{
+					name: 'Points:',
+					value: '```http\n' + points + '```'
+					}
+				],
+				timestamp: new Date(),
+				footer: {
+					text: 'Giraffe'
+				},
+				thumbnail: {
+					url: msg.author.avatarURL
+				}
+			}});
+		});
+	}
 });
 
 function randomInt(low, high) {
