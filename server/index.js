@@ -495,38 +495,75 @@ bot.on("message", msg => {
 		}
     }
 	if(msg.content.startsWith(".profile")) {
-		getInfo(userId, function(err, result) {
-			var rank = result.rows[0].rank;
-			var points = result.rows[0].points;
-			
-			if (err) {
-				console.log(err);
-			}
-			msg.channel.sendMessage("", {embed: {
-				color: 3447003,
-				author: {
-					name: msg.member.displayName
-				},
-				description: '--------------\n',
-				fields: [
-					{
-					name: 'Rank:',
-					value: '```http\n' + rank + '```'
-					},
-					{
-					name: 'Points:',
-					value: '```http\n' + points + '```'
-					}
-				],
-				timestamp: new Date(),
-				footer: {
-					text: 'Giraffe'
-				},
-				thumbnail: {
-					url: msg.author.avatarURL
+		if(msg.mentions.users.first() == undefined) {
+			userId = msg.author.id;
+			getInfo(userId, function(err, result) {
+				var rank = result.rows[0].rank;
+				var points = result.rows[0].points;
+				
+				if (err) {
+					console.log(err);
 				}
-			}});
-		});
+				msg.channel.sendMessage("", {embed: {
+					color: 3447003,
+					author: {
+						name: msg.member.displayName
+					},
+					description: '--------------\n',
+					fields: [
+						{
+						name: 'Rank:',
+						value: '```http\n' + rank + '```'
+						},
+						{
+						name: 'Points:',
+						value: '```http\n' + points + '```'
+						}
+					],
+					timestamp: new Date(),
+					footer: {
+						text: 'Giraffe'
+					},
+					thumbnail: {
+						url: msg.author.avatarURL
+					}
+				}});
+			});
+		} else {
+			userId = msg.mentions.users.first().id;
+			getInfo(userId, function(err, result) {
+				var rank = result.rows[0].rank;
+				var points = result.rows[0].points;
+				
+				if (err) {
+					console.log(err);
+				}
+				msg.channel.sendMessage("", {embed: {
+					color: 3447003,
+					author: {
+						name: msg.mentions.users.first().username
+					},
+					description: '--------------\n',
+					fields: [
+						{
+						name: 'Rank:',
+						value: '```http\n' + rank + '```'
+						},
+						{
+						name: 'Points:',
+						value: '```http\n' + points + '```'
+						}
+					],
+					timestamp: new Date(),
+					footer: {
+						text: 'Giraffe'
+					},
+					thumbnail: {
+						url: msg.mentions.users.first().avatarURL
+					}
+				}});
+			});
+		}
 	}
 });
 
