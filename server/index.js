@@ -39,10 +39,6 @@ cbot.create(function(err, session) {
     };
 });
 
-bot.on("guildMemberAdd", (member) => {
-	member.guild.defaultChannel.sendMessage(`Welcome ${member.user.username} to the server.`);
-});
-
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
     var liked = message.guild.roles.find("name", "Liked");
@@ -211,9 +207,88 @@ bot.on("message", msg => {
         numone = numberOne.random();
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
-    if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.profile` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`.compliment` - Send some good words to someone in the Discord server. Usage: `.compliment <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text> or .giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.\n:black_small_square:`.catfact` - Get a random cat fact from the bot.\n:black_small_square:`.avatar` - Get user's Discord avatar.");
-    }
+    /*if (msg.content.startsWith(".help")) {
+        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.profile` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.
+		\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`.compliment` - Send some good words to someone in the Discord server. Usage: `.compliment <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text> or .giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.\n:black_small_square:`.catfact` - Get a random cat fact from the bot.\n:black_small_square:`.avatar` - Get user's Discord avatar.");
+    } */
+	if(msg.content.startsWith(".help")) {
+		var args = msg.content.split(' ');
+		if (args[1] == 1 || args[1] == undefined) {
+			msg.channel.sendMessage("", {embed: {
+				color: 1352973,
+				author: {
+					name: 'Help Page 1'
+				},
+				description: '--------------\n',
+				fields: [
+					{
+					name: '.ping',
+					value: '`Ping the bot.`'
+					},
+					{
+					name: '.profile',
+					value: '`Check how many points you have.`'
+					},
+					{
+					name: '.ranks',
+					value: '`Display possible ranks`'
+					},
+					{
+					name: '.numone',
+					value: '`Get a random mystery "We Are Number One" meme`'
+					},
+					{
+					name: '.roll',
+					value: '`Roll a X sided die Y amount of times.`\n`Usage: .roll <sides> <times to roll>`'
+					},
+					{
+					name: '.leaders',
+					value: '`Display the current leaders.`'
+					}
+				],
+				footer: {
+					text: 'Type .help 2 for more'
+				}
+			}});
+		} else if (args[1] == 2) {
+			msg.channel.sendMessage("", {embed: {
+				color: 1352973,
+				author: {
+					name: "Rules Page 2"
+				},
+				description: '--------------\n',
+				fields: [
+					{
+					name: '.insult',
+					value: '`Insult someone in the Discord server.`\n`Usage: .insult @<target>`'
+					},
+					{
+					name: '.compliment',
+					value: 'Send some good words to someone in the Discord server.`\n`Usage: .compliment @<target>`'
+					},
+					{
+					name: '.giraffe',
+					value: '`Talk to Giraffe.`\n`Usage: .giraffe <text>`'
+					},
+					{
+					name: '.funfact',
+					value: '`Get a random fun fact from the bot.`'
+					},
+					{
+					name: '.catfact',
+					value: '`Get a random cat fact from the bot.`'
+					},
+					{
+					name: '.avatar',
+					value: '`Get users Avatar.`\n`Usage: .avatar @<target> OR .avatar`'
+					},
+				],
+				footer: {
+					text: ''
+				}
+			}});
+		}
+	}
     if (msg.content.startsWith(".ching")) {
         msg.channel.sendMessage("chong");
     }
@@ -442,6 +517,12 @@ bot.on("message", msg => {
 		}
 
     }
+	if(msg.content.startsWith(".rat")) {
+		var rat = ["https://cdn.discordapp.com/attachments/269925256943239169/271313901004521487/handsomeratboy.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313923280601105/meme_police.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313950602166272/old_soldier.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313967937224705/ratbye.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313981807788033/ratno.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314006323625984/ratno1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314057041018880/shit_holiday_rat_1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314088188051466/rebellionhero.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314123092918272/allhailthetruegod.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679652815175690/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679733652127744/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679776698138634/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008047105146880/ratgottem.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008924620652545/Rats_Spaghetti.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008950478667776/ratno4.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008987388411904/ratno3.png"]
+		var rat = rat[Math.floor(Math.random() * rat.length)];
+		
+		msg.channel.sendMessage(rat);
+	}
 	if (msg.content.startsWith(".compliment")) {
         var target = msg.mentions.users.first();
 
