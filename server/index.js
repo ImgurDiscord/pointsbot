@@ -505,7 +505,7 @@ bot.on("message", msg => {
 					console.log(err);
 				}
 				msg.channel.sendMessage("", {embed: {
-					color: 3447003,
+					color: 1352973,
 					author: {
 						name: msg.member.displayName
 					},
@@ -513,11 +513,11 @@ bot.on("message", msg => {
 					fields: [
 						{
 						name: 'Rank:',
-						value: '```http\n' + rank + '```'
+						value: '```cs\n' + rank + '```'
 						},
 						{
 						name: 'Points:',
-						value: '```http\n' + points + '```'
+						value: '```cs\n' + points + '```'
 						}
 					],
 					timestamp: new Date(),
@@ -539,7 +539,7 @@ bot.on("message", msg => {
 					console.log(err);
 				}
 				msg.channel.sendMessage("", {embed: {
-					color: 3447003,
+					color: 1352973,
 					author: {
 						name: msg.mentions.users.first().username
 					},
