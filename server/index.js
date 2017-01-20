@@ -507,7 +507,7 @@ bot.on("message", msg => {
 				author: {
 					name: msg.member.displayName
 				},
-				description: ' ',
+				description: '--------------\n',
 				fields: [
 					{
 					name: 'Rank:',
