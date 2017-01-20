@@ -28,6 +28,7 @@ var Slot2;
 var Slot3;
 //var jackpot = 0;
 var bullets = 6;
+var noco;
 
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
@@ -247,7 +248,7 @@ bot.on("message", msg => {
 					}
 				],
 				footer: {
-					text: 'Type .help 2 for more'
+					text: 'Type .help 2 for more.'
 				}
 			}});
 		} else if (args[1] == 2) {
@@ -264,7 +265,7 @@ bot.on("message", msg => {
 					},
 					{
 					name: '.compliment',
-					value: 'Send some good words to someone in the Discord server.`\n`Usage: .compliment @<target>`'
+					value: '`Send some good words to someone in the Discord server.`\n`Usage: .compliment @<target>`'
 					},
 					{
 					name: '.giraffe',
@@ -282,6 +283,27 @@ bot.on("message", msg => {
 					name: '.avatar',
 					value: '`Get users Avatar.`\n`Usage: .avatar @<target> OR .avatar`'
 					},
+				],
+				footer: {
+					text: 'Type .help or .help 3 for more.'
+				}
+			}});
+		} else if (args[1] == 3) {
+			msg.channel.sendMessage("", {embed: {
+				color: 1352973,
+				author: {
+					name: "Rules Page 2"
+				},
+				description: '--------------\n',
+				fields: [
+					{
+					name: '.roulette',
+					value: '`Pull the trigger and see if you survive!`'
+					},
+					{
+					name: '.rat',
+					value: '`Vive la Révolution!`'
+					}
 				],
 				footer: {
 					text: ''
@@ -519,7 +541,7 @@ bot.on("message", msg => {
     }
 	if(msg.content.startsWith(".rat")) {
 		var rat = ["https://cdn.discordapp.com/attachments/269925256943239169/271313901004521487/handsomeratboy.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313923280601105/meme_police.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313950602166272/old_soldier.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313967937224705/ratbye.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313981807788033/ratno.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314006323625984/ratno1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314057041018880/shit_holiday_rat_1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314088188051466/rebellionhero.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314123092918272/allhailthetruegod.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679652815175690/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679733652127744/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679776698138634/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008047105146880/ratgottem.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008924620652545/Rats_Spaghetti.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008950478667776/ratno4.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008987388411904/ratno3.png"]
-		var rat = rat[Math.floor(Math.random() * rat.length)];
+		rat = rat[Math.floor(Math.random() * rat.length)];
 		
 		msg.channel.sendMessage(rat);
 	}
@@ -652,8 +674,25 @@ bot.on("message", msg => {
 		} else {
 		msg.channel.sendMessage(`:frame_photo: **${msg.mentions.users.first().username}'s Avatar:**\n${msg.mentions.users.first().avatarURL}`);
 		}
-  }
+	}
+	if(msg.content.startsWith(".noco")) {
+		//var noco = ["Hi (sry bad english)?", "Seeing as I do nothing with my day but read weird things on the internet, I'll tell you about a theory I've got about antigrav technology and how long the various governments of the world have had it.", "I haven't seen another person for about 3 years now. I spend most of my time either reading or trying to design software and automation to run my household or play with me. Everything seems to be going well. Hopefully I will never have to go outside again.", "So basically, what happened is I decided to tell my family and close friends that I'm into Anal Vore by having a 'coming-out' party. I don't think it went very well and that's why I'm here.", "Start from the present and work yourself backwards.", "Go to your shithomeway and giveback my way. Idon't know what hé supposés to had get à message so important to tell", "I'm so besotted by this girl I keep reminding myself of her existence and making exaggerated facial expressions and tensing my muscles all around my body to express how I feel towards her.", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+		//noco = noco[Math.floor(Math.random() * noco.length)];
+		getRandomLine('./server/Clippy.txt');
+		msg.channel.sendMessage(noco);
+		
+		msg.delete();
+	}
 });
+
+function getRandomLine(filename){
+  fs.readFile(filename, function(err, data){
+    if(err) throw err;
+	data+='';
+    var lines = data.split('\n');
+    noco = lines[Math.floor(Math.random()*lines.length)];
+ })
+}
 
 function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low);
@@ -675,6 +714,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
+/************************************/
+/* DATABASE QUERY FUNCTIONS */
+/************************************/
 function getUser(id, cb) {
     query(`SELECT (EXISTS(SELECT * FROM users WHERE user_id = '${id}'))::int`, function(err, result) {
         if (err) {
