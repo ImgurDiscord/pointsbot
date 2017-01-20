@@ -686,7 +686,7 @@ bot.on("message", msg => {
 });
 
 function getRandomLine(filename){
-  fs.readFile(filename, function(err, data){
+  fs.readFile(filename, 'utf-8', function(err, data){
     if(err) throw err;
 	data+='';
     var lines = data.split('\n');
