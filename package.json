@@ -27,11 +27,12 @@
     "express": "^4.0.0",
     "fs": "0.0.1-security",
     "morgan": "^1.0.0",
-    "node-gyp": "^3.5.0",
     "nodemon": "^1.11.0",
     "opusscript": "0.0.1",
     "pg": "^4.4.3",
-    "pg-pool": "^1.6.0"
+    "pg-pool": "^1.6.0",
+    "request": "^2.79.0",
+    "ytdl-core": "^0.7.21"
   },
   "devDependencies": {
     "del": "^2.2.1",
