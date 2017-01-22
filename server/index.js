@@ -9,6 +9,7 @@ import fs from 'fs';
 import Discord from 'discord.js';
 import cleverbot from 'cleverbot.io';
 import cats from 'cat-facts';
+import yt from 'ytdl-core';
 const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
@@ -29,6 +30,8 @@ var Slot3;
 //var jackpot = 0;
 var bullets = 6;
 var noco;
+var called;
+var img;
 
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
@@ -683,16 +686,47 @@ bot.on("message", msg => {
 		
 		msg.delete();
 	}
+	if (msg.content.startsWith('.infomercial')) {
+		var mod = msg.guild.roles.get("257745006511521803");
+		var member = msg.guild.member(userId);
+		if (!msg.member.roles.has("257745006511521803")) {
+			return;
+		}
+		msg.delete();
+		var vid = ["https://youtu.be/cb9D00XnVO8?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/b4xw8dJkicI?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/0dx6eGpekOc?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/6e3z2H1O5zE?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/gZKUJT7-6iI?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/cG2krftM2eQ?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/lfYBeHurkZo?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/7PKG_YfWlCc", "https://youtu.be/LVx6lp5IC6o?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/g2g4YBGn8i4?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://youtu.be/s_eC-s-b-zw?list=PL8VfA9WymQTYvyRilRj4jXzwsnbfM4DzG", "https://www.youtube.com/watch?v=HAaYSQpacrU", "https://www.youtube.com/watch?v=-IrlhLF1c3k", "https://www.youtube.com/watch?v=4NOQM9duf9U", "https://www.youtube.com/watch?v=YvnGRyYTUoM", "https://www.youtube.com/watch?v=wed9xtPl5a0"];
+		vid = vid[Math.floor(Math.random() * vid.length)];
+		
+		const voiceChannel = msg.member.voiceChannel;
+		if (!voiceChannel) {
+		return msg.reply(`Please be in a voice channel first!`);
+		}
+		voiceChannel.join()
+			.then(connnection => {
+				let stream = yt(vid, {audioonly: true});
+				const dispatcher = connnection.playStream(stream);
+				dispatcher.on('end', () => {
+					voiceChannel.leave();
+				});
+			});
+	}
+	if (msg.content.startsWith(".stopinfo")) {
+		if (!msg.member.roles.has("257745006511521803")) {
+			return;
+		}
+		msg.delete();
+		var voiceChnl = msg.member.voiceChannel;
+		voiceChnl.leave();
+	}
 });
 
-function getRandomLine(filename){
+function getRandomLine(filename) {
   fs.readFile(filename, 'utf-8', function(err, data){
     if(err) throw err;
 	data+='';
     var lines = data.split('\n');
     noco = lines[Math.floor(Math.random()*lines.length)];
  })
-}
+};
 
 function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low);
