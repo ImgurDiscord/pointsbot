@@ -33,6 +33,10 @@ var noco;
 var called;
 var img;
 
+setInterval(function() {
+    http.get("http://imguraffe.herokuapp.com");
+}, 300000);
+
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
 cbot.create(function(err, session) {
@@ -105,7 +109,7 @@ bot.on("message", message => {
         }
         if (curPoints >= 500 && curPoints <= 999 && curRank != "Trusted") {
             let member = message.guild.member(userId);
-            message.member.removeRole(liked);
+            //message.member.removeRole(liked);
             updateRank("Trusted", userId, function(err, result) {
                 if (err) {
                     console.log(err);
@@ -115,7 +119,7 @@ bot.on("message", message => {
         }
         if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Idolized") {
             let member = message.guild.member(userId);
-            message.member.removeRole(trusted);
+            //message.member.removeRole(trusted);
             updateRank("Idolized", userId, function(err, result) {
                 if (err) {
                     console.log(err);
@@ -125,7 +129,7 @@ bot.on("message", message => {
         }
         if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Renowned") {
             let member = message.guild.member(userId);
-            message.member.removeRole(idolized);
+            //message.member.removeRole(idolized);
             updateRank("Renowned", userId, function(err, result) {
                 if (err) {
                     console.log(err);
@@ -135,7 +139,7 @@ bot.on("message", message => {
         }
         if (curPoints >= 4000 && curRank != "Glorious") {
             let member = message.guild.member(userId);
-            message.member.removeRole(renowned);
+            //message.member.removeRole(renowned);
             updateRank("Glorious", userId, function(err, result) {
                 if (err) {
                     console.log(err);
