@@ -33,6 +33,10 @@ var noco;
 var called;
 var img;
 
+setInterval(function() {
+    http.get("http://imguraffe.herokuapp.com");
+}, 300000);
+
 var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
 cbot.create(function(err, session) {
