@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/hamza765/node-template#readme",
   "dependencies": {
+    "an-array-of-english-words": "^1.2.0",
     "babel": "^5.8.21",
     "body-parser": "^1.0.1",
     "cat-facts": "^1.0.2",
