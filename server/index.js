@@ -721,18 +721,25 @@ bot.on("message", msg => {
 		var voiceChnl = msg.member.voiceChannel;
 		voiceChnl.leave();
 	}
-	if(msg.content.startsWith(".translate"){
+	if(msg.content.startsWith(".translate")){
 		var arg = msg.content.split(" / ");
-		var lang = arg;
+		var lang = arg[1];
 		
-		if(lang !== "spanish" && lang !== "french" lang !== "Spanish" && lang !== "French") {
-			msg.channel.sendMessage(`Sorry, that's not a valid language. This command only supports spanish and french currently.)`;
+		if(lang !== "spanish" && lang !== "Spanish" && lang !== "french" && lang !== "French") {
+			msg.channel.sendMessage(`Sorry, that's not a valid language. This command only translates to spanish, french, italian currently.`);
+			
 		} else if(lang == "Spanish" || lang == "spanish") {
 			var spanresp = ['Somethin spanish, idk.', 'I can\'t tell, something about tacos.', 'Hey, free burrito night! Wait, no.'];
 			var spanresp = spanresp[Math.floor(Math.random() * spanresp.length)];
 			
 			msg.channel.sendMessage(`${spanresp}`);
+			
 		} else if(lang == "French" || lang == "french") {
+			var franresp = ['Wee wee, jar le france swah?', 'Blah, blah, baguette.', 'This is the one with the Eye-filled tower right?'];
+			var franresp = franresp[Math.floor(Math.random() * franresp.length)];
+			
+			msg.channel.sendMessage(`${franresp}`);
+		} else if(lang == "Italian" || lang == "italian") {
 			var franresp = ['Wee wee, jar le france swah?', 'Blah, blah, baguette.', 'This is the one with the Eye-filled tower right?'];
 			var franresp = franresp[Math.floor(Math.random() * franresp.length)];
 			
