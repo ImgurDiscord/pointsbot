@@ -721,7 +721,7 @@ bot.on("message", msg => {
 		var voiceChnl = msg.member.voiceChannel;
 		voiceChnl.leave();
 	}
-	if(msg.content.startsWith(".translate"){
+	if(msg.content.startsWith(".translate")){
 		var arg = msg.content.split(" / ");
 		var lang = arg[1];
 		
