@@ -725,8 +725,8 @@ bot.on("message", msg => {
 		var arg = msg.content.split(" / ");
 		var lang = arg[1];
 		
-		if(lang !== "spanish" && lang !== "french" lang !== "Spanish" && lang !== "French") {
-			msg.channel.sendMessage(`Sorry, that\'s not a valid language. This command only supports spanish and french currently.`);
+		if(lang !== "spanish" && lang !== "french" && lang !== "Spanish" && lang !== "French") {
+			msg.channel.sendMessage(`Sorry, thats not a valid language. This command only supports spanish and french currently.`);
 		} else if(lang == "Spanish" || lang == "spanish") {
 			var spanresp = ['Hola, mi espanol e ingles.', 'Tico taco Mctaco.', 'Donde esta en le eiffel tower? Wait no...', '*spanish music plays*', 'Just stick a sombrero on your head and try again. Works for me.'];
 			var spanresp = spanresp[Math.floor(Math.random() * spanresp.length)];
