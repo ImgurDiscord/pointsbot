@@ -37,16 +37,6 @@ setInterval(function() {
     http.get("http://imguraffe.herokuapp.com");
 }, 300000);
 
-var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
-cbot.setNick("imguraffe");
-cbot.create(function(err, session) {
-    chat = function(line, callback) {
-        cbot.ask(line, function(err, response) {
-            callback(response);
-        });
-    };
-});
-
 bot.on("message", message => {
     var neutral = message.guild.roles.find("name", "Neutral");
     var liked = message.guild.roles.find("name", "Liked");
@@ -180,6 +170,16 @@ function checkPoints() {
 
 setInterval(checkPoints, 180000);
 
+var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
+cbot.setNick("imguraffe");
+cbot.create(function(err, session) {
+	chat = function(line, callback) {
+		cbot.ask(line, function(err, response) {
+			callback(response);
+		});
+	};
+});
+
 bot.on("ready", () => {
     console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
     numberOne.set('s1', '<https://www.youtube.com/watch?v=StMJ-Kky9DE>');
@@ -209,16 +209,15 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
     if (msg.content.startsWith(".ping")) {
-        msg.channel.sendMessage("Bada ping bada pong.");
+		var ping = ["wot do u want m8", "This better be good.", "Ugh, it's you again.", "u wot.", "I was just about to leave, what do you need?", "Yeah, I'm still here. Relax.", "Could I get ONE second of peace?"];
+		var ping = ping[Math.floor(Math.random() * ping.length)];
+		
+        msg.channel.sendMessage(ping);
     }
     if (msg.content.startsWith(".numone")) {
         numone = numberOne.random();
         msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
-    /*if (msg.content.startsWith(".help")) {
-        msg.channel.sendMessage("`Commands:`\n:black_small_square:`.ping` - Ping the bot.\n:black_small_square:`.profile` - Check how many points you have.\n:black_small_square:`.ranks` - Display possible ranks.\n:black_small_square:`.numone` - Get a random mystery 'We Are Number One' meme video.\n:black_small_square:`.roll` - Roll a X sided die Y amount of times. Usage: `.roll <sides> <times to roll>`\n:black_small_square:`.leaders` - Display the leaderboard.
-		\n:black_small_square:`.insult` - Insult someone in the Discord server. Usage: `.insult <target>`\n:black_small_square:`.compliment` - Send some good words to someone in the Discord server. Usage: `.compliment <target>`\n:black_small_square:`@Giraffe` - Talk to the Giraffe. Usage: `@Giraffe <text> or .giraffe <text>`\n:black_small_square:`.funfact` - Get a fun fact from the bot.\n:black_small_square:`.catfact` - Get a random cat fact from the bot.\n:black_small_square:`.avatar` - Get user's Discord avatar.");
-    } */
 	if(msg.content.startsWith(".help")) {
 		var args = msg.content.split(' ');
 		if (args[1] == 1 || args[1] == undefined) {
@@ -517,20 +516,22 @@ bot.on("message", msg => {
         //var args = msg.content.split(" ");
         var insultee = msg.mentions.users.first();
 
-        var adj = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly", "infectious", "lumpish", "mangled", "artless", "warped", "wayward", "skinny", "puny", "fat", "chubby", "obtuse", "pencil-thin", "skinny-penised", "chinese", "dying", "nigger whipping", "misshapen", "pregnant", "decrepit", "bitter", "racist", "petty"];
+        var adj = ["a terrible", "a sucky", "an idiotic", "a goat-born", "a big-headed", "a snot-nosed", "a funny-looking", "an attention-seeking", "a lazy", "a lonely", "a monstrous", "a matronly", "a repulsive", "a lame", "a cock-sucking", "a dissapointing", "a let-down of", "a dodgy", "a dead from the neck up", "a shriveled from the waist down", "a bowlegged", "a neck-bearded", "a crazy-eyed", "a scottish", "a nice", "a friendly", "an infectious", "a lumpish", "a mangled", "an artless", "a warped", "a wayward", "a skinny", "a puny", "a fat", "a chubby", "an obtuse", "a pencil-thin", "a skinny-penised", "a chinese", "a dying", "a nigger-whipping", "a misshapen", "a pregnant", "a decrepit", "a bitter", "a racist", "a petty"];
+		var adj2 = ["terrible", "sucky", "idiotic", "goat-born", "big-headed", "snot-nosed", "funny-looking", "attention-seeking", "lazy", "lonely", "monstrous", "matronly", "repulsive", "lame", "cock-sucking", "dissapointing", "let-down of a(n)", "dodgy", "dead from the neck up", "shriveled from the waist down", "bowlegged", "neck-bearded", "crazy-eyed", "scottish", "nice", "friendly", "infectious", "lumpish", "mangled", "artless", "warped", "wayward", "skinny", "puny", "fat", "chubby", "obtuse", "pencil-thin", "skinny-penised", "chinese", "dying", "nigger whipping", "misshapen", "pregnant", "decrepit", "bitter", "racist", "petty"];
         var randadj = adj[Math.floor(Math.random() * adj.length)];
-        var randadj2 = adj[Math.floor(Math.random() * adj.length)];
-        var randadj3 = adj[Math.floor(Math.random() * adj.length)];
+        var randadj2 = adj2[Math.floor(Math.random() * adj2.length)];
+        var randadj3 = adj2[Math.floor(Math.random() * adj2.length)];
 
-        var noun = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "disappointment", "forgotten orphan", " carpet muncher", "cum chugger", "bellend", "spawn of satan", "nit-wit", "chink", "cum rag", "thunder cunt", "alabama hot pocket", "reject Ken doll", "social reject", "man servant", "guy", "black man", "white man", "asian man", "indian man", "creeper", "pedophile", "crank whore", "cuntbag", "ding-head", "doofus", "cockbag", "basket-case", "crotch fruit", "crap-fest"];
-        var randnoun = noun[Math.floor(Math.random() * noun.length)];
-        var randnoun2 = noun[Math.floor(Math.random() * noun.length)];
+        var noun = ["a failed abortion", "an untreated cancer cell", "a fattened cow", "a 12 year old child", "a cunt waffle", "a whore", "a bag of human waste", "a bag of pickled dicks", "a wanna-be", "a dick", "a retard", "a disappointment", "a forgotten orphan", "a carpet muncher", "a cum chugger", "a bellend", "a spawn of satan", "a nit-wit", "a chink", "a cum rag", "a thunder cunt", "a alabama hot pocket", "a reject Ken doll", "a social reject", "a man servant", "a guy", "a black man", "a white man", "a asian man", "a indian man", "a creeper", "a pedophile", "a crank whore", "a cuntbag", "a ding-head", "a doofus", "a cockbag", "a basket-case", "a crotch fruit", "a crap-fest"];
+        var noun2 = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "disappointment", "forgotten orphan", " carpet muncher", "cum chugger", "bellend", "spawn of satan", "nit-wit", "chink", "cum rag", "thunder cunt", "alabama hot pocket", "reject Ken doll", "social reject", "man servant", "guy", "black man", "white man", "asian man", "indian man", "creeper", "pedophile", "crank whore", "cuntbag", "ding-head", "doofus", "cockbag", "basket-case", "crotch fruit", "crap-fest"];
+		var randnoun = noun[Math.floor(Math.random() * noun.length)];
+        var randnoun2 = noun2[Math.floor(Math.random() * noun2.length)];
 
         if (randnoun == randnoun2) {
             randnoun2 = noun[Math.floor(Math.random() * noun.length)];
         }
 
-        var insulttemplates = [`${insultee}, you are a **${randadj}**, **${randadj2}** **${randnoun}.**`, `${insultee}, you are a **${randadj}** **${randnoun}.**`, `${insultee} is nothing more but a(n) **${randadj}** **${randnoun}.**`, `${insultee} is nothing but a(n) **${randnoun}**, balls deep fucking a **${randnoun2}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as a(n) **${randadj}** **${randnoun}.**`, `I would never talk about a(n) **${randadj}** **${randnoun}** such as ${insultee}.`, `Kill yourself ${insultee}, you **${randadj}** **${randnoun}**.`, `${insultee}, your personality reminds me of a(n) **${randadj}** **${randnoun}**, but worse.`]
+        var insulttemplates = [`${insultee}, you are **${randadj}**, **${randadj2}** **${randnoun2}.**`, `${insultee}, you are  **${randadj}** **${randnoun2}.**`, `${insultee} is nothing more but **${randadj}** **${randnoun2}.**`, `${insultee} is nothing but **${randnoun}**, balls deep fucking **${randnoun}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as **${randadj}** **${randnoun2}.**`, `I would never talk about **${randadj}** **${randnoun2}** such as ${insultee}.`, `${insultee}, your personality reminds me of **${randadj}** **${randnoun2}**, but worse.`]
         var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 
         if (randadj == "friendly" && randnoun == "guy") {
@@ -573,8 +574,9 @@ bot.on("message", msg => {
 		
 			msg.channel.sendMessage(randcomp);
     }
-    if (msg.content.startsWith('<@!257853452573605890>') || msg.content.startsWith('.giraffe') || msg.content.startsWith('.Giraffe')) {
-        var line = msg.content.slice(msg.content.indexOf('>') + 2);
+    if (msg.content.startsWith('.giraffe') || msg.content.startsWith('.Giraffe')) {
+        var line = msg.content.slice(msg.content.indexOf('.giraffe') + 9);
+		
         chat(line, function (response) {
             msg.reply(response);
         })
@@ -682,9 +684,13 @@ bot.on("message", msg => {
 		msg.channel.sendMessage(`:frame_photo: **${msg.mentions.users.first().username}'s Avatar:**\n${msg.mentions.users.first().avatarURL}`);
 		}
 	}
+	if(msg.content.startsWith(".erp")) {
+		getRandomLine('./server/erp.txt');
+		msg.channel.sendMessage(noco);
+		
+		msg.delete;
+	}
 	if(msg.content.startsWith(".noco")) {
-		//var noco = ["Hi (sry bad english)?", "Seeing as I do nothing with my day but read weird things on the internet, I'll tell you about a theory I've got about antigrav technology and how long the various governments of the world have had it.", "I haven't seen another person for about 3 years now. I spend most of my time either reading or trying to design software and automation to run my household or play with me. Everything seems to be going well. Hopefully I will never have to go outside again.", "So basically, what happened is I decided to tell my family and close friends that I'm into Anal Vore by having a 'coming-out' party. I don't think it went very well and that's why I'm here.", "Start from the present and work yourself backwards.", "Go to your shithomeway and giveback my way. Idon't know what hé supposés to had get à message so important to tell", "I'm so besotted by this girl I keep reminding myself of her existence and making exaggerated facial expressions and tensing my muscles all around my body to express how I feel towards her.", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-		//noco = noco[Math.floor(Math.random() * noco.length)];
 		getRandomLine('./server/Clippy.txt');
 		msg.channel.sendMessage(noco);
 		
@@ -725,15 +731,22 @@ bot.on("message", msg => {
 		var arg = msg.content.split(" / ");
 		var lang = arg[1];
 		
-		if(lang !== "spanish" && lang !== "french" && lang !== "Spanish" && lang !== "French") {
-			msg.channel.sendMessage(`Sorry, thats not a valid language. This command only supports spanish and french currently.`);
+		if(lang !== "spanish" && lang !== "Spanish" && lang !== "french" && lang !== "French") {
+			msg.channel.sendMessage(`Sorry, that's not a valid language. This command only translates to spanish, french, italian currently.`);
+			
 		} else if(lang == "Spanish" || lang == "spanish") {
-			var spanresp = ['Hola, mi espanol e ingles.', 'Tico taco Mctaco.', 'Donde esta en le eiffel tower? Wait no...', '*spanish music plays*', 'Just stick a sombrero on your head and try again. Works for me.'];
+			var spanresp = ['Somethin spanish, idk.', 'I can\'t tell, something about tacos.', 'Hey, free burrito night! Wait, no.'];
 			var spanresp = spanresp[Math.floor(Math.random() * spanresp.length)];
 			
 			msg.channel.sendMessage(`${spanresp}`);
+			
 		} else if(lang == "French" || lang == "french") {
-			var franresp = ['Wee wee, jar le france swah.', 'Jay swee ver a la eiffel towah.', 'Baguette, baguette, baguette. Wee wee.', '*insert fluent french here here*', 'hau hau hau, wee wee senorito.'];
+			var franresp = ['Wee wee, jar le france swah?', 'Blah, blah, baguette.', 'This is the one with the Eye-filled tower right?'];
+			var franresp = franresp[Math.floor(Math.random() * franresp.length)];
+			
+			msg.channel.sendMessage(`${franresp}`);
+		} else if(lang == "Italian" || lang == "italian") {
+			var franresp = ['Wee wee, jar le france swah?', 'Blah, blah, baguette.', 'This is the one with the Eye-filled tower right?'];
 			var franresp = franresp[Math.floor(Math.random() * franresp.length)];
 			
 			msg.channel.sendMessage(`${franresp}`);
@@ -747,7 +760,8 @@ function getRandomLine(filename) {
 	data+='';
     var lines = data.split('\n');
     noco = lines[Math.floor(Math.random()*lines.length)];
- })
+	return noco;
+	})
 };
 
 function randomInt(low, high) {
