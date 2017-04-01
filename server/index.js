@@ -33,6 +33,9 @@ var noco;
 var called;
 var img;
 
+var erp;
+var noco;
+
 setInterval(function() {
     http.get("http://imguraffe.herokuapp.com");
 }, 300000);
@@ -685,13 +688,13 @@ bot.on("message", msg => {
 		}
 	}
 	if(msg.content.startsWith(".erp")) {
-		getRandomLine('./server/erp.txt');
-		msg.channel.sendMessage(noco);
+		erp = getRandomErp('./server/erp.txt');
+		msg.channel.sendMessage(erp);
 		
-		msg.delete;
+		msg.delete();
 	}
 	if(msg.content.startsWith(".noco")) {
-		getRandomLine('./server/Clippy.txt');
+		noco = getRandomNoco('./server/Clippy.txt');
 		msg.channel.sendMessage(noco);
 		
 		msg.delete();
@@ -752,15 +755,30 @@ bot.on("message", msg => {
 			msg.channel.sendMessage(`${franresp}`);
 		}
 	}
+	if(msg.content.startsWith(".trigger")){
+		msg.delete();
+		
+		msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :Triggered: :rotating_light:`);
+	}
 });
 
-function getRandomLine(filename) {
+function getRandomNoco(filename) {
   fs.readFile(filename, 'utf-8', function(err, data){
     if(err) throw err;
 	data+='';
     var lines = data.split('\n');
     noco = lines[Math.floor(Math.random()*lines.length)];
 	return noco;
+	})
+};
+
+function getRandomErp(filename) {
+  fs.readFile(filename, 'utf-8', function(err, data){
+    if(err) throw err;
+	data+='';
+    var lines2 = data.split('\n');
+    erp = lines2[Math.floor(Math.random()*lines2.length)];
+	return erp;
 	})
 };
 
