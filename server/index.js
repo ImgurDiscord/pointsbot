@@ -758,7 +758,7 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".trigger")){
 		msg.delete();
 		
-		msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :Triggered: :rotating_light:`);
+		msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :rotating_light:`);
 	}
 });
 var response;
