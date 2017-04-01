@@ -688,13 +688,13 @@ bot.on("message", msg => {
 		}
 	}
 	if(msg.content.startsWith(".erp")) {
-		erp = getRandomErp('./server/erp.txt');
-		msg.channel.sendMessage(erp);
+		getRandomLine('./server/erp.txt');
+		msg.channel.sendMessage(response);
 		
 		msg.delete();
 	}
 	if(msg.content.startsWith(".noco")) {
-		noco = getRandomNoco('./server/Clippy.txt');
+		noco = getRandomLine('./server/Clippy.txt');
 		msg.channel.sendMessage(noco);
 		
 		msg.delete();
@@ -761,26 +761,14 @@ bot.on("message", msg => {
 		msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :Triggered: :rotating_light:`);
 	}
 });
-
-function getRandomNoco(filename) {
-  fs.readFile(filename, 'utf-8', function(err, data){
-    if(err) throw err;
-	data+='';
+var response;
+function getRandomLine(filename){
+  var data = fs.readFileSync(filename, 'utf8');
+    data += '';
     var lines = data.split('\n');
-    noco = lines[Math.floor(Math.random()*lines.length)];
-	return noco;
-	})
-};
-
-function getRandomErp(filename) {
-  fs.readFile(filename, 'utf-8', function(err, data){
-    if(err) throw err;
-	data+='';
-    var lines2 = data.split('\n');
-    erp = lines2[Math.floor(Math.random()*lines2.length)];
-	return erp;
-	})
-};
+    response = lines[Math.floor(Math.random()*lines.length)];
+    return response;
+}
 
 function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low);
