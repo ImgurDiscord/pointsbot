@@ -534,7 +534,7 @@ bot.on("message", msg => {
             randnoun2 = noun[Math.floor(Math.random() * noun.length)];
         }
 
-        var insulttemplates = [`${insultee}, you are **${randadj}**, **${randadj2}** **${randnoun2}.**`, `${insultee}, you are  **${randadj}** **${randnoun2}.**`, `${insultee} is nothing more but **${randadj}** **${randnoun2}.**`, `${insultee} is nothing but **${randnoun}**, balls deep fucking **${randnoun}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as **${randadj}** **${randnoun2}.**`, `I would never talk about **${randadj}** **${randnoun2}** such as ${insultee}.`, `${insultee}, your personality reminds me of **${randadj}** **${randnoun2}**, but worse.`]
+        var insulttemplates = [`${insultee}, you are **${randadj}**, **${randadj2}** **${randnoun2}.**`, `${insultee}, you are  **${randadj}** **${randnoun2}.**`, `${insultee} is nothing more but **${randadj}** **${randnoun2}.**`, `${insultee} is nothing but **${randnoun}**, balls deep fucking **${randnoun}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as **${randadj}** **${randnoun2}.**`, `I would never talk about **${randadj}** **${randnoun2}** such as ${insultee}.`, `${insultee}, your personality reminds me of **${randadj}** **${randnoun2}**, but worse.`, `Why would I waste my time insulting a **${randadj}** **${randnoun2}** like ${insultee}.`]
         var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 
         if (randadj == "friendly" && randnoun == "guy") {
@@ -756,11 +756,18 @@ bot.on("message", msg => {
 		}
 	}
 	if(msg.content.startsWith(".trigger")){
+		var target = msg.mentions.users.first();
+		
 		msg.delete();
 		
-		msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :rotating_light:`);
+		if(target == undefined) {
+			msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :rotating_light:`);
+		} else {
+			msg.channel.sendMessage(`:rotating_light: ${target} is **TRIGGERED**!!! :rotating_light:`);
+		}
 	}
 });
+
 var response;
 function getRandomLine(filename){
   var data = fs.readFileSync(filename, 'utf8');
