@@ -766,6 +766,19 @@ bot.on("message", msg => {
 			msg.channel.sendMessage(`:rotating_light: ${target} is **TRIGGERED**!!! :rotating_light:`);
 		}
 	}
+	
+	if(msg.content.startsWith(".report")) {
+		var target = msg.mentions.users.first();
+		
+		var msgs = [`${target}, STOP! You\'ve violated the law!`, `OOOOOOO, ${target} you\'re in big trouble now buddy!`, `${target}, hey! You\'re getting called out!`, `${target}, I\'m gonna find you and destroy everything you love if you do that again.`];
+		var msgs = msgs[Math.floor(Math.random() * msgs.length)];
+		
+		if(target === undefined) {
+			msg.channel.sendMessage(`${msg.author}, you have to specify a target. Try again!`);
+		} else {
+			msg.channel.sendMessage(msgs);
+		}
+	}
 });
 
 var response;
@@ -943,3 +956,7 @@ app.server.listen(process.env.PORT || 8080);
 console.log(`Started on port ${app.server.address().port}`);
 
 export default app;
+
+process.on("unhandledRejection", err => {
+  console.error("Uncaught Promise Error: \n" + err.stack);
+});
