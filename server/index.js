@@ -779,6 +779,25 @@ bot.on("message", msg => {
 			msg.channel.sendMessage(msgs);
 		}
 	}
+	
+	if(msg.content.startsWith(".ship")){
+		var user = msg.content.split(" ");
+		var target1 = user[1];
+		var target2 = user[2];
+		
+		var middle1 = Math.floor(target1.length / 2);
+		var middle2 = Math.floor(target2.length / 2);
+		
+		var firstpart = target1.substr(0, middle1);
+		var lastpart = target2.substr(middle2);
+		
+		var shipname = firstpart + lastpart;
+		
+		/*target1 = target1.username;
+		target2 = target2.username;*/
+		
+		msg.reply(`Here's your new ship name!\n:heart: ${shipname} :heart:`);
+	}
 });
 
 var response;
