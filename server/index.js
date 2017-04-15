@@ -785,6 +785,11 @@ bot.on("message", msg => {
 		var target1 = user[1];
 		var target2 = user[2];
 		
+		if(target1 == "@everyone" || target2 == "@everyone") {
+			msg.reply(`Don't mention everyone, dickweed.`);
+			return;
+		}
+		
 		var middle1 = Math.floor(target1.length / 2);
 		var middle2 = Math.floor(target2.length / 2);
 		
@@ -797,6 +802,36 @@ bot.on("message", msg => {
 		target2 = target2.username;*/
 		
 		msg.reply(`Here's your new ship name!\n:heart: ${shipname} :heart:`);
+	}
+	
+	if(msg.content.startsWith(".lottolove")){
+		var user = msg.content.split(" ");
+		var target1 = user[1];
+		var target2 = user[2];
+		 
+		var percent = Math.floor((Math.random() * 100) + 1);
+		
+		if(percent > 0 && percent < 10) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**Yikes. Don't even think about it.**`);
+		} else if(percent > 11 && percent < 20) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**I wouldn't recommend anything intimate. Just go bowling or something.**`);
+		} else if(percent > 21 && percent < 30) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**Like two peas in a pod. The only difference is that those two peas are in an unstable relationship.**`);
+		} else if(percent > 31 && percent < 40) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**You could try I guess, but it might not exactly end in sex.**`);
+		} else if(percent > 41 && percent < 50) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**Eh, half and half. Who knows?**`);
+		} else if(percent > 51 && percent < 60) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**You could possibly make something work out between the two of you. I'm no judge.**`);
+		} else if(percent > 61 & percent < 70) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**You can definitely make this work, go ahead and try. The odds are with you. jk ay lmao.**`);
+		} else if(percent > 71 && percent < 80) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**I'm sure you are going to agree on some things and beat each other up on others. But that's love, right?**`);
+		} else if(percent > 81 && percent < 90) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**Oof, so close to true love but so far away. Either way, you could still have a good relationship.**`);
+		} else if(percent > 91 && percent < 100) {
+			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**DING DING. That's the sound of the true love alarm going off.**`);
+		}
 	}
 });
 
