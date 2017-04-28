@@ -41,12 +41,12 @@ setInterval(function() {
 }, 300000);
 
 bot.on("message", message => {
-    var neutral = message.guild.roles.find("name", "Neutral");
+    var newr = message.guild.roles.find("name", "New");
     var liked = message.guild.roles.find("name", "Liked");
-    var trusted = message.guild.roles.find("name", "Trusted");
-    var idolized = message.guild.roles.find("name", "Idolized");
-    var renowned = message.guild.roles.find("name", "Renowned");
-    var glorious = message.guild.roles.find("name", "Glorious");
+    var talkative = message.guild.roles.find("name", "Talkative");
+    var conver = message.guild.roles.find("name", "Conversationist");
+    var dedicated = message.guild.roles.find("name", "Dedicated");
+    var obsessed = message.guild.roles.find("name", "Obsessed");
 
     if (message.author.bot) return;
 
@@ -82,14 +82,14 @@ bot.on("message", message => {
         var curPoints = result.rows[0].points;
         var curRank = result.rows[0].rank;
 
-        if (curPoints >= 0 && curPoints <= 249 && curRank != "Neutral") {
+        if (curPoints >= 0 && curPoints <= 249 && curRank != "New") {
             let member = message.guild.member(userId);
-            updateRank("Neutral", userId, function(err, result) {
+            updateRank("New", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
-            message.member.addRole(neutral);
+            message.member.addRole(newr);
         }
         if (curPoints >= 250 && curPoints <= 499 && curRank != "Liked") {
             let member = message.guild.member(userId);
@@ -100,45 +100,45 @@ bot.on("message", message => {
             });
             message.member.addRole(liked);
         }
-        if (curPoints >= 500 && curPoints <= 999 && curRank != "Trusted") {
+        if (curPoints >= 500 && curPoints <= 999 && curRank != "Talkative") {
             let member = message.guild.member(userId);
             //message.member.removeRole(liked);
-            updateRank("Trusted", userId, function(err, result) {
+            updateRank("Talkative", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
-            message.member.addRole(trusted);
+            message.member.addRole(talkative);
         }
-        if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Idolized") {
+        if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Conversationist") {
             let member = message.guild.member(userId);
             //message.member.removeRole(trusted);
-            updateRank("Idolized", userId, function(err, result) {
+            updateRank("Conversationist", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
-            message.member.addRole(idolized);
+            message.member.addRole(conver);
         }
-        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Renowned") {
+        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Dedicated") {
             let member = message.guild.member(userId);
             //message.member.removeRole(idolized);
-            updateRank("Renowned", userId, function(err, result) {
+            updateRank("Dedicated", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
-            message.member.addRole(renowned);
+            message.member.addRole(dedicated);
         }
-        if (curPoints >= 4000 && curRank != "Glorious") {
+        if (curPoints >= 4000 && curRank != "Obsessed") {
             let member = message.guild.member(userId);
             //message.member.removeRole(renowned);
-            updateRank("Glorious", userId, function(err, result) {
+            updateRank("Obsessed", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
-            message.member.addRole(glorious);
+            message.member.addRole(obsessed);
         }
     });
 
@@ -324,7 +324,7 @@ bot.on("message", msg => {
         msg.channel.sendMessage("chong");
     }
     if (msg.content.startsWith(".ranks")) {
-        msg.channel.sendMessage("```Ranks:\n-Neutral: 0-249 points\n-Liked: 250-499 points\n-Trusted: 500-999 points\n-Idolized: 1000-1999 points\n-Renowned: 2000-3999 points\n-Glorious: 4000+ points```");
+        msg.channel.sendMessage("```Ranks:\n-New: 0-249 points\n-Liked: 250-499 points\n-Talkative: 500-999 points\n-Conversationist: 1000-1999 points\n-Dedicated: 2000-3999 points\n-Obsessed: 4000+ points```");
     }
     if (msg.content.startsWith(".roll")) {
         var mess = msg.content.split(' ');
