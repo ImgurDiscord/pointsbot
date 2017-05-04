@@ -36,6 +36,19 @@ var img;
 var erp;
 var noco;
 
+/*var first = "redsox ayo";
+var second;
+var third;
+
+getLeaders(function(err, result) {
+	if (err) {
+		console.log(err);
+	}
+	first = result.rows[0].username;
+	second = result.rows[1].username;
+	third = result.rows[2].username;
+});*/
+
 setInterval(function() {
     http.get("http://imguraffe.herokuapp.com");
 }, 300000);
@@ -81,16 +94,6 @@ bot.on("message", message => {
         }
         var curPoints = result.rows[0].points;
         var curRank = result.rows[0].rank;
-        
-        if(curRank != "New") {
-            let member = message.guild.member(userId);
-            updateRank("New", userId, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            message.member.addRole(newr);
-        }
 
         if (curPoints >= 0 && curPoints <= 249 && curRank != "New") {
             let member = message.guild.member(userId);
@@ -365,6 +368,9 @@ bot.on("message", msg => {
     if (msg.content.startsWith(".leaders")) {
 
         getLeaders(function(err, result) {
+			first = result.rows[0].username;
+			second = result.rows[1].username;
+			third = result.rows[2].username;
             if (err) {
                 console.log(err);
             }

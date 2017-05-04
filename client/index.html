@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Main Bot Page</title>
+  <meta name="description" content="The Main Bot Page">
+  <meta name="author" content="TabloidA">
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  
+  <script src="https://use.fontawesome.com/dc11c719c4.js"></script>
+  <script type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<script>
+		$.ajax({ url: "http://localhost:8001/index.js", success: function(file_content) {
+				console.log(file_content);
+			}
+		});
+	</script>
+	<div class="title">Bot Name</div>
+	<div class="main">
+		<div class="left">
+			<div class="leaderboard first">
+				<img src="img/gold.png" alt="gold-medal" />
+				<h3>Username</h3>
+				<p>POINTS: N/A</p>
+			</div>
+			<div class="leaderboard second">
+				<img src="img/silver.png" alt="gold-medal" />
+				<h3>Username</h3>
+				<p>POINTS: N/A</p>
+			</div>
+			<div class="leaderboard third">
+				<img src="img/bronze.png" alt="gold-medal" />
+				<h3>Username</h3>
+				<p>POINTS: N/A</p>
+			</div>
+		</div>
+		<div class="right">
+			haha yes
+		</div>
+	</div>
+</body>
+</html>
