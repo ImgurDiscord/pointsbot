@@ -348,9 +348,9 @@ bot.on("message", msg => {
 
             for (i = 0; i < 10; i++) {
                 var ii = i + 1;
-                leaderMsg += "["+ii+"]" + " \t>#" + result.rows[i].username + "\n\t\t\thas [" + result.rows[i].points + "] points. Rank:" + result.rows[i].rank + "\n";
+                leaderMsg += "["+ii+"]" + " \t>#" + result.rows[i].username + "\n\t\t\thas " + result.rows[i].points + " points. Rank:" + result.rows[i].rank + "\n";
             }
-            msg.channel.send("```md\n-Leaderboard-\n\n" + leaderMsg + "```");
+            msg.channel.send("```cs\n-Leaderboard-\n\n" + leaderMsg + "```");
         });
 
     } /*
