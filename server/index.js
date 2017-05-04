@@ -198,28 +198,6 @@ cbot.create(function(err, session) {
 
 bot.on("ready", () => {
     console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
-    numberOne.set('s1', '<https://www.youtube.com/watch?v=StMJ-Kky9DE>');
-    numberOne.set('s2', '<https://www.youtube.com/watch?v=CVJGFmr6XrM>');
-    numberOne.set('s3', '<https://www.youtube.com/watch?v=ko9UgxRxN20>');
-    numberOne.set('s4', '<https://www.youtube.com/watch?v=RBCYXe5ufas>');
-    numberOne.set('s5', '<https://www.youtube.com/watch?v=6tR5aDGcXPg>');
-    numberOne.set('s6', '<https://www.youtube.com/watch?v=XNY51SMAj-k>');
-    numberOne.set('s7', '<https://www.youtube.com/watch?v=f9_lgbmuwaE>');
-    numberOne.set('s8', '<https://www.youtube.com/watch?v=J48dqyz_C6s&t=77s>');
-    numberOne.set('s9', '<https://www.youtube.com/watch?v=yeh708tybpM>');
-    numberOne.set('s10', '<https://www.youtube.com/watch?v=VhqeNUFCyI0>');
-    numberOne.set('s11', '<https://www.youtube.com/watch?v=SNg5aveZWgE>');
-    numberOne.set('s12', '<https://www.youtube.com/watch?v=ira5aS3SjMw>');
-    numberOne.set('s13', '<https://www.youtube.com/watch?v=8KKJVKTJdDg>');
-    numberOne.set('s14', '<https://www.youtube.com/watch?v=WH4egcGHdWY>');
-    numberOne.set('s15', '<https://www.youtube.com/watch?v=FPi7ddhzGH0>');
-    numberOne.set('s16', '<https://www.youtube.com/watch?v=_OdKM7xa168>');
-    numberOne.set('s17', '<https://www.youtube.com/watch?v=uk8LrHFzB0U>');
-    numberOne.set('s18', '<https://www.youtube.com/watch?v=kAg3ibAlnGM>');
-    numberOne.set('s19', '<https://www.youtube.com/watch?v=BXn4bnhOae0>');
-    numberOne.set('s20', '<https://www.youtube.com/watch?v=OR7snPDeyLw>');
-    numberOne.set('s21', '<https://www.youtube.com/watch?v=006JQAm6fSM>');
-    numberOne.set('s22', '<https://www.youtube.com/watch?v=hKMq4_EFrsw>');
 });
 
 
@@ -229,10 +207,6 @@ bot.on("message", msg => {
 		var ping = ping[Math.floor(Math.random() * ping.length)];
 		
         msg.channel.sendMessage(ping);
-    }
-    if (msg.content.startsWith(".numone")) {
-        numone = numberOne.random();
-        msg.channel.sendMessage("Here's your mystery 'We Are Number One meme:' \n" + numone);
     }
 	if(msg.content.startsWith(".help")) {
 		var args = msg.content.split(' ');
@@ -255,10 +229,6 @@ bot.on("message", msg => {
 					{
 					name: '.ranks',
 					value: '`Display possible ranks`'
-					},
-					{
-					name: '.numone',
-					value: '`Get a random mystery "We Are Number One" meme`'
 					},
 					{
 					name: '.roll',
@@ -378,9 +348,9 @@ bot.on("message", msg => {
 
             for (i = 0; i < 10; i++) {
                 var ii = i + 1;
-                leaderMsg += ":small_blue_diamond:" + ii + ") **[" + result.rows[i].username + "]** with **" + result.rows[i].points + "** points. __Rank:__ **" + result.rows[i].rank + "**\n\n";
+                leaderMsg += "["+ii+"]" + " \t>#" + result.rows[i].username + "\n\t\t\thas " + result.rows[i].points + " points. Rank:" + result.rows[i].rank + "\n";
             }
-            msg.channel.sendMessage("**```Top 10 Leaderboard:```**\n" + leaderMsg);
+            msg.channel.sendMessage("```cs\n-Leaderboard-\n\n" + leaderMsg + "```");
         });
 
     } /*
