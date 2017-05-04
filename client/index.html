@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="main.css" />
   
   <script src="https://use.fontawesome.com/dc11c719c4.js"></script>
-  <script type="text/javascript" src="https://github.com/hydrabolt/discord.js/blob/webpack/discord.11.0.0.min.js"></script>
+  <script type="text/javascript" src="discord.11.0.0.min.js"></script>
   <script type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 </head>
@@ -19,10 +19,14 @@
 	<script type="text/javascript">
 		const bot = new Discord.Client();
 		
-		client.on('message', msg => {
-			if (msg.content.startsWith(".ching")) {
-				console.log("choong");
-			}
+		bot.on("ready", () => {
+			$('.title').text('Bot is ONLINE!');
+		});
+		
+		bot.on('message', msg => {
+			const guildTag = msg.channel.type === 'text' ? `[${msg.guild.name}]` : '[DM]';
+			const channelTag = msg.channel.type === 'text' ? `[#${msg.channel.name}]` : '';
+			console.log(`${guildTag}${channelTag} ${msg.author.username}#${msg.author.discriminator}: ${msg.content}`);
 		});
 		
 		bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
