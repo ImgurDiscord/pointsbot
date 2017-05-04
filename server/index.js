@@ -206,12 +206,12 @@ bot.on("message", msg => {
 		var ping = ["wot do u want m8", "This better be good.", "Ugh, it's you again.", "u wot.", "I was just about to leave, what do you need?", "Yeah, I'm still here. Relax.", "Could I get ONE second of peace?"];
 		var ping = ping[Math.floor(Math.random() * ping.length)];
 		
-        msg.channel.sendMessage(ping);
+        msg.channel.send(ping);
     }
 	if(msg.content.startsWith(".help")) {
 		var args = msg.content.split(' ');
 		if (args[1] == 1 || args[1] == undefined) {
-			msg.channel.sendMessage("", {embed: {
+			msg.channel.send("", {embed: {
 				color: 1352973,
 				author: {
 					name: 'Help Page 1'
@@ -244,7 +244,7 @@ bot.on("message", msg => {
 				}
 			}});
 		} else if (args[1] == 2) {
-			msg.channel.sendMessage("", {embed: {
+			msg.channel.send("", {embed: {
 				color: 1352973,
 				author: {
 					name: "Rules Page 2"
@@ -281,7 +281,7 @@ bot.on("message", msg => {
 				}
 			}});
 		} else if (args[1] == 3) {
-			msg.channel.sendMessage("", {embed: {
+			msg.channel.send("", {embed: {
 				color: 1352973,
 				author: {
 					name: "Rules Page 2"
@@ -304,10 +304,10 @@ bot.on("message", msg => {
 		}
 	}
     if (msg.content.startsWith(".ching")) {
-        msg.channel.sendMessage("chong");
+        msg.channel.send("chong");
     }
     if (msg.content.startsWith(".ranks")) {
-        msg.channel.sendMessage("```Ranks:\n-New: 0-249 points\n-Liked: 250-499 points\n-Loyal: 500-999 points\n-Adored: 1000-1999 points\n-Famous: 2000-3999 points\n-Hot SIngle Dad: 4000+ points```");
+        msg.channel.send("```Ranks:\n-New: 0-249 points\n-Liked: 250-499 points\n-Loyal: 500-999 points\n-Adored: 1000-1999 points\n-Famous: 2000-3999 points\n-Hot SIngle Dad: 4000+ points```");
     }
     if (msg.content.startsWith(".roll")) {
         var mess = msg.content.split(' ');
@@ -330,9 +330,9 @@ bot.on("message", msg => {
             num += Math.floor((Math.random() * sided) + 1);
         }
         if (times > 1) {
-            msg.channel.sendMessage("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die " + times + " times: " + num);
+            msg.channel.send("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die " + times + " times: " + num);
         } else {
-            msg.channel.sendMessage("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die: " + num);
+            msg.channel.send("[Dice] " + msg.author.username + " rolls a " + sided + "-sided die: " + num);
         }
     }
     if (msg.content.startsWith(".leaders")) {
@@ -348,9 +348,9 @@ bot.on("message", msg => {
 
             for (i = 0; i < 10; i++) {
                 var ii = i + 1;
-                leaderMsg += "["+ii+"]" + " \t>#" + result.rows[i].username + "\n\t\t\thas " + result.rows[i].points + " points. Rank:" + result.rows[i].rank + "\n";
+                leaderMsg += "["+ii+"]" + " \t>#" + result.rows[i].username + "\n\t\t\thas [" + result.rows[i].points + "] points. Rank:" + result.rows[i].rank + "\n";
             }
-            msg.channel.sendMessage("```cs\n-Leaderboard-\n\n" + leaderMsg + "```");
+            msg.channel.send("```md\n-Leaderboard-\n\n" + leaderMsg + "```");
         });
 
     } /*
@@ -483,7 +483,7 @@ bot.on("message", msg => {
 								});
 							});
 						} else {
-							msg.channel.sendMessage(`There's nothing in the jackpot. Play a bit more and build it up big.`);
+							msg.channel.send(`There's nothing in the jackpot. Play a bit more and build it up big.`);
 						}
 					} else {
 						winmessage = "Better luck next time...";
@@ -493,9 +493,9 @@ bot.on("message", msg => {
 							}
 						});
 					}
-					msg.channel.sendMessage("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n`[JACKPOT: " + jackpot + " points.]`\n" + winmessage);
+					msg.channel.send("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n`[JACKPOT: " + jackpot + " points.]`\n" + winmessage);
 				} else {
-					msg.channel.sendMessage(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
+					msg.channel.send(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
 				}
 			});
 			
@@ -529,10 +529,10 @@ bot.on("message", msg => {
                     console.log(err);
                 }
                 randinsult += "\nAw what a nice thing to say! Have some free points. On me :)";
-				msg.channel.sendMessage(randinsult);
+				msg.channel.send(randinsult);
             });
         } else {
-			msg.channel.sendMessage(randinsult);
+			msg.channel.send(randinsult);
 		}
 
     }
@@ -540,7 +540,7 @@ bot.on("message", msg => {
 		var rat = ["https://cdn.discordapp.com/attachments/269925256943239169/271313901004521487/handsomeratboy.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313923280601105/meme_police.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313950602166272/old_soldier.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313967937224705/ratbye.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313981807788033/ratno.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314006323625984/ratno1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314057041018880/shit_holiday_rat_1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314088188051466/rebellionhero.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314123092918272/allhailthetruegod.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679652815175690/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679733652127744/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679776698138634/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008047105146880/ratgottem.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008924620652545/Rats_Spaghetti.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008950478667776/ratno4.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008987388411904/ratno3.png"]
 		rat = rat[Math.floor(Math.random() * rat.length)];
 		
-		msg.channel.sendMessage(rat);
+		msg.channel.send(rat);
 	}
 	if (msg.content.startsWith(".compliment")) {
         var target = msg.mentions.users.first();
@@ -561,7 +561,7 @@ bot.on("message", msg => {
         var comptemplates = [`${target}, you are a ${randadj} ${randnoun}. We appreciate you :)`, `${target}, you are the best there ever was, you ${randadj} ${randnoun}.`];
         var randcomp = comptemplates[Math.floor(Math.random() * comptemplates.length)];
 		
-			msg.channel.sendMessage(randcomp);
+			msg.channel.send(randcomp);
     }
     if (msg.content.startsWith('.giraffe') || msg.content.startsWith('.Giraffe')) {
         var line = msg.content.slice(msg.content.indexOf('.giraffe') + 9);
@@ -585,10 +585,10 @@ bot.on("message", msg => {
 		var bulletnum = randomInt(0, 7);
 		
 		if (num == bulletnum) {
-			msg.channel.sendMessage(`:boom::gun: You've been shot!`);
+			msg.channel.send(`:boom::gun: You've been shot!`);
 			bullets = 6;
 		} else {
-			msg.channel.sendMessage(`Phew. You made it through alive.`);
+			msg.channel.send(`Phew. You made it through alive.`);
 			bullets = bullets - 1;
 		}
 		if (bullets == 0) {
@@ -605,7 +605,7 @@ bot.on("message", msg => {
 				if (err) {
 					console.log(err);
 				}
-				msg.channel.sendMessage("", {embed: {
+				msg.channel.send("", {embed: {
 					color: 1352973,
 					author: {
 						name: msg.member.displayName
@@ -639,7 +639,7 @@ bot.on("message", msg => {
 				if (err) {
 					console.log(err);
 				}
-				msg.channel.sendMessage("", {embed: {
+				msg.channel.send("", {embed: {
 					color: 1352973,
 					author: {
 						name: msg.mentions.users.first().username
@@ -668,20 +668,20 @@ bot.on("message", msg => {
 	}
 	if (msg.content.startsWith(".avatar")) {
 		if(msg.mentions.users.first() == undefined) {
-			msg.channel.sendMessage(`:frame_photo: **${userName}'s Avatar:**\n${msg.author.avatarURL}`);
+			msg.channel.send(`:frame_photo: **${userName}'s Avatar:**\n${msg.author.avatarURL}`);
 		} else {
-		msg.channel.sendMessage(`:frame_photo: **${msg.mentions.users.first().username}'s Avatar:**\n${msg.mentions.users.first().avatarURL}`);
+		msg.channel.send(`:frame_photo: **${msg.mentions.users.first().username}'s Avatar:**\n${msg.mentions.users.first().avatarURL}`);
 		}
 	}
 	if(msg.content.startsWith(".erp")) {
 		getRandomLine('./server/erp.txt');
-		msg.channel.sendMessage(response);
+		msg.channel.send(response);
 		
 		msg.delete();
 	}
 	if(msg.content.startsWith(".noco")) {
 		noco = getRandomLine('./server/Clippy.txt');
-		msg.channel.sendMessage(noco);
+		msg.channel.send(noco);
 		
 		msg.delete();
 	}
@@ -721,24 +721,24 @@ bot.on("message", msg => {
 		var lang = arg[1];
 		
 		if(lang !== "spanish" && lang !== "Spanish" && lang !== "french" && lang !== "French") {
-			msg.channel.sendMessage(`Sorry, that's not a valid language. This command only translates to spanish, french, italian currently.`);
+			msg.channel.send(`Sorry, that's not a valid language. This command only translates to spanish, french, italian currently.`);
 			
 		} else if(lang == "Spanish" || lang == "spanish") {
 			var spanresp = ['Somethin spanish, idk.', 'I can\'t tell, something about tacos.', 'Hey, free burrito night! Wait, no.'];
 			var spanresp = spanresp[Math.floor(Math.random() * spanresp.length)];
 			
-			msg.channel.sendMessage(`${spanresp}`);
+			msg.channel.send(`${spanresp}`);
 			
 		} else if(lang == "French" || lang == "french") {
 			var franresp = ['Wee wee, jar le france swah?', 'Blah, blah, baguette.', 'This is the one with the Eye-filled tower right?'];
 			var franresp = franresp[Math.floor(Math.random() * franresp.length)];
 			
-			msg.channel.sendMessage(`${franresp}`);
+			msg.channel.send(`${franresp}`);
 		} else if(lang == "Italian" || lang == "italian") {
 			var franresp = ['Wee wee, jar le france swah?', 'Blah, blah, baguette.', 'This is the one with the Eye-filled tower right?'];
 			var franresp = franresp[Math.floor(Math.random() * franresp.length)];
 			
-			msg.channel.sendMessage(`${franresp}`);
+			msg.channel.send(`${franresp}`);
 		}
 	}
 	if(msg.content.startsWith(".trigger")){
@@ -747,9 +747,9 @@ bot.on("message", msg => {
 		msg.delete();
 		
 		if(target == undefined) {
-			msg.channel.sendMessage(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :rotating_light:`);
+			msg.channel.send(`:rotating_light: ${msg.author} is **TRIGGERED**!!! :rotating_light:`);
 		} else {
-			msg.channel.sendMessage(`:rotating_light: ${target} is **TRIGGERED**!!! :rotating_light:`);
+			msg.channel.send(`:rotating_light: ${target} is **TRIGGERED**!!! :rotating_light:`);
 		}
 	}
 	
@@ -760,9 +760,9 @@ bot.on("message", msg => {
 		var msgs = msgs[Math.floor(Math.random() * msgs.length)];
 		
 		if(target === undefined) {
-			msg.channel.sendMessage(`${msg.author}, you have to specify a target. Try again!`);
+			msg.channel.send(`${msg.author}, you have to specify a target. Try again!`);
 		} else {
-			msg.channel.sendMessage(msgs);
+			msg.channel.send(msgs);
 		}
 	}
 	

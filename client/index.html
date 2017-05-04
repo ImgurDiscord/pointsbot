@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!-<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -10,16 +10,22 @@
   <link rel="stylesheet" type="text/css" href="main.css" />
   
   <script src="https://use.fontawesome.com/dc11c719c4.js"></script>
+  <script type="text/javascript" src="https://github.com/hydrabolt/discord.js/blob/webpack/discord.11.0.0.min.js"></script>
   <script type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-	<script>
-		$.ajax({ url: "http://localhost:8001/index.js", success: function(file_content) {
-				console.log(file_content);
+	<script type="text/javascript">
+		const bot = new Discord.Client();
+		
+		client.on('message', msg => {
+			if (msg.content.startsWith(".ching")) {
+				console.log("choong");
 			}
 		});
+		
+		bot.login("MjU3ODUzNDUyNTczNjA1ODkw.CzHkmg.ABl6qzKngiG2LQknVw3vfcoj6SQ");
 	</script>
 	<div class="title">Bot Name</div>
 	<div class="main">
@@ -45,4 +51,4 @@
 		</div>
 	</div>
 </body>
-</html>-->
+</html>

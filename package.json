@@ -24,7 +24,7 @@
     "body-parser": "^1.0.1",
     "cat-facts": "^1.0.2",
     "cleverbot.io": "^1.0.4",
-    "discord.js": "^11.0.0",
+    "discord.js": "^11.1.0",
     "express": "^4.0.0",
     "fs": "0.0.1-security",
     "morgan": "^1.0.0",
