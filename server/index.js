@@ -36,11 +36,11 @@ var img;
 var erp;
 var noco;
 
-/*var first = "redsox ayo";
+var first = "redsox ayo";
 var second;
-var third;
+var third; 
 
-getLeaders(function(err, result) {
+/*getLeaders(function(err, result) {
 	if (err) {
 		console.log(err);
 	}
