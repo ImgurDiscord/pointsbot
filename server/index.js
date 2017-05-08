@@ -868,8 +868,6 @@ bot.on("message", msg => {
 								console.log(err);
 							}
 							var rolex = msg.member.roles.find("name", dbcolor);
-							console.log(rolex);
-							rolex.setName(color);
 							rolex.setColor(color);
 							msg.channel.send(`Changed your color to ${color}, enjoy!`);
 							
@@ -878,6 +876,7 @@ bot.on("message", msg => {
 								if (err) {
 									console.log(err);
 								}
+								rolex.setName(color);
 							});
 						});
 					
