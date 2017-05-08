@@ -821,7 +821,7 @@ bot.on("message", msg => {
 			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**DING DING. That's the sound of the true love alarm going off.**`);
 		}
 	}
-	if(msg.content.startsWith(".colorme")) {
+	if(msg.content.startsWith(".colorme") || msg.content.startsWith(".colourme")) {
 		getColor(userId, function(err, result) {
 			curcolor = result.rows[0].color;
 			console.log("CurColor on command: " + curcolor);
