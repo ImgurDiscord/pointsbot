@@ -831,6 +831,7 @@ bot.on("message", msg => {
 			
 			var args = msg.content.split(" ");
 			var color = args[1];
+			var colorpure = color;
 			//var line = args[0] + " " + args[1] + "  ";
 			//var colorname = msg.content.slice(msg.content.indexOf('.giraffe') + line.length);
 			/*if (args[2] == undefined) {
@@ -868,7 +869,7 @@ bot.on("message", msg => {
 							}
 							var rolex = msg.member.roles.find("name", dbcolor);
 							console.log(rolex);
-							rolex.setColor(color);
+							rolex.setColor(Number(colorpure));
 							rolex.setName(color);
 							msg.channel.send(`Changed your color to ${color}, enjoy!`);
 							
