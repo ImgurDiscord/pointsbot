@@ -869,6 +869,7 @@ bot.on("message", msg => {
 							}
 							var rolex = msg.member.roles.find("name", dbcolor);
 							rolex.setColor(color);
+							rolex.setColor(color);
 							msg.channel.send(`Changed your color to ${color}, enjoy!`);
 							
 							updateColor(color, userId, function(err, result) {
