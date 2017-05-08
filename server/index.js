@@ -824,17 +824,18 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".colorme")) {
 		getColor(userId, function(err, result) {
 			curcolor = result.rows[0].color;
+			console.log(curcolor);
 			if (err) {
 				console.log(err);
 			}
 			
 			var args = msg.content.split(" ");
 			var color = args[1];
-			var line = args[0] + " " + args[1] + "  ";
-			var colorname = msg.content.slice(msg.content.indexOf('.giraffe') + line.length);
-			if (args[2] == undefined) {
+			//var line = args[0] + " " + args[1] + "  ";
+			//var colorname = msg.content.slice(msg.content.indexOf('.giraffe') + line.length);
+			/*if (args[2] == undefined) {
 				colorname = curcolor;
-			}
+			}*/
 			
 			if (curcolor == undefined) {
 				curcolor = " ";
@@ -848,24 +849,28 @@ bot.on("message", msg => {
 				if (color == undefined) {
 					msg.channel.send("Make sure you define a valid hex code!");
 					return;
-				} else {
-					if (color.charAt(0) !="#") {
-						msg.channel.send("Make sure you define a valid hex code!");
-					}
 				}
 				
 				if (msg.guild.roles.find("name", curcolor) != null) {
 					var rolex = msg.member.roles.find("name", curcolor);
 					rolex.setColor(color);
+					rolex.setName("#" + color);
 					msg.channel.send(`Changed your color to ${color}, enjoy!`);
 					
 				} else if (msg.member.roles.find("name", curcolor) == null) {
-					msg.guild.createRole({
-						name: colorname,
-						color: color
-					});
+					if (color.charAt(0) == "#") {
+						msg.guild.createRole({
+							name: color,
+							color: color
+						});
+					} else if (color.charAt(0) != "#") {
+						msg.guild.createRole({
+							name: "#" + color,
+							color: color
+						});
+					}
 					function giveColor() {
-						var newrole = msg.guild.roles.find("name", colorname).id;
+						var newrole = msg.guild.roles.find("name", curcolor).id;
 						msg.guild.setRolePosition(newrole, "13");
 						msg.member.addRole(newrole);
 						updateColor(colorname, userId, function(err, result) {
