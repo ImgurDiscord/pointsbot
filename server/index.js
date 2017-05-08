@@ -867,10 +867,13 @@ bot.on("message", msg => {
 							if (err) {
 								console.log(err);
 							}
-							var rolex = msg.member.roles.find("name", dbcolor);
-							msg.member.roles.find("name", dbcolor)
-								.setColor(color)
-								.setName(color);
+							var rolex = msg.member.roles.find("name", dbcolor).id;
+							
+							msg.guild.roles.get(rolex)
+							.setColor(color);
+							msg.guild.roles.get(rolex)
+							.setName(color);
+							
 							msg.channel.send(`Changed your color to ${color}, enjoy!`);
 							
 							updateColor(color, userId, function(err, result) {
