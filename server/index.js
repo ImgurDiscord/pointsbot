@@ -870,13 +870,14 @@ bot.on("message", msg => {
 							var rolex = msg.member.roles.find("name", dbcolor).id;
 							
 							msg.guild.roles.get(rolex)
-							.setColor(color)
-							.setName(color);
+							.setColor(color);
 							
 							msg.channel.send(`Changed your color to ${color}, enjoy!`);
 							
 							updateColor(color, userId, function(err, result) {
 								console.log("Successfully added role name to DB!");
+								msg.guild.roles.get(rolex)
+								.setName(color);
 								if (err) {
 									console.log(err);
 								}
