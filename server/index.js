@@ -875,8 +875,8 @@ bot.on("message", msg => {
 								if (err) {
 									console.log(err);
 								}
-								rolex.setName(color);
-								rolex.setColor(color);
+								rolex.setName(color),
+										.setColor(color);
 								});
 						});
 					
