@@ -824,7 +824,7 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".colorme")) {
 		getColor(userId, function(err, result) {
 			curcolor = result.rows[0].color;
-			console.log(curcolor);
+			console.log("CurColor on command: " + curcolor);
 			if (err) {
 				console.log(err);
 			}
@@ -851,35 +851,58 @@ bot.on("message", msg => {
 					return;
 				}
 				
+				if (color.charAt(0) == "#") {
+					color = color;
+				} else if (color.charAt(0) != "#") {
+					color = "#" + color;
+				}
+				console.log("Color to change to: " + color);
+				
 				if (msg.guild.roles.find("name", curcolor) != null) {
-					var rolex = msg.member.roles.find("name", curcolor);
-					rolex.setColor(color);
-					rolex.setName("#" + color);
-					msg.channel.send(`Changed your color to ${color}, enjoy!`);
+						
+						getColor(userId, function(err, result) {
+							var dbcolor = result.rows[0].color;
+							console.log("CurColor after command not null: " + dbcolor);
+							if (err) {
+								console.log(err);
+							}
+							var rolex = msg.member.roles.find("name", dbcolor);
+							console.log(rolex);
+							rolex.setColor(color);
+							rolex.setName(color);
+							msg.channel.send(`Changed your color to ${color}, enjoy!`);
+							
+							updateColor(color, userId, function(err, result) {
+								console.log("Successfully added role name to DB!");
+								if (err) {
+									console.log(err);
+								}
+							});
+						});
 					
 				} else if (msg.member.roles.find("name", curcolor) == null) {
-					if (color.charAt(0) == "#") {
-						msg.guild.createRole({
-							name: color,
-							color: color
-						});
-					} else if (color.charAt(0) != "#") {
-						msg.guild.createRole({
-							name: "#" + color,
-							color: color
-						});
-					}
-					function giveColor() {
-						var newrole = msg.guild.roles.find("name", curcolor).id;
-						msg.guild.setRolePosition(newrole, "13");
-						msg.member.addRole(newrole);
-						updateColor(colorname, userId, function(err, result) {
+					msg.guild.createRole({
+						name: color,
+						color: color
+					});
+					updateColor(color, userId, function(err, result) {
 							console.log("Successfully added role name to DB!");
 							if (err) {
 								console.log(err);
 							}
+					});
+					function giveColor() {
+						getColor(userId, function(err, result) {
+							curcolor = result.rows[0].color;
+							console.log("CurColor after command null: " + curcolor);
+							if (err) {
+								console.log(err);
+							}
+							var newrole = msg.guild.roles.find("name", curcolor).id;
+							msg.guild.setRolePosition(newrole, "12");
+							msg.member.addRole(newrole);
+							msg.channel.send(`Made you a custom role and changed your color to ${color}, just for you!`);
 						});
-						msg.channel.send(`Made you a custom role and changed your color to ${color}, just for you!`);
 					}
 					setTimeout(giveColor, 400);
 				}
