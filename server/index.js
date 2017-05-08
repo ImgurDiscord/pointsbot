@@ -40,6 +40,8 @@ var first = "redsox ayo";
 var second;
 var third; 
 
+var curcolor;
+
 /*getLeaders(function(err, result) {
 	if (err) {
 		console.log(err);
@@ -819,6 +821,66 @@ bot.on("message", msg => {
 			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**DING DING. That's the sound of the true love alarm going off.**`);
 		}
 	}
+	if(msg.content.startsWith(".colorme")) {
+		getColor(userId, function(err, result) {
+			curcolor = result.rows[0].color;
+			if (err) {
+				console.log(err);
+			}
+			
+			var args = msg.content.split(" ");
+			var color = args[1];
+			var line = args[0] + " " + args[1] + "  ";
+			var colorname = msg.content.slice(msg.content.indexOf('.giraffe') + line.length);
+			if (args[2] == undefined) {
+				colorname = curcolor;
+			}
+			
+			if (curcolor == undefined) {
+				curcolor = " ";
+			}
+			
+			if (!msg.member.roles.has("269838042221510657")) {
+					msg.channel.send("HEY. Only **Hot Single Dads** can use this command.");
+					return;
+				} else {
+				
+				if (color == undefined) {
+					msg.channel.send("Make sure you define a valid hex code!");
+					return;
+				} else {
+					if (color.charAt(0) !="#") {
+						msg.channel.send("Make sure you define a valid hex code!");
+					}
+				}
+				
+				if (msg.guild.roles.find("name", curcolor) != null) {
+					var rolex = msg.member.roles.find("name", curcolor);
+					rolex.setColor(color);
+					msg.channel.send(`Changed your color to ${color}, enjoy!`);
+					
+				} else if (msg.member.roles.find("name", curcolor) == null) {
+					msg.guild.createRole({
+						name: colorname,
+						color: color
+					});
+					function giveColor() {
+						var newrole = msg.guild.roles.find("name", colorname).id;
+						msg.guild.setRolePosition(newrole, "13");
+						msg.member.addRole(newrole);
+						updateColor(colorname, userId, function(err, result) {
+							console.log("Successfully added role name to DB!");
+							if (err) {
+								console.log(err);
+							}
+						});
+						msg.channel.send(`Made you a custom role and changed your color to ${color}, just for you!`);
+					}
+					setTimeout(giveColor, 400);
+				}
+			}
+		});
+	}
 });
 
 var response;
@@ -950,6 +1012,26 @@ function updateRank(rank, id, cb) {
 
 function getLeaders(cb) {
     query(`SELECT points, username, rank FROM users ORDER BY points DESC LIMIT 11`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+
+    });
+}
+
+function getColor(id, cb) {
+    query(`SELECT color FROM users WHERE user_id = '${id}'`, function(err, result) {
+        if (err)
+            cb(err, null);
+        //console.log(result);
+        cb(null, result);
+
+    });
+}
+
+function updateColor(colorn, id, cb) {
+    query(`UPDATE users SET color = '${colorn}' WHERE user_id = '${id}'`, function(err, result) {
         if (err)
             cb(err, null);
         //console.log(result);
