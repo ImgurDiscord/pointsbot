@@ -850,16 +850,17 @@ bot.on("message", msg => {
 				if (color == undefined) {
 					msg.channel.send("Make sure you define a valid hex code!");
 					return;
-				} else if (color.length != 6 || color.length != 7) {
-					msg.channel.send("Make sure you define a valid hex code!");
-					return;
-				} else if (!/^[0-9A-Fa-f]+$/g.test(color)) {
-					msg.channel.send("Make sure you define a valid hex code!");
 				}
 				
 				if (color.charAt(0) == "#") {
+					if (color.length != 7) {
+						msg.channel.send("Make sure you define a valid hex code!");
+					}
 					color = color;
 				} else if (color.charAt(0) != "#") {
+					if (color.length != 6) {
+						msg.channel.send("Make sure you define a valid hex code!");
+					}
 					color = "#" + color;
 				}
 				console.log("Color to change to: " + color);
