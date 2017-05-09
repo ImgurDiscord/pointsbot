@@ -41,6 +41,7 @@ var second;
 var third; 
 
 var curcolor;
+var num = randomInt(0, bullets);
 
 /*getLeaders(function(err, result) {
 	if (err) {
@@ -587,17 +588,17 @@ bot.on("message", msg => {
         msg.reply(randomfact);
     }
 	if(msg.content.startsWith(".roulette")) {
-		var num = randomInt(0, bullets);
 		var bulletnum = randomInt(0, bullets);
 		let member = msg.guild.member(userId);
 		var usr = msg.author.nickname;
 		var dead = msg.guild.roles.find("name", "Grounded");
 		
-		if (num == bulletnum) {
+		if (num == bullets) {
 			msg.channel.send(`:boom::gun: You've been shot!\nReloading...`);
 			msg.member.addRole(dead);
 			msg.guild.member(userId).setNickname("DEAD " + usr);
 			bullets = 7;
+			var num = randomInt(0, bullets);
 			setTimeout(function(){
 				msg.member.removeRole(dead);
 				msg.guild.member(userId).setNickname(usr);
