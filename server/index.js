@@ -607,7 +607,7 @@ bot.on("message", msg => {
 				bulletsleft += " ○ ";
 			}
 			bullets = bullets - 1;
-			msg.channel.send(`Phew. You're still alive!\nBullet\'s Left: [${bulletsleft}]`);
+			msg.channel.send(`Phew. You're still alive!\nBullets Left: [${bulletsleft}]`);
 		}
 		if (bullets == 0) {
 			msg.channel.send("Reloading...");
