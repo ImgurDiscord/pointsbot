@@ -606,7 +606,6 @@ bot.on("message", msg => {
 			var bulletsleft = "";
 			for (var b = 0; b < bullets - 1; b++) {
 				bulletsleft += " ○ ";
-				console.log(bulletsleft);
 			}
 			bullets = bullets - 1;
 			msg.channel.send(`Phew. You're still alive!\nBullet\'s Left: [${bulletsleft}]`);
@@ -942,6 +941,17 @@ bot.on("message", msg => {
 		msg.react(emojis);
 	} else if (msg.content.startsWith("ROFL")) {
 		msg.reply("ROFLCOPTER XDDDD");
+	}
+	if (msg.content.startsWith(".8ball")) {
+		var q = msg.content.split(" ");
+		q = q[1];
+		if (q == undefined) {
+			msg.reply("\n:8ball: Please ask a valid question.");
+			return;
+		}
+		var responses = ["It is certain.", "Reply hazy try again.", "Don't count on it.", "It is decidedly so.", "Ask again later.", "My reply is no.", "Without a doubt,", "Yes definitely.", "You may rely on it.", "Better not tell you now.", "My sources say no.", "As I see it, yes.", "Cannot predict now", "Outlook not so good.", "Most likely.", "Outlook good.", "Yes", "Concentrate and ask again.", "Very doubtful.", "Signs point to yes."];
+		response = responses[Math.floor(Math.random() * responses.length)];
+		msg.reply("\n:8ball: " + response);
 	}
 });
 
