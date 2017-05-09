@@ -585,15 +585,22 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".roulette")) {
 		var num = randomInt(0, 7);
 		var bulletnum = randomInt(0, 7);
+		var usr = msg.author.nickname;
 		
 		if (num == bulletnum) {
 			msg.channel.send(`:boom::gun: You've been shot!`);
+			msg.author.setMute(1);
+			msg.author.setNickname("DEAD " + usr);
 			bullets = 6;
+			setTimeout(function(){
+				msg.author.setMute(0);
+			}, 600000);
 		} else {
-			msg.channel.send(`Phew. You made it through alive.`);
+			msg.channel.send(`Phew. You're still alive!`);
 			bullets = bullets - 1;
 		}
 		if (bullets == 0) {
+			msg.channel.send("Reloading...");
 			bullets = 6;
 		}
     }
