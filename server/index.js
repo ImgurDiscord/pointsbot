@@ -28,7 +28,7 @@ var Slot1;
 var Slot2;
 var Slot3;
 //var jackpot = 0;
-var bullets = 6;
+var bullets = 7;
 var noco;
 var called;
 var img;
@@ -583,7 +583,6 @@ bot.on("message", msg => {
         msg.reply(randomfact);
     }
 	if(msg.content.startsWith(".roulette")) {
-		bullets = 7;
 		var num = randomInt(0, bullets);
 		var bulletnum = randomInt(0, bullets);
 		let member = msg.guild.member(userId);
