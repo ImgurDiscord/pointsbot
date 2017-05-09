@@ -929,7 +929,8 @@ bot.on("message", msg => {
 	if (msg.content.startsWith("LMAO")) {
 		msg.reply("Is it really *that* funny?");
 	} else if (msg.content.startsWith("xd") + msg.content.startsWith("XD")) {
-		msg.reply("+:xd:");
+		var emojis = msg.guild.emojis.find("name", "xd");
+		msg.react(emojis);
 	}
 });
 
