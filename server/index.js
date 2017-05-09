@@ -583,8 +583,9 @@ bot.on("message", msg => {
         msg.reply(randomfact);
     }
 	if(msg.content.startsWith(".roulette")) {
-		var num = randomInt(0, 7);
-		var bulletnum = randomInt(0, 7);
+		bullets = 7;
+		var num = randomInt(0, bullets);
+		var bulletnum = randomInt(0, bullets);
 		let member = msg.guild.member(userId);
 		var usr = msg.author.nickname;
 		var dead = msg.guild.roles.find("name", "Grounded");
@@ -593,7 +594,7 @@ bot.on("message", msg => {
 			msg.channel.send(`:boom::gun: You've been shot!`);
 			msg.member.addRole(dead);
 			msg.member.setNickname("DEAD " + usr);
-			bullets = 6;
+			bullets = 7;
 			setTimeout(function(){
 				msg.member.removeRole(dead);
 			}, 600000);
