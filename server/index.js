@@ -592,7 +592,7 @@ bot.on("message", msg => {
 		var dead = msg.guild.roles.find("name", "Grounded");
 		
 		if (bulletnum == bullets) {
-			numchance = randomInt(0, 7);
+			numchance = randomInt(1, 7);
 			msg.channel.send(`:boom::gun: You've been shot!\nReloading...`);
 			msg.member.addRole(dead);
 			msg.guild.member(userId).setNickname("DEAD " + usr);
@@ -607,7 +607,7 @@ bot.on("message", msg => {
 				bulletsleft += " ○ ";
 			}
 			bullets = bullets - 1;
-			msg.channel.send(`Phew. You're still alive!\nBullets Left: [${bulletsleft}]`);
+			msg.channel.send(`Phew. You're still alive!\nPossible shots Left: [${bulletsleft}]`);
 		}
 		if (bullets == 0) {
 			msg.channel.send("Reloading...");
