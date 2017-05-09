@@ -935,6 +935,8 @@ bot.on("message", msg => {
 	} else if (msg.content.startsWith("xd") + msg.content.startsWith("XD")) {
 		var emojis = msg.guild.emojis.find("name", "xd");
 		msg.react(emojis);
+	} else if (msg.content.startsWith("ROFL")) {
+		msg.reply("ROFLCOPTER XDDDD");
 	}
 });
 
