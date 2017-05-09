@@ -14,7 +14,6 @@ const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
 var userId;
-var numone;
 var uPoints;
 var uLevel;
 var userName;
@@ -41,7 +40,7 @@ var second;
 var third; 
 
 var curcolor;
-var num = randomInt(0, bullets);
+var numchance = randomInt(0, 7);
 
 /*getLeaders(function(err, result) {
 	if (err) {
@@ -55,6 +54,10 @@ var num = randomInt(0, bullets);
 setInterval(function() {
     http.get("http://imguraffe.herokuapp.com");
 }, 300000);
+
+bot.on("ready", () => {
+    console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
+});
 
 /*bot.on("guildMemberAdd", (member) => {
 	member.send(`Welcome to the server, ${member}!\nFeel free to ask questions on the server if you have any.`);
@@ -202,11 +205,6 @@ cbot.create(function(err, session) {
 		});
 	};
 });
-
-bot.on("ready", () => {
-    console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
-});
-
 
 bot.on("message", msg => {
     if (msg.content.startsWith(".ping")) {
@@ -588,17 +586,17 @@ bot.on("message", msg => {
         msg.reply(randomfact);
     }
 	if(msg.content.startsWith(".roulette")) {
-		var bulletnum = randomInt(0, bullets);
+		var bulletnum = numchance;
 		let member = msg.guild.member(userId);
-		var usr = msg.author.nickname;
+		var usr = msg.author.displayName;
 		var dead = msg.guild.roles.find("name", "Grounded");
 		
-		if (num == bullets) {
+		if (bulletnum == bullets) {
+			numchance = randomInt(0, 7);
 			msg.channel.send(`:boom::gun: You've been shot!\nReloading...`);
 			msg.member.addRole(dead);
 			msg.guild.member(userId).setNickname("DEAD " + usr);
 			bullets = 7;
-			var num = randomInt(0, bullets);
 			setTimeout(function(){
 				msg.member.removeRole(dead);
 				msg.guild.member(userId).setNickname(usr);
