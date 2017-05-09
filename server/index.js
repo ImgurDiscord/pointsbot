@@ -55,6 +55,10 @@ setInterval(function() {
     http.get("http://imguraffe.herokuapp.com");
 }, 300000);
 
+bot.on("guildMemberAdd", (member) => {
+	member.send(`Welcome to the server, ${member}!\nFeel free to ask questions on the server if you have any.`);
+});
+
 bot.on("message", message => {
     var newr = message.guild.roles.find("name", "New");
     var liked = message.guild.roles.find("name", "Liked");
