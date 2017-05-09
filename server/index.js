@@ -588,7 +588,7 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".roulette")) {
 		var bulletnum = numchance;
 		let member = msg.guild.member(userId);
-		var usr = msg.author.displayName;
+		var usr = msg.author.nickname;
 		var dead = msg.guild.roles.find("name", "Grounded");
 		
 		if (bulletnum == bullets) {
