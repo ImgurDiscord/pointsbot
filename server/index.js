@@ -953,6 +953,17 @@ bot.on("message", msg => {
 		response = responses[Math.floor(Math.random() * responses.length)];
 		msg.reply("\n:8ball: " + response);
 	}
+	if (msg.content.startsWith(".9ball")) {
+		var q = msg.content.split(" ");
+		q = q[1];
+		if (q == undefined) {
+			msg.reply("\n:8ball: Please ask a valid question.");
+			return;
+		}
+		var responses = ["Well, what do *you* think?", "Hey I don't have time for this. Sure I guess?.", "When are you going to ask an *actual* question?", "Isn't it obvious?", "Go away, I'm busy.", "I might just ask you the same thing.", "My sources say you're a big dickweed.", "**Nein nein nein nein nein nein nein**", "Let's all admit it, no one cares.", "Who do you think I am? Albert Einstein?", "If you believe, it will come true.", "Excuse me while I continue ignoring you", "I'm the Magic 9 Ball, not a genius.", "HAH, you're asking about *that*? What an idiot.", "You never know. Yes? No? Who knows.", "I'm gonna be perfectly honest with you. I don't care.", "**LALALALALALALALALALA** can't hear you!", "Concentrate and leave me alone.", "Don't use this command again. It's a waste of my time.", "Signs point to you, the idiot who has to ask a bot the answers to his questions."];
+		response = responses[Math.floor(Math.random() * responses.length)];
+		msg.reply("\n:8ball: " + response);
+	}
 });
 
 var response;
