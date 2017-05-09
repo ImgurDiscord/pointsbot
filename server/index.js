@@ -592,11 +592,12 @@ bot.on("message", msg => {
 		if (num == bulletnum) {
 			msg.channel.send(`:boom::gun: You've been shot!`);
 			msg.member.addRole(dead);
-			msg.member.setNickname("DEAD " + usr);
+			msg.guild.member(userId).setNickname("DEAD " + usr);
 			bullets = 7;
 			setTimeout(function(){
 				msg.member.removeRole(dead);
-			}, 600000);
+				msg.guild.member(userId).setNickname(usr);
+			}, 300000);
 		} else {
 			msg.channel.send(`Phew. You're still alive!`);
 			bullets = bullets - 1;
