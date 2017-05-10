@@ -705,9 +705,9 @@ bot.on("message", msg => {
 		msg.delete();
 	}
 	if (msg.content.startsWith('.infomercial')) {
-		var mod = msg.guild.roles.find("name", "Mod");
+		var mod = msg.guild.roles.get("257745006511521803");
 		var member = msg.guild.member(userId);
-		if (!msg.member.roles.find("name", "Mod")) {
+		if (!msg.member.roles.has("257745006511521803")) {
 			return;
 		}
 		msg.delete();
