@@ -1117,7 +1117,7 @@ bot.on("message", msg => {
 			stream.on('end', function(){
 			});
 
-			msg.channel.send("Profile for the " + guy, {files: ["server/text.png"]});
+			msg.channel.send("Profile for " + guy, {files: ["server/text.png"]});
 			
 		});
 	}
