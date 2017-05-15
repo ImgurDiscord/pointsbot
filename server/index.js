@@ -796,6 +796,14 @@ bot.on("message", msg => {
 		var target1 = user[1];
 		var target2 = user[2];
 		
+		if (target1 == target2) {
+			msg.reply("lmao how lonely are you.");
+			return;
+		} else if (target2 == undefined) {
+			msg.reply("You need to specify two names.");
+			return;
+		}
+		
 		if(target1 == "@everyone" || target2 == "@everyone") {
 			msg.reply(`Don't mention everyone, dickweed.`);
 			return;
