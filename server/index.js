@@ -38,7 +38,7 @@ var called;
 var erp;
 var noco;
 
-var first = "redsox ayo";
+var first;
 var second;
 var third; 
 
@@ -60,6 +60,14 @@ setInterval(function() {
 
 bot.on("ready", () => {
     console.log(`Ready to server in ${bot.channels.size} channels on ${bot.guilds.size} servers, for a total of ${bot.users.size} users.`);
+    getLeaders(function(err, result) {
+		first = {first: result.rows[0].username, fpoints: result.rows[0].points};
+		second = {second: result.rows[1].username, spoints: result.rows[1].points};
+		third = {third: result.rows[2].username, tpoints: result.rows[2].points};
+		if (err) {
+			console.log(err);
+		}
+	});
 });
 
 /*bot.on("guildMemberAdd", (member) => {
@@ -344,9 +352,6 @@ bot.on("message", msg => {
     if (msg.content.startsWith(".leaders")) {
 
         getLeaders(function(err, result) {
-			first = result.rows[0].username;
-			second = result.rows[1].username;
-			third = result.rows[2].username;
             if (err) {
                 console.log(err);
             }
@@ -995,10 +1000,10 @@ bot.on("message", msg => {
 		var todo;
 		var done;
 		
-		var download = function(uri, filename, callback){
+		/*var download = function(uri, filename, callback){
 			request.head(uri, function(err, res, body){
 				/*console.log('content-type:', res.headers['content-type']);
-				console.log('content-length:', res.headers['content-length']);*/
+				console.log('content-length:', res.headers['content-length']);
 
 				request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
 			});
@@ -1006,7 +1011,8 @@ bot.on("message", msg => {
 		
 		download(avatar, 'server/avatar.png', function(){
 			makeImage();
-		});
+		});*/
+		makeImage();
 		
 		function makeImage() {
 		getInfo(target, function(err, result) {
@@ -1047,6 +1053,7 @@ bot.on("message", msg => {
 			var ctx = canvas.getContext('2d');
 			var out = fs.createWriteStream(__dirname + '/text.png');
 			var stream = canvas.pngStream();
+			var img = new Image();
 			
 			//Main BG
 			ctx.beginPath();
@@ -1084,14 +1091,13 @@ bot.on("message", msg => {
 			ctx.fillStyle = "white"; //#209433
 			ctx.fill();
 			
-			var img = new Image();
-			img.onload = function () {
+			img.onload = function() {
 				ctx.drawImage(img, 15, 15, 60, 60);
 			}
-			img.onerror = function (err) {
+			img.onerror = function(err) {
 				console.log(err);
 			}
-			img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
+			img.src = 'http://i.imgur.com/et9UTnj.jpg';
 			
 			ctx.fillStyle = "white";
 			ctx.font = '22px Arial';
@@ -1112,7 +1118,7 @@ bot.on("message", msg => {
 			stream.on('end', function(){
 			});
 
-			msg.channel.send("Profile for " + guy, {files: ["server/text.png"]});
+			msg.channel.send("Profile for the " + guy, {files: ["server/text.png"]});
 			
 		});
 	}
@@ -1308,6 +1314,9 @@ app.use('/api', api());
 //     res.redirect(301, '/404');
 // });
 
+app.get('/ajax', function(req, res) {
+    res.send({fir: first, sec: second, thi: third});
+});
 
 app.server.listen(process.env.PORT || 8080);
 
