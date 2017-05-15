@@ -1040,7 +1040,7 @@ bot.on("message", msg => {
 			}
 		
 			var Image = Canvas.Image;
-			var canvas = new Canvas(380, 120);
+			var canvas = new Canvas(300, 120);
 			var ctx = canvas.getContext('2d');
 			var out = fs.createWriteStream(__dirname + '/text.png');
 			var stream = canvas.pngStream();
