@@ -10,6 +10,10 @@ import Discord from 'discord.js';
 import cleverbot from 'cleverbot.io';
 import cats from 'cat-facts';
 import yt from 'ytdl-core';
+import request from 'request';
+var Canvas = require('canvas');
+var path = require('path');
+
 const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
 var numberOne = new Discord.Collection();
@@ -30,7 +34,6 @@ var Slot3;
 var bullets = 7;
 var noco;
 var called;
-var img;
 
 var erp;
 var noco;
@@ -78,8 +81,6 @@ bot.on("message", message => {
     uLevel = 'Neutral';
     userName = message.author.username;
     nickName = message.member.displayName;
-
-    givenPoints.set(message.author.username, message.author.id);
 
     addUser(uLevel, uPoints, userId, function(err, result) {
         if (err) {
@@ -516,7 +517,7 @@ bot.on("message", msg => {
         var randadj2 = adj2[Math.floor(Math.random() * adj2.length)];
         var randadj3 = adj2[Math.floor(Math.random() * adj2.length)];
 
-        var noun = ["a failed abortion", "an untreated cancer cell", "a fattened cow", "a 12 year old child", "a cunt waffle", "a whore", "a bag of human waste", "a bag of pickled dicks", "a wanna-be", "a dick", "a retard", "a disappointment", "a forgotten orphan", "a carpet muncher", "a cum chugger", "a bellend", "a spawn of satan", "a nit-wit", "a chink", "a cum rag", "a thunder cunt", "a alabama hot pocket", "a reject Ken doll", "a social reject", "a man servant", "a guy", "a black man", "a white man", "a asian man", "a indian man", "a creeper", "a pedophile", "a crank whore", "a cuntbag", "a ding-head", "a doofus", "a cockbag", "a basket-case", "a crotch fruit", "a crap-fest"];
+        var noun = ["a failed abortion", "an untreated cancer cell", "a fattened cow", "a 12 year zold child", "a cunt waffle", "a whore", "a bag of human waste", "a bag of pickled dicks", "a wanna-be", "a dick", "a retard", "a disappointment", "a forgotten orphan", "a carpet muncher", "a cum chugger", "a bellend", "a spawn of satan", "a nit-wit", "a chink", "a cum rag", "a thunder cunt", "a alabama hot pocket", "a reject Ken doll", "a social reject", "a man servant", "a guy", "a black man", "a white man", "a asian man", "a indian man", "a creeper", "a pedophile", "a crank whore", "a cuntbag", "a ding-head", "a doofus", "a cockbag", "a basket-case", "a crotch fruit", "a crap-fest"];
         var noun2 = ["failed abortion", "untreated cancer cell", "fattened cow", "12 year old child", "cunt waffle", "whore", "bag of human waste", "bag of pickled dicks", "wanna-be", "dick", "retard", "disappointment", "forgotten orphan", " carpet muncher", "cum chugger", "bellend", "spawn of satan", "nit-wit", "chink", "cum rag", "thunder cunt", "alabama hot pocket", "reject Ken doll", "social reject", "man servant", "guy", "black man", "white man", "asian man", "indian man", "creeper", "pedophile", "crank whore", "cuntbag", "ding-head", "doofus", "cockbag", "basket-case", "crotch fruit", "crap-fest"];
 		var randnoun = noun[Math.floor(Math.random() * noun.length)];
         var randnoun2 = noun2[Math.floor(Math.random() * noun2.length)];
@@ -613,7 +614,7 @@ bot.on("message", msg => {
 			msg.channel.send("Reloading...");
 			bullets = 6;
 		}
-    }
+    }/*
 	if(msg.content.startsWith(".profile")) {
 		if(msg.mentions.users.first() == undefined) {
 			userId = msg.author.id;
@@ -684,7 +685,7 @@ bot.on("message", msg => {
 				}});
 			});
 		}
-	}
+	}*/
 	if (msg.content.startsWith(".avatar")) {
 		if(msg.mentions.users.first() == undefined) {
 			msg.channel.send(`:frame_photo: **${userName}'s Avatar:**\n${msg.author.avatarURL}`);
@@ -962,6 +963,156 @@ bot.on("message", msg => {
 		var responses = ["Well, what do *you* think?", "Hey I don't have time for this. Sure I guess?.", "When are you going to ask an *actual* question?", "Isn't it obvious?", "Go away, I'm busy.", "I might just ask you the same thing.", "My sources say you're a big dickweed.", "**Nein nein nein nein nein nein nein**", "Let's all admit it, no one cares.", "Who do you think I am? Albert Einstein?", "If you believe, it will come true.", "Excuse me while I continue ignoring you", "I'm the Magic 9 Ball, not a genius.", "HAH, you're asking about *that*? What an idiot.", "You never know. Yes? No? Who knows.", "I'm gonna be perfectly honest with you. I don't care.", "**LALALALALALALALALALA** can't hear you!", "Concentrate and leave me alone.", "Don't use this command again. It's a waste of my time.", "Signs point to you, the idiot who has to ask a bot the answers to his questions."];
 		response = responses[Math.floor(Math.random() * responses.length)];
 		msg.reply("\n:8ball: " + response);
+	}
+	if (msg.content.startsWith(".profile")) {
+		var target;
+		var avatar;
+		var user;
+		var guy;
+		if (msg.mentions.users.first() == undefined) {
+			target = msg.author.id;
+			avatar = msg.author.avatarURL;
+			user = msg.author.username;
+			guy = msg.author;
+		} else {
+			target = msg.mentions.users.first().id;
+			avatar = msg.mentions.users.first().avatarURL;
+			user = msg.mentions.users.first().username;
+			guy = msg.mentions.users.first();
+		}
+		
+		if (user.length >= 14) {
+			user = user.substring(0, 14);
+			user += "...";
+		}
+		var rank;
+		var points;
+		var dpoints;
+		var dtodo;
+		var todo;
+		var done;
+		
+		var download = function(uri, filename, callback){
+			request.head(uri, function(err, res, body){
+				/*console.log('content-type:', res.headers['content-type']);
+				console.log('content-length:', res.headers['content-length']);*/
+
+				request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+			});
+		};
+		
+		download(avatar, 'server/avatar.png', function(){
+			makeImage();
+		});
+		
+		function makeImage() {
+		getInfo(target, function(err, result) {
+			var rank = result.rows[0].rank;
+			var points = result.rows[0].points;
+			
+			if (rank == "New") {
+				todo = 249;
+				done = 0;
+			} else if (rank == "Liked") {
+				todo = 499;
+				done = 250;
+			} else if (rank == "Loyal") {
+				todo = 999;
+				done = 500;
+			} else if (rank == "Adored") {
+				todo = 1999;
+				done = 1000;
+			} else if (rank == "Famous") {
+				todo = 3999;
+				done = 2000;
+			} else if (rank == "Hot Single Dad") {
+				todo = "∞";
+				done = 4000;
+			}
+			
+			dpoints = points - done;
+			dtodo = todo - done;
+			
+			var percent = dpoints / dtodo * 100;
+			
+			if (err) {
+				console.log(err);
+			}
+		
+			var Image = Canvas.Image;
+			var canvas = new Canvas(380, 120);
+			var ctx = canvas.getContext('2d');
+			var out = fs.createWriteStream(__dirname + '/text.png');
+			var stream = canvas.pngStream();
+			
+			//Main BG
+			ctx.beginPath();
+			ctx.rect(0, 0, 300, 280);
+			ctx.fillStyle = "#565656";
+			ctx.fill();
+			
+			//Main Box Border
+			ctx.beginPath();
+			ctx.rect(10, 35, 280, 75);
+			ctx.fillStyle = "white";
+			ctx.fill();
+			
+			//Main Box BG
+			ctx.beginPath();
+			ctx.rect(15, 40, 270, 65);
+			ctx.fillStyle = "#AEAEAE";
+			ctx.fill();
+			
+			//Progress Bar Todo
+			ctx.beginPath();
+			ctx.rect(15, 80, 270, 25);
+			ctx.fillStyle = "#1C3E1D";
+			ctx.fill();
+			
+			//Progress Bar Done
+			ctx.beginPath();
+			ctx.rect(15, 80, 1 + ((270 / 100) * percent), 25);
+			ctx.fillStyle = "#416E3C";
+			ctx.fill();
+			
+			//Profile Image BG
+			ctx.beginPath();
+			ctx.rect(10, 10, 70, 70);
+			ctx.fillStyle = "white"; //#209433
+			ctx.fill();
+			
+			var img = new Image();
+			img.onload = function () {
+				ctx.drawImage(img, 15, 15, 60, 60);
+			}
+			img.onerror = function (err) {
+				console.log(err);
+			}
+			img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
+			
+			ctx.fillStyle = "white";
+			ctx.font = '22px Arial';
+			ctx.fillText(user, 85, 30);
+			ctx.fillStyle = "#B3DDAA";
+			ctx.font = '14px Arial';
+			ctx.textAlign="center";
+			ctx.fillText(points + " / " + todo , 15 + (270 / 2), 97);
+			ctx.fillStyle = "white";
+			ctx.font = '25px Arial';
+			ctx.textAlign="left";
+			ctx.fillText(rank, 85, 70);
+			
+			stream.on('data', function(chunk){
+			  out.write(chunk);
+			});
+
+			stream.on('end', function(){
+			});
+
+			msg.channel.send("Profile for " + guy, {files: ["server/text.png"]});
+			
+		});
+	}
 	}
 });
 
