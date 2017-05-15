@@ -1000,7 +1000,7 @@ bot.on("message", msg => {
 		var todo;
 		var done;
 		
-		/*var download = function(uri, filename, callback){
+		var download = function(uri, filename, callback){
 			request.head(uri, function(err, res, body){
 				/*console.log('content-type:', res.headers['content-type']);
 				console.log('content-length:', res.headers['content-length']);
@@ -1011,8 +1011,7 @@ bot.on("message", msg => {
 		
 		download(avatar, 'server/avatar.png', function(){
 			makeImage();
-		});*/
-		makeImage();
+		});
 		
 		function makeImage() {
 		getInfo(target, function(err, result) {
