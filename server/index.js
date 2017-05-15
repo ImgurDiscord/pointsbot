@@ -1097,7 +1097,7 @@ bot.on("message", msg => {
 			img.onerror = function(err) {
 				console.log(err);
 			}
-			img.src = 'http://i.imgur.com/et9UTnj.jpg';
+			img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
 			
 			ctx.fillStyle = "white";
 			ctx.font = '22px Arial';
