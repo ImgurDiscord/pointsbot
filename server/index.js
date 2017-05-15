@@ -55,7 +55,7 @@ var numchance = randomInt(0, 7);
 });*/
 
 setInterval(function() {
-    http.get("http://imguraffe.herokuapp.com");
+    http.get("http://childcatcher.herokuapp.com");
 }, 300000);
 
 bot.on("ready", () => {
