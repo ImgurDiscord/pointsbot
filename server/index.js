@@ -964,6 +964,9 @@ bot.on("message", msg => {
 		response = responses[Math.floor(Math.random() * responses.length)];
 		msg.reply("\n:8ball: " + response);
 	}
+	if(msg.content.startsWith(".ver")) {
+		msg.channel.send("Version: 1.5");
+	}
 	if (msg.content.startsWith(".profile")) {
 		var target;
 		var avatar;
