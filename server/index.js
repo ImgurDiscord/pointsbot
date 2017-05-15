@@ -796,7 +796,10 @@ bot.on("message", msg => {
 		var target1 = user[1];
 		var target2 = user[2];
 		
-		if (target1 == target2) {
+		if (target1 == undefined) {
+			msg.reply("You need to specify two names.");
+			return;
+		} else if (target1 == target2) {
 			msg.reply("lmao how lonely are you.");
 			return;
 		} else if (target2 == undefined) {
