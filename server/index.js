@@ -1003,6 +1003,10 @@ bot.on("message", msg => {
 		var usersmall;
 		var userguess;
 		var rangenum;
+		if (timeleft == undefined) {
+			msg.reply("You have to specify a time (in milliseconds)!");
+			return;
+		}
 		if (range == undefined) {
 			range = "1-500";
 			num = randomInt(1, 500);
