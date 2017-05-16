@@ -16,6 +16,7 @@ var path = require('path');
 
 const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
+var numGuesses = new Discord.Collection();
 var numberOne = new Discord.Collection();
 var userId;
 var uPoints;
@@ -1132,6 +1133,68 @@ bot.on("message", msg => {
 			
 		});
 	}
+	}
+	if (msg.content.startsWith(".create_giveaway")) {
+		var args = msg.content.split(" ");
+		var timeleft = args[1];
+		timeleft = Number(timeleft);
+		var minleft = timeleft / 1000;
+		minleft = minleft % 60;
+		minleft /= 60;
+		minleft = minleft % 60;
+		var range = args[2];
+		var num = args[3];
+		var guess;
+		var difference;
+		var calc;
+		var usersmall;
+		var userguess;
+		var rangenum;
+		if (range == undefined) {
+			range = "1-500";
+			num = randomInt(1, 500);
+			difference = 500;
+		} else if (num == undefined) {
+			rangenum = range.split("-");
+			num = randomInt(rangenum[0], rangenum[1]);
+			difference = rangenum[1];
+			difference = Number(difference);
+		} else if (num != undefined && range != undefined){
+			num = 500;
+			rangenum = range.split("-");
+			difference = rangenum[1];
+			difference = Number(difference);
+		}
+		
+		bot.channels.find("name", "announcements").send(`@everyguy, Guess a number between ${range}.\nYou have ${minleft} minutes to submit an answer.`).then((sent) => {setTimeout(() =>{sent.edit(sent.content + "\n**Giveaway ended.**")},timeleft)});
+		
+		const collector = bot.channels.find("name", "bot_commands").createCollector(
+			m => m.content.startsWith(".num"),
+			{ maxMatches: 500, time: timeleft }
+		);
+		collector.on('collect', (msg, collected) => {
+			msg.delete();
+			guess = msg.content.split(" ");
+			guess = guess[1];
+			guess = Number(guess);
+			numGuesses.set(msg.author.username, guess);
+		});
+		collector.on('end', collected => {
+			console.log(`Collected ${collected.size} items`);
+			console.log(numGuesses);
+			numGuesses.forEach(function(numguess, username, givenPoints) {
+				numguess = Number(numguess);
+				calc = Math.abs(Number(num) - numguess);
+				if (calc < difference) {
+					difference = calc;
+					usersmall = username;
+					userguess = numguess;
+				}
+				console.log(`${username} guessed ${numguess}. This is ${calc} from the determined value: ${num}.`);
+            });
+			bot.channels.find("name", "mod").send(`The closest guess was **${usersmall}**, who guessed ${userguess}. The correct number was ${num}.`);
+			numGuesses.clear();
+		});
 	}
 });
 
