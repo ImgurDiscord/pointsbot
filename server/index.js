@@ -45,6 +45,7 @@ var third;
 
 var curcolor;
 var numchance = randomInt(0, 7);
+var giveaway = false;
 
 /*getLeaders(function(err, result) {
 	if (err) {
@@ -174,8 +175,6 @@ bot.on("message", message => {
             message.member.addRole(single);
         }
     });
-
-
 });
 
 function checkPoints() {
@@ -365,154 +364,7 @@ bot.on("message", msg => {
             msg.channel.send("```cs\n-Leaderboard-\n\n" + leaderMsg + "```");
         });
 
-    } /*
-    if (msg.content.startsWith(".slots")) {
-		getInfo(userId, function(err, result) {
-			if (err) {
-				console.log(err);
-			}
-			var pointsLeft = result.rows[0].points - 5;
-			var pointsLeft2 = result.rows[0].points;
-			getJackpot(function(err, results) {
-				if (err) {
-					console.log(err);
-				}
-				var jackpot = results.rows[0].jpoints;
-				if (pointsLeft2 >= 5) {
-					subtractPoints(userId, 5, function(err, result) {
-						if (err) {
-							console.log(err);
-						}
-					});
-					
-					firstSlot = randomInt(1, 8);
-					secondSlot = randomInt(1, 8);
-					thirdSlot = randomInt(1, 8);
-				
-					if (firstSlot == 1) {
-						Slot1 = ":heart:";
-					} else if (firstSlot == 2) {
-						Slot1 = ":peace:";
-					} else if (firstSlot == 3) {
-						Slot1 = ":joystick:";
-					} else if (firstSlot == 4) {
-						Slot1 = ":white_flower:";
-					} else if (firstSlot == 5) {
-						Slot1 = ":star_of_david:";
-					} else if (firstSlot == 6) {
-						Slot1 = ":slight_smile:";
-					} else if (firstSlot == 7) {
-						Slot1 = ":money_with_wings:";
-					}
-				
-					if (secondSlot == 1) {
-						Slot2 = ":heart:";
-					} else if (secondSlot == 2) {
-						Slot2 = ":peace:";
-					} else if (secondSlot == 3) {
-						Slot2 = ":joystick:";
-					} else if (secondSlot == 4) {
-						Slot2 = ":white_flower:";
-					} else if (secondSlot == 5) {
-						Slot2 = ":star_of_david:";
-					} else if (secondSlot == 6) {
-						Slot2 = ":slight_smile:";
-					} else if (secondSlot == 7) {
-						Slot2 = ":money_with_wings:";
-					}
-				
-					if (thirdSlot == 1) {
-						Slot3 = ":heart:";
-					} else if (thirdSlot == 2) {
-						Slot3 = ":peace:";
-					} else if (thirdSlot == 3) {
-						Slot3 = ":joystick:";
-					} else if (thirdSlot == 4) {
-						Slot3 = ":white_flower:";
-					} else if (thirdSlot == 5) {
-						Slot3 = ":star_of_david:";
-					} else if (thirdSlot == 6) {
-						Slot3 = ":slight_smile:";
-					} else if (thirdSlot == 7) {
-						Slot3 = ":money_with_wings:";
-					}
-				
-					var winmessage;
-					if (Slot1 == ":heart:" && Slot2 == ":heart:" && Slot3 == ":heart:") {
-						winmessage = "3 hearts in a row! You win 45 points.";
-						updateUser(userId, 45, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					} else if (Slot1 == ":peace:" && Slot2 == ":peace:" && Slot3 == ":peace:") {
-						winmessage = "3 peace signs in a row. World peace for everyone :D\nYou win 50 points.";
-						updateUser(userId, 50, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					} else if (Slot1 == ":joystick:" && Slot2 == ":joystick:" && Slot3 == ":joystick:") {
-						winmessage = "Go on, go and play a game. You win 15 points.";
-						updateUser(userId, 15, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					} else if (Slot1 == ":white_flower:" && Slot2 == ":white_flower:" && Slot3 == ":white_flower:") {
-						winmessage = "Go and smell the roses. You got three in a row!\nYou win 45 points.";
-						updateUser(userId, 45, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					} else if (Slot1 == ":star_of_david:" && Slot2 == ":star_of_david:" && Slot3 == ":star_of_david:") {
-						winmessage = "What are you, jewish? You win 35 points...I guess.";
-						updateUser(userId, 35, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					} else if (Slot1 == ":slight_smile:" && Slot2 == ":slight_smile:" && Slot3 == ":slight_smile:") {
-						winmessage = "Let's see that smile, you got three in a row!\nYou win 60 points!";
-						updateUser(userId, 60, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					} else if (Slot1 == ":money_with_wings:" && Slot2 == ":money_with_wings:" && Slot3 == ":money_with_wings:") {
-						winmessage = "JACKPOT! You win " + jackpot + " points. Congrats!";
-						
-						if (jackpot > 0) {
-							updateUser(userId, jackpot, function(err, result) {
-								if (err) {
-									console.log(err);
-								}
-								subtractJackpot(0, function(err, result) {
-									if (err) {
-										console.log(err);
-									}
-								});
-							});
-						} else {
-							msg.channel.send(`There's nothing in the jackpot. Play a bit more and build it up big.`);
-						}
-					} else {
-						winmessage = "Better luck next time...";
-						addJackpot(3, function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-						});
-					}
-					msg.channel.send("Subtracted 5 points from your total. You have **"+ pointsLeft +"** points remaining.\n" + msg.author + " pulled the lever:\n    ▄▄▄▄▄▄▄▄▄\n    " + Slot1 + " | " + Slot2 + " | " + Slot3 + "\n    ▀▀▀▀▀▀▀▀▀\n`[JACKPOT: " + jackpot + " points.]`\n" + winmessage);
-				} else {
-					msg.channel.send(`${msg.author}, looks like you don't have enough points to play. Talk a bit more on the server to get some more points :)`);
-				}
-			});
-			
-		});
-    } */
+    }
     if (msg.content.startsWith(".insult")) {
         //var args = msg.content.split(" ");
         var insultee = msg.mentions.users.first();
@@ -1135,6 +987,7 @@ bot.on("message", msg => {
 	}
 	}
 	if (msg.content.startsWith(".create_giveaway")) {
+		giveaway = true;
 		var args = msg.content.split(" ");
 		var timeleft = args[1];
 		timeleft = Number(timeleft);
@@ -1166,9 +1019,9 @@ bot.on("message", msg => {
 			difference = Number(difference);
 		}
 		
-		bot.channels.find("name", "announcements").send(`@everyguy, Guess a number between ${range}.\nYou have ${minleft} minutes to submit an answer.`).then((sent) => {setTimeout(() =>{sent.edit(sent.content + "\n**Giveaway ended.**")},timeleft)});
+		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\n@everyone Guess a number between ${range}.\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} minutes to submit an answer.`).then((sent) => {setTimeout(() =>{sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands} with .num [number]\nYou have ${minleft} minutes to submit an answer.~~\n\`GIVEAWAY OVER\``)},timeleft)});
 		
-		const collector = bot.channels.find("name", "bot_commands").createCollector(
+		const collector = bot.channels.get("257525917876748289").createCollector(
 			m => m.content.startsWith(".num"),
 			{ maxMatches: 500, time: timeleft }
 		);
@@ -1178,8 +1031,10 @@ bot.on("message", msg => {
 			guess = guess[1];
 			guess = Number(guess);
 			numGuesses.set(msg.author.username, guess);
+			//msg.author.send("Your submission has been logged! You will hear back from the moderators when time is up.\nYou answered: `" + guess + "`");
 		});
 		collector.on('end', collected => {
+			giveaway = false;
 			console.log(`Collected ${collected.size} items`);
 			console.log(numGuesses);
 			numGuesses.forEach(function(numguess, username, givenPoints) {
@@ -1192,7 +1047,7 @@ bot.on("message", msg => {
 				}
 				console.log(`${username} guessed ${numguess}. This is ${calc} from the determined value: ${num}.`);
             });
-			bot.channels.find("name", "mod").send(`The closest guess was **${usersmall}**, who guessed ${userguess}. The correct number was ${num}.`);
+			bot.channels.get("257523380872413186").send(`The closest guess was **${usersmall}**, who guessed ${userguess}. The correct number was ${num}.`);
 			numGuesses.clear();
 		});
 	}
