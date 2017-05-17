@@ -1117,6 +1117,7 @@ bot.on("message", msg => {
 					winners = "";
 					winners += username + ", ";
 				}
+				console.log(winners);
             });
             msg.channel.send("**Chicken " + winner + "** has won the match!\n" + winners + "guessed correctly.");
 		});
