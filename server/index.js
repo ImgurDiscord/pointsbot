@@ -1063,7 +1063,7 @@ bot.on("message", msg => {
 		var winner = randomInt(1,3);
 		var conditions = [
 			"has a chainsaw",
-			"has special powers that let him fly",
+			"has a booster jet that lets it fly",
 			"has telekinetic powers that let him predict its opponent's next move",
 			"has two samurai swords attached to its beak",
 			"has razor blades attached to its feet",
@@ -1072,15 +1072,16 @@ bot.on("message", msg => {
 			"has the power of Jesus on its side",
 			"wrapped itself in bubblewrap",
 			"has started an interpretive dance",
-			"has a explosives strapped to its side",
+			"has explosives strapped to its side",
 			"is possessed by Satan",
 			"is immune to feeling pain",
 			"has it head cut off",
-			"is actually a dog covered in feathers"
+			"is actually a dog covered in feathers",
+			"has a gattling gun mounted to its stomach"
 		];
 		var conditions2 = [
 			"has a chainsaw",
-			"has special powers that let him fly",
+			"has a booster jet that lets it fly",
 			"has telekinetic powers that let him predict its opponent's next move",
 			"has two samurai swords attached to its beak",
 			"has razor blades attached to its feet",
@@ -1089,11 +1090,12 @@ bot.on("message", msg => {
 			"has the power of Jesus on its side",
 			"wrapped itself in bubblewrap",
 			"has started an interpretive dance",
-			"has a explosives strapped to its side",
+			"has explosives strapped to its side",
 			"is possessed by Satan",
 			"is immune to feeling pain",
 			"has its head cut off",
-			"is actually a dog covered in feathers"
+			"is actually a dog covered in feathers",
+			"has a gattling gun mounted to its stomach"
 		];
 		conditions = conditions[Math.floor(Math.random() * conditions.length)];
 		conditions2 = conditions2[Math.floor(Math.random() * conditions2.length)];
@@ -1116,7 +1118,7 @@ bot.on("message", msg => {
 				bet = Number(bet);
 				if (bet == winner) {
 					winners = "";
-					winners += username + ",";
+					winners += username + ", ";
 				}
 				console.log(winners);
             });

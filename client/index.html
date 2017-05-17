@@ -27,12 +27,12 @@
 		
 		$(function() {
 			$.get('/ajax', function(res) {
-				$('.first h3').text(res.fir.first);
-				$('.first p').text(res.fir.fpoints);
-				$('.second h3').text(res.sec.second);
-				$('.second p').text(res.sec.spoints);
-				$('.third h3').text(res.thi.third);
-				$('.third p').text(res.thi.tpoints);
+				$('.first h3').text("> " + res.fir.first);
+				$('.first p').text(res.fir.fpoints + " points");
+				$('.second h3').text("> " + res.sec.second);
+				$('.second p').text(res.sec.spoints + " points");
+				$('.third h3').text("> " + res.thi.third);
+				$('.third p').text(res.thi.tpoints + " points");
 			});
 		});
 	</script>
