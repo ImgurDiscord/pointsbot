@@ -1112,6 +1112,7 @@ bot.on("message", msg => {
 		collector.on('end', collected => {
 			var winners = "No one ";
 			cockBets.forEach(function(bet, username, numGuesses) {
+				bet = Number(bet);
 				if (bet == winner) {
 					winners = "";
 					winners += username + ", ";
