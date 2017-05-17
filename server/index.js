@@ -555,7 +555,7 @@ bot.on("message", msg => {
         msg.delete();
     }
     if (msg.content.startsWith(".phraseadd")) {
-        var message = msg.content.split(' ');
+        var message = msg.content.split(', ');
         var phrase = message[1];
         var file = message[2];
         var mode;
