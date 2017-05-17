@@ -1116,7 +1116,7 @@ bot.on("message", msg => {
 				bet = Number(bet);
 				if (bet == winner) {
 					winners = "";
-					winners += username + ", \n";
+					winners += username + ",";
 				}
 				console.log(winners);
             });
