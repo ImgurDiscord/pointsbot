@@ -17,7 +17,7 @@ var path = require('path');
 const bot = new Discord.Client();
 var givenPoints = new Discord.Collection();
 var numGuesses = new Discord.Collection();
-var numberOne = new Discord.Collection();
+var cockBets = new Discord.Collection();
 var userId;
 var uPoints;
 var uLevel;
@@ -1054,6 +1054,70 @@ bot.on("message", msg => {
             });
 			bot.channels.get("257523380872413186").send(`The closest guess was **${usersmall}**, who guessed ${userguess}. The correct number was ${num}.`);
 			numGuesses.clear();
+		});
+	}
+	if (msg.content.startsWith(".cockfight")) {
+		var chick;
+		var message;
+		var conditions2;
+		var winner = randomInt(1,3);
+		var conditions = [
+			"has a chainsaw",
+			"has special powers that let him fly",
+			"has telekinetic powers that let him predict its opponent's next move",
+			"has two samurai swords attached to its beak",
+			"has razor blades attached to its feet",
+			"has a lazer mounted to its back",
+			"is actually a dinosaur, not a chicken",
+			"has the power of Jesus on its side",
+			"wrapped itself in bubblewrap",
+			"has started an interpretive dance",
+			"has a explosives strapped to its side",
+			"is possessed by Satan",
+			"is immune to feeling pain",
+			"has it head cut off",
+			"is actually a dog covered in feathers"
+		];
+		var conditions2 = [
+			"has a chainsaw",
+			"has special powers that let him fly",
+			"has telekinetic powers that let him predict its opponent's next move",
+			"has two samurai swords attached to its beak",
+			"has razor blades attached to its feet",
+			"has a lazer mounted to its back",
+			"is actually a dinosaur, not a chicken",
+			"has the power of Jesus on its side",
+			"wrapped itself in bubblewrap",
+			"has started an interpretive dance",
+			"has a explosives strapped to its side",
+			"is possessed by Satan",
+			"is immune to feeling pain",
+			"has its head cut off",
+			"is actually a dog covered in feathers"
+		];
+		conditions = conditions[Math.floor(Math.random() * conditions.length)];
+		conditions2 = conditions2[Math.floor(Math.random() * conditions2.length)];
+		
+		msg.channel.send("Place your bets!\n>Chicken 1 " + conditions + ".\n>Chicken 2 " + conditions2 + ".\nBet on a chicken with `.bet <1 or 2>`");
+		
+		const collector = msg.channel.createCollector(
+			m => m.content.startsWith(".bet"),
+			{ maxMatches: 500, time: 30000 }
+		);
+		collector.on('collect', (msg, collected) => {
+			args = msg.content.split(" ");
+			chick = args[1];
+			cockBets.set(msg.author.username, chick);
+		});
+		collector.on('end', collected => {
+			var winners = "No one ";
+			cockBets.forEach(function(bet, username, numGuesses) {
+				if (bet == winner) {
+					winners = "";
+					winners += username + ", ";
+				}
+            });
+            msg.channel.send("**Chicken " + winner + "** has won the match!\n" + winners + "guessed correctly.");
 		});
 	}
 });
