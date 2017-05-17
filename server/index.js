@@ -1110,16 +1110,18 @@ bot.on("message", msg => {
 			cockBets.set(msg.author.username, chick);
 		});
 		collector.on('end', collected => {
+			console.log(cockBets);
 			var winners = "No one ";
 			cockBets.forEach(function(bet, username, numGuesses) {
 				bet = Number(bet);
 				if (bet == winner) {
 					winners = "";
-					winners += username + ", ";
+					winners += username + ", \n";
 				}
 				console.log(winners);
             });
-            msg.channel.send("**Chicken " + winner + "** has won the match!\n" + winners + "guessed correctly.");
+            msg.channel.send("**Chicken " + winner + "** has won the match!\n`" + winners + "` guessed correctly.");
+            cockBets.clear();
 		});
 	}
 });
