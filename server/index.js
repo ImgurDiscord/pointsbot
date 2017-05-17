@@ -990,11 +990,15 @@ bot.on("message", msg => {
 		giveaway = true;
 		var args = msg.content.split(" ");
 		var timeleft = args[1];
+		if (timeleft == undefined) {
+			msg.reply("You have to specify a time (in milliseconds)!");
+			return;
+		}
 		timeleft = Number(timeleft);
-		var minleft = timeleft / 1000;
-		minleft = minleft % 60;
-		minleft /= 60;
-		minleft = minleft % 60;
+		var date = new Date(timeleft);
+		var m = date.getMinutes();
+		var s = date.getSeconds();
+		var minleft = m + " minutes and " + s + " seconds";
 		var range = args[2];
 		var num = args[3];
 		var guess;
@@ -1003,10 +1007,7 @@ bot.on("message", msg => {
 		var usersmall;
 		var userguess;
 		var rangenum;
-		if (timeleft == undefined) {
-			msg.reply("You have to specify a time (in milliseconds)!");
-			return;
-		}
+		
 		if (range == undefined) {
 			range = "1-500";
 			num = randomInt(1, 500);
@@ -1023,7 +1024,7 @@ bot.on("message", msg => {
 			difference = Number(difference);
 		}
 		
-		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\n@everyone Guess a number between ${range}.\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} minutes to submit an answer.`).then((sent) => {setTimeout(() =>{sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands} with .num [number]\nYou have ${minleft} minutes to submit an answer.~~\n\`GIVEAWAY OVER\``)},timeleft)});
+		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\n@everyone Guess a number between ${range} and you might win a *special* prize!\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} left to submit an answer.`).then((sent) => {setTimeout(() =>{var cur = new Date(); var min = cur.getMinutes(); var hour = cur.getHours(); sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands} with .num [number]\nYou have ${minleft} left to submit an answer.~~\n\`GIVEAWAY ENDED AT ${hour + ":" + min + " EST"}\``)},timeleft)});
 		
 		const collector = bot.channels.get("257525917876748289").createCollector(
 			m => m.content.startsWith(".num"),
