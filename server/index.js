@@ -1146,15 +1146,17 @@ bot.on("message", msg => {
 		});
 		collector.on('end', collected => {
 			console.log(cockBets);
-			var winners = "No one ";
-			cockBets.forEach(function(bet, username, numGuesses) {
-				bet = Number(bet);
-				if (bet == winner) {
-					winners = "";
-					winners += username + ", ";
-				}
-				console.log(winners);
-            });
+			if(cockBets.length) {
+				winners = "";
+				cockBets.forEach(function(bet, username, numGuesses) {
+					bet = Number(bet);
+					if (bet == winner) {
+						winners += username + ", ";
+					}
+				});
+			} else {
+				var winners = "No one";
+			}
             msg.channel.send("**Chicken " + winner + " has won the match!**\n*Chicken " + loser + losemsg +  "\nChicken " + winner + winmsg + "*\n`" + winners + "` guessed correctly.");
             cockBets.clear();
 		});
