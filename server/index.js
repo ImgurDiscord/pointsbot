@@ -1060,9 +1060,9 @@ bot.on("message", msg => {
 		var chick;
 		var message;
 		var conditions1;
-		var con1 = randomInt(0, 17);
+		var con1 = randomInt(0, 16);
 		var conditions2;
-		var con2 = randomInt(0, 17);
+		var con2 = randomInt(0, 16);
 		var winner = randomInt(1,3);
 		var conditions = [
 			"has a chainsaw",
