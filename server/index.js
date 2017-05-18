@@ -1138,7 +1138,7 @@ bot.on("message", msg => {
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
-			{ maxMatches: 500, time: 10000 }
+			{ maxMatches: 500, time: 30000 }
 		);
 		collector.on('collect', (msg, collected) => {
 			args = msg.content.split(" ");
