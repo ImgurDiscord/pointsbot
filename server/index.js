@@ -1059,7 +1059,10 @@ bot.on("message", msg => {
 	if (msg.content.startsWith(".cockfight")) {
 		var chick;
 		var message;
+		var conditions1;
+		var con1 = randomInt(0, 17);
 		var conditions2;
+		var con2 = randomInt(0, 17);
 		var winner = randomInt(1,3);
 		var conditions = [
 			"has a chainsaw",
@@ -1079,28 +1082,10 @@ bot.on("message", msg => {
 			"is actually a dog covered in feathers",
 			"has a gattling gun mounted to its stomach"
 		];
-		var conditions2 = [
-			"has a chainsaw",
-			"has a booster jet that lets it fly",
-			"has telekinetic powers that let him predict its opponent's next move",
-			"has two samurai swords attached to its beak",
-			"has razor blades attached to its feet",
-			"has a lazer mounted to its back",
-			"is actually a dinosaur, not a chicken",
-			"has the power of Jesus on its side",
-			"wrapped itself in bubblewrap",
-			"has started an interpretive dance",
-			"has explosives strapped to its side",
-			"is possessed by Satan",
-			"is immune to feeling pain",
-			"has its head cut off",
-			"is actually a dog covered in feathers",
-			"has a gattling gun mounted to its stomach"
-		];
-		conditions = conditions[Math.floor(Math.random() * conditions.length)];
-		conditions2 = conditions2[Math.floor(Math.random() * conditions2.length)];
+		conditions1 = conditions[con1];
+		conditions2 = conditions[con2];
 		
-		msg.channel.send("Place your bets!\n>Chicken 1 " + conditions + ".\n>Chicken 2 " + conditions2 + ".\nBet on a chicken with `.bet <1 or 2>`");
+		msg.channel.send("Place your bets!\n>Chicken 1 " + conditions1 + ".\n>Chicken 2 " + conditions2 + ".\nBet on a chicken with `.bet <1 or 2>`");
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
