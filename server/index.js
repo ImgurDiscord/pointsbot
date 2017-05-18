@@ -1218,10 +1218,11 @@ bot.on("message", msg => {
 			});
 
 			stream.on('end', function(){
+				msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: ["server/cockfight.png"]});
 			});
 		
-		
-		msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: ["server/cockfight.png"]});
+			
+			
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
