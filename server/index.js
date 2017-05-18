@@ -1064,6 +1064,8 @@ bot.on("message", msg => {
 		var conditions2;
 		var con2 = randomInt(0, 16);
 		var winner = randomInt(1,3);
+		var loser;
+		
 		var conditions = [
 			"has a chainsaw",
 			"has a booster jet that lets it fly",
@@ -1082,10 +1084,56 @@ bot.on("message", msg => {
 			"is actually a dog covered in feathers",
 			"has a gattling gun mounted to its stomach"
 		];
+		var winmsg = [
+			" dug its chainsaw into the skull of the opponent, letting its brains spill out from its head.",
+			" boosted itself into the side of the other chicken and embedded itself in its opponent's chest cavity.",
+			" knew exactly what was going to happen next and destroyed its opponent.",
+			" took those swords and stabbed them violently into the opponent's heart.",
+			" shaved the opponent from head to foot, then went back a second time and skinned it.",
+			" had pin-point accuracy and managed to split the opponent clean in half.",
+			" honored its prehistoric brethren by chomping its mighty jaws around the opponent's head, crushing it.",
+			" threw a Bible at its opponent and stood in victory as the mighty hand of God reached down and squished it.",
+			" knew its bubblewrap covering would work, and smiled wildly as its opponent hurt itself in its confusion.",
+			" dodged every attack as it practiced its latest interpretive dance choreography.",
+			" managed to destroy everything including itself.",
+			" called on Satan and possessed its opponent, causing it to rip itself apart.",
+			" barely felt a thing and let its opponent die of exhaustion.",
+			" ran around in circles and somehow won.",
+			" followed its instincts plus inner rage and tore its opponent limb from limb, snacking on the bone afterwards.",
+			" handled the gattling gun beautifully and annihilated its opponent."
+		];
+		var losemsg = [
+			" tried its hardest to cut down its opponent with the chainsaw but",
+			" attempted to fly away but",
+			" just couldn't predict all of its opponent's moves and",
+			" made an attempt to kill with its swords but",
+			" could barely hit anything with its razor blades while",
+			" needs to practice its laser aim but",
+			" learned that his kind went extinct years ago and become depressed while",
+			" found out Jesus wasn't there for him, like always. But",
+			" knew his bubble-wrap couldn't stand the heat of battle and",
+			"'s interpretive dance was lacking everything but",
+			" messed with the fuse too much and blew up almost immediately and",
+			" learned that Satan isn't much of a fighter, while",
+			" found out that this pain is something it can feel, although",
+			" still can't see a thing. But",
+			" saw a bone and ran off, while",
+			" lost control and toppled over from the gattling gun's power but"
+		];
 		conditions1 = conditions[con1];
 		conditions2 = conditions[con2];
 		
-		msg.channel.send("Place your bets!\n>Chicken 1 " + conditions1 + ".\n>Chicken 2 " + conditions2 + ".\nBet on a chicken with `.bet <1 or 2>`");
+		if (winner == 1) {
+			loser = 2;
+			winmsg = winmsg[con1];
+			losemsg = losemsg[con2];
+		} else if (winner == 2) {
+			loser = 1;
+			winmsg = winmsg[con2];
+			losemsg = losemsg[con1];
+		}
+		
+		msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`");
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
@@ -1107,7 +1155,7 @@ bot.on("message", msg => {
 				}
 				console.log(winners);
             });
-            msg.channel.send("**Chicken " + winner + "** has won the match!\n`" + winners + "` guessed correctly.");
+            msg.channel.send("**Chicken " + winner + " has won the match!**\n*Chicken " + loser + losemsg +  "\nChicken " + winner + winmsg + "*\n`" + winners + "` guessed correctly.");
             cockBets.clear();
 		});
 	}
