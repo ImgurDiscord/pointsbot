@@ -1065,6 +1065,7 @@ bot.on("message", msg => {
 		var con2 = randomInt(0, 16);
 		var winner = randomInt(1,3);
 		var loser;
+		var winners;
 		
 		var conditions = [
 			"has a chainsaw",
@@ -1137,7 +1138,7 @@ bot.on("message", msg => {
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
-			{ maxMatches: 500, time: 30000 }
+			{ maxMatches: 500, time: 10000 }
 		);
 		collector.on('collect', (msg, collected) => {
 			args = msg.content.split(" ");
@@ -1146,7 +1147,11 @@ bot.on("message", msg => {
 		});
 		collector.on('end', collected => {
 			console.log(cockBets);
-			if(cockBets.length) {
+			if(cockBets.length == 0) {
+				winners = "No one";
+				console.log("The map is empty...");
+			} else {
+				console.log("The map has stuff in it!");
 				winners = "";
 				cockBets.forEach(function(bet, username, numGuesses) {
 					bet = Number(bet);
@@ -1154,8 +1159,6 @@ bot.on("message", msg => {
 						winners += username + ", ";
 					}
 				});
-			} else {
-				var winners = "No one";
 			}
             msg.channel.send("**Chicken " + winner + " has won the match!**\n*Chicken " + loser + losemsg +  "\nChicken " + winner + winmsg + "*\n`" + winners + "` guessed correctly.");
             cockBets.clear();
