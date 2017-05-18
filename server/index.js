@@ -1194,7 +1194,7 @@ bot.on("message", msg => {
 			ctx.fillStyle = "brown";
 			ctx.fill();
 			
-			/*//Right Chicken
+			//Right Chicken
 			img2.onload = function() {
 				ctx.drawImage(img2, 240, 8, 170, 170);
 			}
@@ -1211,7 +1211,7 @@ bot.on("message", msg => {
 			img1.onerror = function(err) {
 				console.log(err);
 			}
-			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));*/
+			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));
 			
 			stream.on('data', function(chunk){
 			  out.write(chunk);
@@ -1467,6 +1467,13 @@ app.use(middleware());
 
 // api router
 app.use('/api', api());
+
+// Add this code for maximun 150mb 
+app.use(bodyParser.json({limit: '150mb'}));
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+	limit: '150mb',
+	extended: true
+})); 
 
 // //The 404 Route (ALWAYS Keep this as the last route)
 // app.get('*', function(req, res) {
