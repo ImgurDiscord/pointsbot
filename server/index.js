@@ -1063,7 +1063,8 @@ bot.on("message", msg => {
 		var con1 = randomInt(0, 16);
 		var conditions2;
 		var con2 = randomInt(0, 16);
-		var winner = randomInt(1,3);
+		var winner = ["1", "2"];
+		winner = winner[Math.floor(Math.random() * winner.length)];
 		var loser;
 		var winners;
 		
