@@ -1135,7 +1135,93 @@ bot.on("message", msg => {
 			losemsg = losemsg[con1];
 		}
 		
-		msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`");
+		
+			var Image = Canvas.Image;
+			var canvas = new Canvas(400, 180);
+			var ctx = canvas.getContext('2d');
+			var out = fs.createWriteStream(__dirname + '/cockfight.png');
+			var stream = canvas.pngStream();
+			var img1 = new Image();
+			var img2 = new Image();
+			
+			function drawStar(cx,cy,spikes,outerRadius,innerRadius,color){
+				var rot=Math.PI/2*3;
+				var x=cx;
+				var y=cy;
+				var step=Math.PI/spikes;
+
+				ctx.beginPath();
+				ctx.moveTo(cx,cy-outerRadius)
+				for(i=0;i<spikes;i++){
+					x=cx+Math.cos(rot)*outerRadius;
+					y=cy+Math.sin(rot)*outerRadius;
+					ctx.lineTo(x,y)
+					rot+=step
+
+					x=cx+Math.cos(rot)*innerRadius;
+					y=cy+Math.sin(rot)*innerRadius;
+					ctx.lineTo(x,y)
+					rot+=step
+				}
+				ctx.lineTo(cx,cy-outerRadius);
+				ctx.closePath();
+				ctx.lineWidth=5;
+				ctx.strokeStyle=color;
+				ctx.stroke();
+				ctx.fillStyle=color;
+				ctx.fill();
+			}
+			
+			//Main BG
+			ctx.beginPath();
+			ctx.rect(0, 0, 400, 180);
+			ctx.fillStyle = "#000b75";
+			ctx.fill();
+			//Left Explosion
+			drawStar(30,90,9,115,100,'#044360');
+			//Right Explosion
+			drawStar(370,90,9,115,100,'#044360');
+			//Center Star
+			drawStar(200,87,9,45,35,'#FFE900');
+			//VS Text
+			ctx.fillStyle = "black";
+			ctx.font = '30px Arial';
+			ctx.textAlign="center";
+			ctx.fillText("VS" , 200, 97);
+			//Floor
+			ctx.beginPath();
+			ctx.rect(0, 172, 400, 8);
+			ctx.fillStyle = "brown";
+			ctx.fill();
+			
+			//Right Chicken
+			img2.onload = function() {
+				ctx.drawImage(img2, 240, 8, 170, 170);
+			}
+			img2.onerror = function(err) {
+				console.log(err);
+			}
+			img2.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con2 + '.png'));
+			//Left Chicken
+			img1.onload = function() {
+				ctx.translate(img1.width, 0);
+				ctx.scale(-1, 1);
+				ctx.drawImage(img1, 240, 8, 170, 170);
+			}
+			img1.onerror = function(err) {
+				console.log(err);
+			}
+			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));
+			
+			stream.on('data', function(chunk){
+			  out.write(chunk);
+			});
+
+			stream.on('end', function(){
+			});
+		
+		
+		msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: ["server/cockfight.png"]});
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
@@ -1161,10 +1247,41 @@ bot.on("message", msg => {
 					}
 				});
 			}
+			
             msg.channel.send("**Chicken " + winner + " has won the match!**\n*Chicken " + loser + losemsg +  "\nChicken " + winner + winmsg + "*\n`" + winners + "` guessed correctly.");
             cockBets.clear();
 		});
 	}
+	/*if (msg.content.startsWith(".info")) {
+		var timejoined;
+		var dtimejoined = msg.author.createdTimestamp;
+		var id = msg.author.id;
+		
+		msg.channel.send("", {embed: {
+					color: 1352973,
+					author: {
+						name: msg.member.displayName
+					},
+					description: '--------------\n',
+					fields: [
+						{
+						name: 'Rank:',
+						value: '```cs\n' + rank + '```'
+						},
+						{
+						name: 'Points:',
+						value: '```cs\n' + points + '```'
+						}
+					],
+					timestamp: new Date(),
+					footer: {
+						text: 'Giraffe'
+					},
+					thumbnail: {
+						url: msg.author.avatarURL
+					}
+				}});
+	}*/
 });
 
 var response;
