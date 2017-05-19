@@ -1137,7 +1137,7 @@ bot.on("message", msg => {
 		
 		
 			var Image = Canvas.Image;
-			var canvas = new Canvas(350, 140);
+			var canvas = new Canvas(320, 130);
 			var ctx = canvas.getContext('2d');
 			var out = fs.createWriteStream(__dirname + '/cockfight.png');
 			var stream = canvas.pngStream();
@@ -1174,29 +1174,29 @@ bot.on("message", msg => {
 			
 			//Main BG
 			ctx.beginPath();
-			ctx.rect(0, 0, 350, 140);
+			ctx.rect(0, 0, 320, 130);
 			ctx.fillStyle = "#000b75";
 			ctx.fill();
 			//Left Explosion
-			drawStar(30,70,9,105,90,'#044360');
+			drawStar(30,65,9,105,90,'#044360');
 			//Right Explosion
-			drawStar(320,70,9,105,90,'#044360');
+			drawStar(190,65,9,105,90,'#044360');
 			//Center Star
-			drawStar(175,68,9,35,25,'#FFE900');
+			drawStar(160,63,9,35,25,'#FFE900');
 			//Floor
 			ctx.beginPath();
-			ctx.rect(0, 132, 400, 8);
+			ctx.rect(0, 122, 320, 8);
 			ctx.fillStyle = "brown";
 			ctx.fill();
 			//VS Text
 			ctx.fillStyle = "black";
 			ctx.font = '30px Arial';
 			ctx.textAlign="center";
-			ctx.fillText("VS" , 175, 79);
+			ctx.fillText("VS" , 160, 75);
 			
 			//Right Chicken
 			img2.onload = function() {
-				ctx.drawImage(img2, 220, 8, 130, 130);
+				ctx.drawImage(img2, 190, 1, 125, 125);
 			}
 			img2.onerror = function(err) {
 				console.log(err);
@@ -1206,7 +1206,7 @@ bot.on("message", msg => {
 			img1.onload = function() {
 				ctx.translate(img1.width, 0);
 				ctx.scale(-1, 1);
-				ctx.drawImage(img1, 270, 8, 130, 130);
+				ctx.drawImage(img1, 270, 1, 125, 125);
 			}
 			img1.onerror = function(err) {
 				console.log(err);
