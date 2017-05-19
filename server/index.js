@@ -836,7 +836,7 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".ver")) { 
 		msg.channel.send("Version: 1.5");
 	}
-	if (msg.content.startsWith(".profile")) {
+	/*if (msg.content.startsWith(".profile")) {
 		var target;
 		var avatar;
 		var user;
@@ -985,7 +985,7 @@ bot.on("message", msg => {
 			
 		});
 	}
-	}
+	}*/
 	if (msg.content.startsWith(".create_giveaway")) {
 		giveaway = true;
 		var args = msg.content.split(" ");
@@ -1202,7 +1202,7 @@ bot.on("message", msg => {
 				console.log(err);
 			}
 			img2.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con2 + '.png'));
-			/*//Left Chicken
+			//Left Chicken
 			img1.onload = function() {
 				ctx.translate(img1.width, 0);
 				ctx.scale(-1, 1);
@@ -1211,7 +1211,7 @@ bot.on("message", msg => {
 			img1.onerror = function(err) {
 				console.log(err);
 			}
-			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));*/
+			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));
 			
 			stream.on('data', function(chunk){
 			  out.write(chunk);
