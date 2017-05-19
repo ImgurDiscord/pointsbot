@@ -1180,7 +1180,7 @@ bot.on("message", msg => {
 			//Left Explosion
 			drawStar(30,65,9,105,90,'#044360');
 			//Right Explosion
-			drawStar(190,65,9,105,90,'#044360');
+			drawStar(290,65,9,105,90,'#044360');
 			//Center Star
 			drawStar(160,63,9,35,25,'#FFE900');
 			//Floor
@@ -1226,7 +1226,7 @@ bot.on("message", msg => {
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
-			{ maxMatches: 500, time: 5000 }
+			{ maxMatches: 500, time: 30000 }
 		);
 		collector.on('collect', (msg, collected) => {
 			args = msg.content.split(" ");
