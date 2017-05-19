@@ -1183,16 +1183,16 @@ bot.on("message", msg => {
 			drawStar(370,90,9,115,100,'#044360');
 			//Center Star
 			drawStar(200,87,9,45,35,'#FFE900');
-			//VS Text
-			ctx.fillStyle = "black";
-			ctx.font = '30px Arial';
-			ctx.textAlign="center";
-			ctx.fillText("VS" , 200, 97);
 			//Floor
 			ctx.beginPath();
 			ctx.rect(0, 172, 400, 8);
 			ctx.fillStyle = "brown";
 			ctx.fill();
+			//VS Text
+			ctx.fillStyle = "black";
+			ctx.font = '30px Arial';
+			ctx.textAlign="center";
+			ctx.fillText("VS" , 200, 97);
 			
 			//Right Chicken
 			img2.onload = function() {
@@ -1218,6 +1218,7 @@ bot.on("message", msg => {
 			});
 
 			stream.on('end', function(){
+				stream.end();
 			});
 		
 			
