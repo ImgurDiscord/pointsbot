@@ -878,113 +878,113 @@ bot.on("message", msg => {
 		});
 		
 		function makeImage() {
-		getInfo(target, function(err, result) {
-			var rank = result.rows[0].rank;
-			var points = result.rows[0].points;
+			getInfo(target, function(err, result) {
+				var rank = result.rows[0].rank;
+				var points = result.rows[0].points;
+				
+				if (rank == "New") {
+					todo = 249;
+					done = 0;
+				} else if (rank == "Liked") {
+					todo = 499;
+					done = 250;
+				} else if (rank == "Loyal") {
+					todo = 999;
+					done = 500;
+				} else if (rank == "Adored") {
+					todo = 1999;
+					done = 1000;
+				} else if (rank == "Famous") {
+					todo = 3999;
+					done = 2000;
+				} else if (rank == "Hot Single Dad") {
+					todo = "∞";
+					done = 4000;
+				}
+				
+				dpoints = points - done;
+				dtodo = todo - done;
+				
+				var percent = dpoints / dtodo * 100;
+				
+				if (err) {
+					console.log(err);
+				}
 			
-			if (rank == "New") {
-				todo = 249;
-				done = 0;
-			} else if (rank == "Liked") {
-				todo = 499;
-				done = 250;
-			} else if (rank == "Loyal") {
-				todo = 999;
-				done = 500;
-			} else if (rank == "Adored") {
-				todo = 1999;
-				done = 1000;
-			} else if (rank == "Famous") {
-				todo = 3999;
-				done = 2000;
-			} else if (rank == "Hot Single Dad") {
-				todo = "∞";
-				done = 4000;
-			}
-			
-			dpoints = points - done;
-			dtodo = todo - done;
-			
-			var percent = dpoints / dtodo * 100;
-			
-			if (err) {
-				console.log(err);
-			}
-		
-			var Image = Canvas.Image;
-			var canvas = new Canvas(300, 120);
-			var ctx = canvas.getContext('2d');
-			var out = fs.createWriteStream(__dirname + '/text.png');
-			var stream = canvas.pngStream();
-			var img = new Image();
-			
-			//Main BG
-			ctx.beginPath();
-			ctx.rect(0, 0, 300, 280);
-			ctx.fillStyle = "#565656";
-			ctx.fill();
-			
-			//Main Box Border
-			ctx.beginPath();
-			ctx.rect(10, 35, 280, 75);
-			ctx.fillStyle = "white";
-			ctx.fill();
-			
-			//Main Box BG
-			ctx.beginPath();
-			ctx.rect(15, 40, 270, 65);
-			ctx.fillStyle = "#AEAEAE";
-			ctx.fill();
-			
-			//Progress Bar Todo
-			ctx.beginPath();
-			ctx.rect(15, 80, 270, 25);
-			ctx.fillStyle = "#1C3E1D";
-			ctx.fill();
-			
-			//Progress Bar Done
-			ctx.beginPath();
-			ctx.rect(15, 80, 1 + ((270 / 100) * percent), 25);
-			ctx.fillStyle = "#416E3C";
-			ctx.fill();
-			
-			//Profile Image BG
-			ctx.beginPath();
-			ctx.rect(10, 10, 70, 70);
-			ctx.fillStyle = "white"; //#209433
-			ctx.fill();
-			
-			img.onload = function() {
-				ctx.drawImage(img, 15, 15, 60, 60);
-			}
-			img.onerror = function(err) {
-				console.log(err);
-			}
-			img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
-			
-			ctx.fillStyle = "white";
-			ctx.font = '22px Arial';
-			ctx.fillText(user, 85, 30);
-			ctx.fillStyle = "#B3DDAA";
-			ctx.font = '14px Arial';
-			ctx.textAlign="center";
-			ctx.fillText(points + " / " + todo , 15 + (270 / 2), 97);
-			ctx.fillStyle = "white";
-			ctx.font = '25px Arial';
-			ctx.textAlign="left";
-			ctx.fillText(rank, 85, 70);
-			
-			stream.on('data', function(chunk){
-			  out.write(chunk);
-			});
+				var Image = Canvas.Image;
+				var canvas = new Canvas(300, 120);
+				var ctx = canvas.getContext('2d');
+				var out = fs.createWriteStream(__dirname + '/text.png');
+				var stream = canvas.pngStream();
+				var img = new Image();
+				
+				//Main BG
+				ctx.beginPath();
+				ctx.rect(0, 0, 300, 280);
+				ctx.fillStyle = "#565656";
+				ctx.fill();
+				
+				//Main Box Border
+				ctx.beginPath();
+				ctx.rect(10, 35, 280, 75);
+				ctx.fillStyle = "white";
+				ctx.fill();
+				
+				//Main Box BG
+				ctx.beginPath();
+				ctx.rect(15, 40, 270, 65);
+				ctx.fillStyle = "#AEAEAE";
+				ctx.fill();
+				
+				//Progress Bar Todo
+				ctx.beginPath();
+				ctx.rect(15, 80, 270, 25);
+				ctx.fillStyle = "#1C3E1D";
+				ctx.fill();
+				
+				//Progress Bar Done
+				ctx.beginPath();
+				ctx.rect(15, 80, 1 + ((270 / 100) * percent), 25);
+				ctx.fillStyle = "#416E3C";
+				ctx.fill();
+				
+				//Profile Image BG
+				ctx.beginPath();
+				ctx.rect(10, 10, 70, 70);
+				ctx.fillStyle = "white"; //#209433
+				ctx.fill();
+				
+				img.onload = function() {
+					ctx.drawImage(img, 15, 15, 60, 60);
+				}
+				img.onerror = function(err) {
+					console.log(err);
+				}
+				img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
+				
+				ctx.fillStyle = "white";
+				ctx.font = '22px Arial';
+				ctx.fillText(user, 85, 30);
+				ctx.fillStyle = "#B3DDAA";
+				ctx.font = '14px Arial';
+				ctx.textAlign="center";
+				ctx.fillText(points + " / " + todo , 15 + (270 / 2), 97);
+				ctx.fillStyle = "white";
+				ctx.font = '25px Arial';
+				ctx.textAlign="left";
+				ctx.fillText(rank, 85, 70);
+				
+				stream.on('data', function(chunk){
+				  out.write(chunk);
+				});
 
-			stream.on('end', function(){
-			});
+				stream.on('end', function(){
+				});
 
-			msg.channel.send("Profile for " + guy, {files: ["server/text.png"]});
-			
-		});
-	}
+				msg.channel.send("Profile for " + guy, {files: ["server/text.png"]});
+				
+			});
+		}
 	}
 	if (msg.content.startsWith(".create_giveaway")) {
 		giveaway = true;
@@ -1137,7 +1137,7 @@ bot.on("message", msg => {
 		
 		
 			var Image = Canvas.Image;
-			var canvas = new Canvas(400, 180);
+			var canvas = new Canvas(350, 140);
 			var ctx = canvas.getContext('2d');
 			var out = fs.createWriteStream(__dirname + '/cockfight.png');
 			var stream = canvas.pngStream();
@@ -1174,29 +1174,29 @@ bot.on("message", msg => {
 			
 			//Main BG
 			ctx.beginPath();
-			ctx.rect(0, 0, 400, 180);
+			ctx.rect(0, 0, 350, 140);
 			ctx.fillStyle = "#000b75";
 			ctx.fill();
 			//Left Explosion
-			drawStar(30,90,9,115,100,'#044360');
+			drawStar(30,70,9,105,90,'#044360');
 			//Right Explosion
-			drawStar(370,90,9,115,100,'#044360');
+			drawStar(320,70,9,105,90,'#044360');
 			//Center Star
-			drawStar(200,87,9,45,35,'#FFE900');
+			drawStar(175,68,9,35,25,'#FFE900');
 			//Floor
 			ctx.beginPath();
-			ctx.rect(0, 172, 400, 8);
+			ctx.rect(0, 132, 400, 8);
 			ctx.fillStyle = "brown";
 			ctx.fill();
 			//VS Text
 			ctx.fillStyle = "black";
 			ctx.font = '30px Arial';
 			ctx.textAlign="center";
-			ctx.fillText("VS" , 200, 97);
+			ctx.fillText("VS" , 175, 79);
 			
 			//Right Chicken
 			img2.onload = function() {
-				ctx.drawImage(img2, 240, 8, 170, 170);
+				ctx.drawImage(img2, 220, 8, 130, 130);
 			}
 			img2.onerror = function(err) {
 				console.log(err);
@@ -1206,7 +1206,7 @@ bot.on("message", msg => {
 			img1.onload = function() {
 				ctx.translate(img1.width, 0);
 				ctx.scale(-1, 1);
-				ctx.drawImage(img1, 240, 8, 170, 170);
+				ctx.drawImage(img1, 270, 8, 130, 130);
 			}
 			img1.onerror = function(err) {
 				console.log(err);
@@ -1216,37 +1216,50 @@ bot.on("message", msg => {
 			stream.on('data', function(chunk){
 			  out.write(chunk);
 			});
-
+			
 			stream.on('end', function(){
 				console.log("Image saved to file.");
 				stream.end();
 			});
-		
+			
 			msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: ["server/cockfight.png"]});
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
-			{ maxMatches: 500, time: 30000 }
+			{ maxMatches: 500, time: 5000 }
 		);
 		collector.on('collect', (msg, collected) => {
 			args = msg.content.split(" ");
 			chick = args[1];
 			cockBets.set(msg.author.username, chick);
+			cockBets.set('sausage', 'sausage');
 		});
 		collector.on('end', collected => {
-			console.log(cockBets);
-			if(cockBets.length == 0) {
+			function isEmpty(map) {
+				for(var key in map) {
+					return !map.hasOwnProperty(key);
+				}
+				return true;
+			}
+			if(!cockBets.has('sausage')) {
 				winners = "No one";
 				console.log("The map is empty...");
 			} else {
 				console.log("The map has stuff in it!");
 				winners = "";
-				cockBets.forEach(function(bet, username, numGuesses) {
-					bet = Number(bet);
-					if (bet == winner) {
-						winners += username + ", ";
-					}
-				});
+				if (cockBets.keys(winner).length != 0) {
+					console.log("value exists");
+					cockBets.forEach(function(bet, username, numGuesses) {
+						bet = Number(bet);
+						if (bet == winner) {
+							winners += username + ", ";
+						}
+					});
+				}
+				if (cockBets.keys(winner).length == 0) {
+					console.log("value doesn't exist");
+					winners = "No one";
+				}
 			}
 			
             msg.channel.send("**Chicken " + winner + " has won the match!**\n*Chicken " + loser + losemsg +  "\nChicken " + winner + winmsg + "*\n`" + winners + "` guessed correctly.");
