@@ -836,7 +836,7 @@ bot.on("message", msg => {
 	if(msg.content.startsWith(".ver")) { 
 		msg.channel.send("Version: 1.5");
 	}
-	/*if (msg.content.startsWith(".profile")) {
+	if (msg.content.startsWith(".profile")) {
 		var target;
 		var avatar;
 		var user;
@@ -985,7 +985,7 @@ bot.on("message", msg => {
 			
 		});
 	}
-	}*/
+	}
 	if (msg.content.startsWith(".create_giveaway")) {
 		giveaway = true;
 		var args = msg.content.split(" ");
