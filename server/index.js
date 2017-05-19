@@ -1202,7 +1202,7 @@ bot.on("message", msg => {
 				console.log(err);
 			}
 			img2.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con2 + '.png'));
-			//Left Chicken
+			/*//Left Chicken
 			img1.onload = function() {
 				ctx.translate(img1.width, 0);
 				ctx.scale(-1, 1);
@@ -1211,7 +1211,7 @@ bot.on("message", msg => {
 			img1.onerror = function(err) {
 				console.log(err);
 			}
-			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));
+			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));*/
 			
 			stream.on('data', function(chunk){
 			  out.write(chunk);
@@ -1468,12 +1468,7 @@ app.use(middleware());
 // api router
 app.use('/api', api());
 
-// Add this code for maximun 150mb 
-app.use(bodyParser.json({limit: '150mb'}));
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-	limit: '150mb',
-	extended: true
-})); 
+
 
 // //The 404 Route (ALWAYS Keep this as the last route)
 // app.get('*', function(req, res) {
