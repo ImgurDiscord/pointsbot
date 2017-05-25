@@ -78,11 +78,11 @@ bot.on("ready", () => {
 
 bot.on("message", message => {
     var newr = message.guild.roles.find("name", "New");
-    var liked = message.guild.roles.find("name", "Liked");
-    var loyal = message.guild.roles.find("name", "Loyal");
-    var adored = message.guild.roles.find("name", "Adored");
-    var famous = message.guild.roles.find("name", "Famous");
-    var single = message.guild.roles.find("name", "Hot Single Dad");
+    var liked = message.guild.roles.find("name", "Single");
+    var loyal = message.guild.roles.find("name", "Dad");
+    var adored = message.guild.roles.find("name", "Single Dad");
+    var famous = message.guild.roles.find("name", "Hot Single Dad");
+    var single = message.guild.roles.find("name", "Red Hot Single Dad");
 
     if (message.author.bot) return;
 
@@ -125,49 +125,49 @@ bot.on("message", message => {
             });
             message.member.addRole(newr);
         }
-        if (curPoints >= 250 && curPoints <= 499 && curRank != "Liked") {
+        if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
             let member = message.guild.member(userId);
-            updateRank("Liked", userId, function(err, result) {
+            updateRank("Single", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
             message.member.addRole(liked);
         }
-        if (curPoints >= 500 && curPoints <= 999 && curRank != "Loyal") {
+        if (curPoints >= 500 && curPoints <= 999 && curRank != "Dad") {
             let member = message.guild.member(userId);
             //message.member.removeRole(liked);
-            updateRank("Loyal", userId, function(err, result) {
+            updateRank("Dad", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
             message.member.addRole(loyal);
         }
-        if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Adored") {
+        if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Single Dad") {
             let member = message.guild.member(userId);
             //message.member.removeRole(trusted);
-            updateRank("Adored", userId, function(err, result) {
+            updateRank("Single Dad", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
             message.member.addRole(adored);
         }
-        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Famous") {
+        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot SIngle Dad") {
             let member = message.guild.member(userId);
             //message.member.removeRole(idolized);
-            updateRank("Famous", userId, function(err, result) {
+            updateRank("Hot Single Dad", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
             message.member.addRole(famous);
         }
-        if (curPoints >= 4000 && curRank != "Hot Single Dad") {
+        if (curPoints >= 4000 && curRank != "Red Hot Single Dad") {
             let member = message.guild.member(userId);
             //message.member.removeRole(renowned);
-            updateRank("Hot Single Dad", userId, function(err, result) {
+            updateRank("Red Hot Single Dad", userId, function(err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -321,7 +321,7 @@ bot.on("message", msg => {
         msg.channel.send("chong");
     }
     if (msg.content.startsWith(".ranks")) {
-        msg.channel.send("```Ranks:\n-New: 0-249 points\n-Liked: 250-499 points\n-Loyal: 500-999 points\n-Adored: 1000-1999 points\n-Famous: 2000-3999 points\n-Hot SIngle Dad: 4000+ points```");
+        msg.channel.send("```Ranks:\n-New: 0-249 points\n-Single: 250-499 points\n-Dad: 500-999 points\n-Single Dad: 1000-1999 points\n-Hot Single Dad: 2000-3999 points\n-Red Hot SIngle Dad: 4000+ points```");
     }
     if (msg.content.startsWith(".roll")) {
         var mess = msg.content.split(' ');
@@ -1024,7 +1024,7 @@ bot.on("message", msg => {
 			difference = Number(difference);
 		}
 		
-		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\n@everyone Guess a number between ${range} and you might win a *special* prize!\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} left to submit an answer.`).then((sent) => {setTimeout(() =>{var cur = new Date(); var min = cur.getMinutes(); var hour = cur.getHours(); sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands} with .num [number]\nYou have ${minleft} left to submit an answer.~~\n\`GIVEAWAY ENDED AT ${hour + ":" + min + " EST"}\``)},timeleft)});
+		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\n@everyone Guess a number between ${range} and you might win a *special* prize!\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} left to submit an answer.`).then((sent) => {setTimeout(() =>{var cur = new Date(); var min = cur.getMinutes(); var hour = cur.getHours(); sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands with .num [number]\nYou have ${minleft} left to submit an answer.~~\n\`GIVEAWAY ENDED AT ${hour + ":" + min + " EST"}\``)},timeleft)});
 		
 		const collector = bot.channels.get("257525917876748289").createCollector(
 			m => m.content.startsWith(".num"),
@@ -1266,36 +1266,52 @@ bot.on("message", msg => {
             cockBets.clear();
 		});
 	}
-	/*if (msg.content.startsWith(".info")) {
-		var timejoined;
-		var dtimejoined = msg.author.createdTimestamp;
+	if (msg.content.startsWith(".info")) {
+		function timeConverter(UNIX_timestamp){
+			var a = new Date(UNIX_timestamp * 1000);
+			var months = ['Jan','Feb','March','April','May','June','July','August','September','October','November','December'];
+			var year = a.getFullYear();
+			var month = months[a.getMonth()];
+			var date = a.getDate();
+			var hour = a.getHours();
+			var min = a.getMinutes();
+			var half = 'am';
+			if (hour > 12) {
+				hour = hour - 12;
+				half = 'pm';
+			}
+			var time = date + ' ' + month + ' @ ' + hour + ':' + min + half;
+			return time;
+		}
+		
+		var dtimejoined = timeConverter(msg.author.createdTimestamp);
+		var timejoined = timeConverter(msg.guild.createdTimestamp);
 		var id = msg.author.id;
 		
 		msg.channel.send("", {embed: {
 					color: 1352973,
 					author: {
-						name: msg.member.displayName
+						name: '**'+msg.author.username+'**'
 					},
-					description: '--------------\n',
 					fields: [
 						{
-						name: 'Rank:',
-						value: '```cs\n' + rank + '```'
+						name: 'ID',
+						value: '\n' + msg.author.id
 						},
 						{
-						name: 'Points:',
-						value: '```cs\n' + points + '```'
+						name: 'Account Created:',
+						value: '\n' + timejoined
+						},
+						{
+						name: 'Server Created:',
+						value: '\n' + dtimejoined
 						}
 					],
-					timestamp: new Date(),
-					footer: {
-						text: 'Giraffe'
-					},
 					thumbnail: {
 						url: msg.author.avatarURL
 					}
 				}});
-	}*/
+	}
 });
 
 var response;
