@@ -872,19 +872,19 @@ bot.on("message", msg => {
 				if (rank == "New") {
 					todo = 249;
 					done = 0;
-				} else if (rank == "Liked") {
+				} else if (rank == "Single") {
 					todo = 499;
 					done = 250;
-				} else if (rank == "Loyal") {
+				} else if (rank == "Dad") {
 					todo = 999;
 					done = 500;
-				} else if (rank == "Adored") {
+				} else if (rank == "Single Dad") {
 					todo = 1999;
 					done = 1000;
-				} else if (rank == "Famous") {
+				} else if (rank == "Hot Single Dad") {
 					todo = 3999;
 					done = 2000;
-				} else if (rank == "Hot Single Dad") {
+				} else if (rank == "Red Hot Single Dad") {
 					todo = "∞";
 					done = 4000;
 				}
