@@ -31,7 +31,6 @@ var thirdSlot = 0;
 var Slot1;
 var Slot2;
 var Slot3;
-//var jackpot = 0;
 var bullets = 7;
 var noco;
 var called;
@@ -47,14 +46,14 @@ var curcolor;
 var numchance = randomInt(0, 7);
 var giveaway = false;
 
-/*getLeaders(function(err, result) {
+getLeaders(function(err, result) {
 	if (err) {
 		console.log(err);
 	}
 	first = result.rows[0].username;
 	second = result.rows[1].username;
 	third = result.rows[2].username;
-});*/
+});
 
 setInterval(function() {
     http.get("http://childcatcher.herokuapp.com");
@@ -154,7 +153,7 @@ bot.on("message", message => {
             });
             member.addRole(singledad);
         }
-        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot SIngle Dad") {
+        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot Single Dad") {
             let member = message.guild.member(userId);
             //message.member.removeRole(idolized);
             updateRank("Hot Single Dad", userId, function(err, result) {
