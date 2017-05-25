@@ -7,7 +7,7 @@ import api from './api';
 import query from './lib/db.js';
 import fs from 'fs';
 import Discord from 'discord.js';
-import cleverbot from 'cleverbot.io';
+//import cleverbot from 'cleverbot.io';
 import cats from 'cat-facts';
 import yt from 'ytdl-core';
 import request from 'request';
@@ -78,11 +78,11 @@ bot.on("ready", () => {
 
 bot.on("message", message => {
     var newr = message.guild.roles.find("name", "New");
-    var liked = message.guild.roles.find("name", "Single");
-    var loyal = message.guild.roles.find("name", "Dad");
-    var adored = message.guild.roles.find("name", "Single Dad");
-    var famous = message.guild.roles.find("name", "Hot Single Dad");
-    var single = message.guild.roles.find("name", "Red Hot Single Dad");
+    var single = message.guild.roles.find("name", "Single");
+    var dad = message.guild.roles.find("name", "Dad");
+    var singledad = message.guild.roles.find("name", "Single Dad");
+    var hotsingle = message.guild.roles.find("name", "Hot Single Dad");
+    var redhot = message.guild.roles.find("name", "Red Hot Single Dad");
 
     if (message.author.bot) return;
 
@@ -123,7 +123,7 @@ bot.on("message", message => {
                     console.log(err);
                 }
             });
-            message.member.addRole(newr);
+            member.addRole(newr);
         }
         if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
             let member = message.guild.member(userId);
@@ -132,7 +132,7 @@ bot.on("message", message => {
                     console.log(err);
                 }
             });
-            message.member.addRole(liked);
+            member.addRole(single);
         }
         if (curPoints >= 500 && curPoints <= 999 && curRank != "Dad") {
             let member = message.guild.member(userId);
@@ -142,7 +142,7 @@ bot.on("message", message => {
                     console.log(err);
                 }
             });
-            message.member.addRole(loyal);
+            member.addRole(dad);
         }
         if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Single Dad") {
             let member = message.guild.member(userId);
@@ -152,7 +152,7 @@ bot.on("message", message => {
                     console.log(err);
                 }
             });
-            message.member.addRole(adored);
+            member.addRole(singledad);
         }
         if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot SIngle Dad") {
             let member = message.guild.member(userId);
@@ -162,7 +162,7 @@ bot.on("message", message => {
                     console.log(err);
                 }
             });
-            message.member.addRole(famous);
+            member.addRole(hotsingle);
         }
         if (curPoints >= 4000 && curRank != "Red Hot Single Dad") {
             let member = message.guild.member(userId);
@@ -172,7 +172,7 @@ bot.on("message", message => {
                     console.log(err);
                 }
             });
-            message.member.addRole(single);
+            member.addRole(redhot);
         }
     });
 });
@@ -205,7 +205,7 @@ function checkPoints() {
 
 setInterval(checkPoints, 180000);
 
-var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
+/*var cbot = new cleverbot("fZFi0nV8w5JRU0uf", "Z3mf66x7lAmsjt2kI4QhQmpkLTskjNPm");
 cbot.setNick("imguraffe");
 cbot.create(function(err, session) {
 	chat = function(line, callback) {
@@ -213,7 +213,7 @@ cbot.create(function(err, session) {
 			callback(response);
 		});
 	};
-});
+});*/
 
 bot.on("message", msg => {
     if (msg.content.startsWith(".ping")) {
@@ -387,18 +387,6 @@ bot.on("message", msg => {
         var insulttemplates = [`${insultee}, you are **${randadj}**, **${randadj2}** **${randnoun2}.**`, `${insultee}, you are  **${randadj}** **${randnoun2}.**`, `${insultee} is nothing more but **${randadj}** **${randnoun2}.**`, `${insultee} is nothing but **${randnoun}**, balls deep fucking **${randnoun}.**`, `${insultee}, the only thing you have going for you is fulfilling your life as **${randadj}** **${randnoun2}.**`, `I would never talk about **${randadj}** **${randnoun2}** such as ${insultee}.`, `${insultee}, your personality reminds me of **${randadj}** **${randnoun2}**, but worse.`, `Why would I waste my time insulting a **${randadj}** **${randnoun2}** like ${insultee}.`]
         var randinsult = insulttemplates[Math.floor(Math.random() * insulttemplates.length)];
 
-        if (randadj == "friendly" && randnoun == "guy") {
-            updateUser(userId, 200, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                randinsult += "\nAw what a nice thing to say! Have some free points. On me :)";
-				msg.channel.send(randinsult);
-            });
-        } else {
-			msg.channel.send(randinsult);
-		}
-
     }
 	if(msg.content.startsWith(".rat")) {
 		var rat = ["https://cdn.discordapp.com/attachments/269925256943239169/271313901004521487/handsomeratboy.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313923280601105/meme_police.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313950602166272/old_soldier.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313967937224705/ratbye.png", "https://cdn.discordapp.com/attachments/269925256943239169/271313981807788033/ratno.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314006323625984/ratno1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314057041018880/shit_holiday_rat_1.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314088188051466/rebellionhero.png", "https://cdn.discordapp.com/attachments/269925256943239169/271314123092918272/allhailthetruegod.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679652815175690/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679733652127744/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/271679776698138634/unknown.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008047105146880/ratgottem.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008924620652545/Rats_Spaghetti.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008950478667776/ratno4.png", "https://cdn.discordapp.com/attachments/269925256943239169/272008987388411904/ratno3.png"]
@@ -427,14 +415,14 @@ bot.on("message", msg => {
 		
 			msg.channel.send(randcomp);
     }
-    if (msg.content.startsWith('.giraffe') || msg.content.startsWith('.Giraffe')) {
+    /*if (msg.content.startsWith('.giraffe') || msg.content.startsWith('.Giraffe')) {
         var line = msg.content.slice(msg.content.indexOf('.giraffe') + 9);
 		
         chat(line, function (response) {
             msg.reply(response);
         })
 
-    }
+    }*/
 	if (msg.content.startsWith(".funfact" || ".ff")) {
 		var funfacts = ["Banging your head against a wall burns 150 calories an hour.", "When hippos are upset, their sweat turns red.", "The average woman uses her height in lipstick every 5 years.", "Billy goats urinate on their own heads to smell more attractive to females.", "During your lifetime, you will produce enough saliva to fill two swimming pools.", "Cherophobia is the fear of fun.", "King Henry VIII slept with a gigantic axe beside him.", "An eagle can kill a young deer and fly away with it.", "If Pinokio says 'My Nose Will Grow Now', it would cause a paradox.", "Bikinis and tampons were invented by men.", "An average person's yearly fast food intake will contain 12 pubic hairs.", "A toaster uses almost half as much energy as a full-sized oven.", "You cannot snore and dream at the same time.", "A baby octopus is about the size of a flea when it is born.", "In Uganda, 50% of the population is under 15 years of age.", "Catfish are the only animals that naturally have an odd number of whiskers.", "Facebook, Skype and Twitter are all banned in China.", "95% of people text things they could never say in person.", "Smearing a small amount of dog feces on an insect bite will relieve the itching and swelling.", "Hitler’s mother considered abortion but the doctor persuaded her to keep the baby.", "Recycling one glass jar saves enough energy to watch TV for 3 hours.", "The top six foods that make your fart are beans, corn, bell peppers, cauliflower, cabbage and milk.", "Nearly three percent of the ice in Antarctic glaciers is penguin urine.", "About 8,000 Americans are injured by musical instruments each year.", "The Titanic was the first ship to use the SOS signal.", "The total number of steps in the Eiffel Tower are 1665.", "The testicles on an octopus are located in its head!", "The first alarm clock could only ring at 4am.", "Birds don't urinate."];
 		var randfacts = funfacts[Math.floor(Math.random() * funfacts.length)];
