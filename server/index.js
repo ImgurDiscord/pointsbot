@@ -824,6 +824,7 @@ bot.on("message", msg => {
 		msg.channel.send("Version: 1.5");
 	}
 	if (msg.content.startsWith(".profile")) {
+		console.log("hello");
 		var target;
 		var avatar;
 		var user;
@@ -907,6 +908,147 @@ bot.on("message", msg => {
 				
 				//Main BG
 				ctx.beginPath();
+				ctx.rect(0, 0, 300, 120);
+				ctx.fillStyle = "#008dad";
+				ctx.fill();
+				
+				//*====TRUCK====*
+				//Wheels
+				ctx.beginPath();
+				ctx.arc(45,105,15,0,2*Math.PI);
+				ctx.fillStyle = "#333333";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.rect(30, 100, 17, 10);
+				ctx.fillStyle = "#898a74";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.arc(25,105,15,0,2*Math.PI);
+				ctx.fillStyle = "#4f4f4f";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.arc(25,105,8,0,2*Math.PI);
+				ctx.fillStyle = "#b7b7b7";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.rect(0, 115, 300, 120);
+				ctx.fillStyle = "#00d11f";
+				ctx.fill();
+				
+				var grd1 = ctx.createLinearGradient(0,0,0,120);
+				grd1.addColorStop(0,"black");
+				grd1.addColorStop(1,"transparent");
+				ctx.fillStyle=grd1;
+				ctx.fillRect(10,103,30,10);
+				
+				//Truck Back Inside
+				ctx.beginPath();
+				ctx.rect(50, 16, 20, 88);
+				ctx.fillStyle = "#aaaaaa"; //#209433
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.rect(70, 17, 20, 83);
+				ctx.fillStyle = "#ffffff";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.rect(70, 15, 2, 90);
+				ctx.fillStyle = "#e2e3dd";
+				ctx.fill();
+				
+				img.onload = function() {
+							ctx.drawImage(img, 18, 25, 75, 75);
+						}
+						img.onerror = function(err) {
+							console.log(err);
+						}
+						img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
+				
+				//Shadow
+				var grd = ctx.createLinearGradient(0,0,140,0);
+				grd.addColorStop(0,"black");
+				grd.addColorStop(1,"transparent");
+				ctx.fillStyle=grd;
+				ctx.fillRect(43,18,10,83);
+				
+				//Truck Back Ceiling
+				ctx.beginPath();
+				ctx.rect(50, 15, 20, 3);
+				ctx.fillStyle = "#d6d6d6";
+				ctx.fill();
+				
+				//Truck Back Floor
+				ctx.beginPath();
+				ctx.rect(50, 100, 20, 5);
+				ctx.fillStyle = "#d6d6d6";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.rect(0, 15, 50, 90);
+				ctx.fillStyle = "#ffffff";
+				ctx.fill();
+				
+				ctx.beginPath();
+				ctx.rect(0, 85, 50, 20);
+				ctx.fillStyle = "#efefef";
+				ctx.fill();
+				
+				ctx.fillStyle = "#ffa8a8";
+				ctx.font = '15px Arial';
+				ctx.fillText("FREE", -5, 45);
+				ctx.fillText("CANDY", -7, 63);
+				
+				//Shadow
+				var grd1 = ctx.createLinearGradient(0,0,60,0);
+				grd1.addColorStop(0,"transparent");
+				grd1.addColorStop(1,"black");
+				ctx.fillStyle=grd1;
+				ctx.fillRect(21,18,27,82);
+				
+				ctx.beginPath();
+				ctx.rect(30, 17, 20, 83);
+				ctx.fillStyle = "#ffffff";
+				ctx.fill();
+				
+				//Progress Bar Todo
+				ctx.beginPath();
+				ctx.rect(110, 75, 160, 34);
+				ctx.fillStyle = "#1C3E1D";
+				ctx.fill();
+				
+				//Progress Bar Done
+				ctx.beginPath();
+				ctx.rect(110, 75, 1 + ((160 / 100) * percent), 34);
+				ctx.fillStyle = "#416E3C";
+				ctx.fill();
+				
+				//Text Line
+				ctx.beginPath();
+				ctx.rect(100, 14, 5, 95);
+				ctx.fillStyle = "#f1f8f2";
+				ctx.fill();
+				
+				//Text
+				ctx.fillStyle = "white";
+				ctx.font = 'bold 22px Arial';
+				ctx.fillText(user, 110, 35);
+				ctx.fillStyle = "#5dce65";
+				ctx.font = '17px Arial';
+				ctx.textAlign="center";
+				ctx.fillText(points + " / " + todo , 15 + (360 / 2), 98);
+				ctx.fillStyle = "white";
+				ctx.font = '20px Arial';
+				ctx.textAlign="left";
+				ctx.fillText(rank, 110, 65);
+				
+				/*
+				//Main BG
+				ctx.beginPath();
 				ctx.rect(0, 0, 300, 280);
 				ctx.fillStyle = "#565656";
 				ctx.fill();
@@ -959,7 +1101,7 @@ bot.on("message", msg => {
 				ctx.fillStyle = "white";
 				ctx.font = '25px Arial';
 				ctx.textAlign="left";
-				ctx.fillText(rank, 85, 70);
+				ctx.fillText(rank, 85, 70);*/
 				
 				stream.on('data', function(chunk){
 				  out.write(chunk);
