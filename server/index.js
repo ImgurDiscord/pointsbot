@@ -970,11 +970,11 @@ bot.on("message", msg => {
 						img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
 				
 				//Shadow
-				var grd = ctx.createLinearGradient(0,0,140,0);
+				var grd = ctx.createLinearGradient(0,0,64,0);
 				grd.addColorStop(0,"black");
 				grd.addColorStop(1,"transparent");
 				ctx.fillStyle=grd;
-				ctx.fillRect(43,18,10,83);
+				ctx.fillRect(50,18,20,83);
 				
 				//Truck Back Ceiling
 				ctx.beginPath();
