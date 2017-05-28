@@ -1035,7 +1035,7 @@ bot.on("message", msg => {
 				
 				//Text
 				ctx.fillStyle = "white";
-				ctx.font = 'bold 22px Arial';
+				ctx.font = 'bold 25px Arial';
 				ctx.fillText(user, 110, 35);
 				ctx.fillStyle = "#5dce65";
 				ctx.font = '17px Arial';
