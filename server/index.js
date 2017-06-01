@@ -126,7 +126,7 @@ bot.on("message", message => {
         }
         if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
             let member = message.guild.member(userId);
-            updateRank("Single", userId, function(err, result) {
+            updateRank("Single", userId, function(err, ressult) {
                 if (err) {
                     console.log(err);
                 }
