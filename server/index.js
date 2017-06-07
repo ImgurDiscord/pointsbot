@@ -46,6 +46,8 @@ var curcolor;
 var numchance = randomInt(0, 7);
 var giveaway = false;
 
+var servername;
+
 getLeaders(function(err, result) {
 	if (err) {
 		console.log(err);
@@ -76,12 +78,17 @@ bot.on("ready", () => {
 });*/
 
 bot.on("message", message => {
-    var newr = message.guild.roles.find("name", "New");
-    var single = message.guild.roles.find("name", "Single");
-    var dad = message.guild.roles.find("name", "Dad");
-    var singledad = message.guild.roles.find("name", "Single Dad");
-    var hotsingle = message.guild.roles.find("name", "Hot Single Dad");
-    var redhot = message.guild.roles.find("name", "Red Hot Single Dad");
+	servername = message.guild.name;
+	if (servername.includes('Meet hot single dads')) {
+		var newr = message.guild.roles.find("name", "New");
+		var single = message.guild.roles.find("name", "Single");
+		var dad = message.guild.roles.find("name", "Dad");
+		var singledad = message.guild.roles.find("name", "Single Dad");
+		var hotsingle = message.guild.roles.find("name", "Hot Single Dad");
+		var redhot = message.guild.roles.find("name", "Red Hot Single Dad");
+	} else {
+		return;
+	}
 
     if (message.author.bot) return;
 
@@ -90,90 +97,99 @@ bot.on("message", message => {
     uLevel = 'Neutral';
     userName = message.author.username;
     nickName = message.member.displayName;
-
-    addUser(uLevel, uPoints, userId, function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-    });
-    updateUsername(nickName, userId, function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-    });
+	
+	if (servername.includes('Meet hot single dads')) {
+		addUser(uLevel, uPoints, userId, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+		});
+		updateUsername(nickName, userId, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+		});
+	} else {
+		return;
+	}
 	
 	var chnlname = message.channel.name;
 	
-	if (chnlname !== "bot_commands") {
-		givenPoints.set(message.author.username, message.author.id);
+	
+	if (servername.includes('Meet hot single dads')) {
+		if (chnlname !== "bot_commands") {
+			givenPoints.set(message.author.username, message.author.id);
+		}
+		
+		getInfo(userId, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+			var curPoints = result.rows[0].points;
+			var curRank = result.rows[0].rank;
+
+			if (curPoints >= 0 && curPoints <= 249 && curRank != "New") {
+				let member = message.guild.member(userId);
+				updateRank("New", userId, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				member.addRole(newr);
+			}
+			if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
+				let member = message.guild.member(userId);
+				updateRank("Single", userId, function(err, ressult) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				member.addRole(single);
+			}
+			if (curPoints >= 500 && curPoints <= 999 && curRank != "Dad") {
+				let member = message.guild.member(userId);
+				//message.member.removeRole(liked);
+				updateRank("Dad", userId, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				member.addRole(dad);
+			}
+			if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Single Dad") {
+				let member = message.guild.member(userId);
+				//message.member.removeRole(trusted);
+				updateRank("Single Dad", userId, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				member.addRole(singledad);
+			}
+			if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot Single Dad") {
+				let member = message.guild.member(userId);
+				//message.member.removeRole(idolized);
+				updateRank("Hot Single Dad", userId, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				member.addRole(hotsingle);
+			}
+			if (curPoints >= 4000 && curRank != "Red Hot Single Dad") {
+				let member = message.guild.member(userId);
+				//message.member.removeRole(renowned);
+				updateRank("Red Hot Single Dad", userId, function(err, result) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				member.addRole(redhot);
+			}
+		});
+	} else {
+		return;
 	}
-
-    getInfo(userId, function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-        var curPoints = result.rows[0].points;
-        var curRank = result.rows[0].rank;
-
-        if (curPoints >= 0 && curPoints <= 249 && curRank != "New") {
-            let member = message.guild.member(userId);
-            updateRank("New", userId, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            member.addRole(newr);
-        }
-        if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
-            let member = message.guild.member(userId);
-            updateRank("Single", userId, function(err, ressult) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            member.addRole(single);
-        }
-        if (curPoints >= 500 && curPoints <= 999 && curRank != "Dad") {
-            let member = message.guild.member(userId);
-            //message.member.removeRole(liked);
-            updateRank("Dad", userId, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            member.addRole(dad);
-        }
-        if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Single Dad") {
-            let member = message.guild.member(userId);
-            //message.member.removeRole(trusted);
-            updateRank("Single Dad", userId, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            member.addRole(singledad);
-        }
-        if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot Single Dad") {
-            let member = message.guild.member(userId);
-            //message.member.removeRole(idolized);
-            updateRank("Hot Single Dad", userId, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            member.addRole(hotsingle);
-        }
-        if (curPoints >= 4000 && curRank != "Red Hot Single Dad") {
-            let member = message.guild.member(userId);
-            //message.member.removeRole(renowned);
-            updateRank("Red Hot Single Dad", userId, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            member.addRole(redhot);
-        }
-    });
 });
 
 function checkPoints() {
@@ -236,21 +252,9 @@ bot.on("message", msg => {
 					value: '`Ping the bot.`'
 					},
 					{
-					name: '.profile',
-					value: '`Check how many points you have.`'
-					},
-					{
-					name: '.ranks',
-					value: '`Display possible ranks`'
-					},
-					{
 					name: '.roll',
 					value: '`Roll a X sided die Y amount of times.`\n`Usage: .roll <sides> <times to roll>`'
 					},
-					{
-					name: '.leaders',
-					value: '`Display the current leaders.`'
-					}
 				],
 				footer: {
 					text: 'Type .help 2 for more.'
@@ -320,6 +324,9 @@ bot.on("message", msg => {
         msg.channel.send("chong");
     }
     if (msg.content.startsWith(".ranks")) {
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
         msg.channel.send("```Ranks:\n-New: 0-249 points\n-Single: 250-499 points\n-Dad: 500-999 points\n-Single Dad: 1000-1999 points\n-Hot Single Dad: 2000-3999 points\n-Red Hot SIngle Dad: 4000+ points```");
     }
     if (msg.content.startsWith(".roll")) {
@@ -349,6 +356,9 @@ bot.on("message", msg => {
         }
     }
     if (msg.content.startsWith(".leaders")) {
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
 
         getLeaders(function(err, result) {
             if (err) {
@@ -435,18 +445,24 @@ bot.on("message", msg => {
 		var bulletnum = numchance;
 		let member = msg.guild.member(userId);
 		var usr = msg.author.nickname;
-		var dead = msg.guild.roles.find("name", "Grounded");
+		if (servername.includes('Meet hot single dads')) {
+			var dead = msg.guild.roles.find("name", "Grounded");
+		}
 		
 		if (bulletnum == bullets) {
 			numchance = randomInt(1, 7);
 			msg.channel.send(`:boom::gun: You've been shot!\nReloading...`);
-			msg.member.addRole(dead);
-			msg.guild.member(userId).setNickname("DEAD " + usr);
 			bullets = 7;
-			setTimeout(function(){
-				msg.member.removeRole(dead);
-				msg.guild.member(userId).setNickname(usr);
-			}, 300000);
+			
+			if (servername.includes('Meet hot single dads')) {
+				msg.member.addRole(dead);
+				msg.guild.member(userId).setNickname("DEAD " + usr);
+				setTimeout(function(){
+					msg.member.removeRole(dead);
+					msg.guild.member(userId).setNickname(usr);
+				}, 300000);
+			}
+			
 		} else {
 			var bulletsleft = "";
 			for (var b = 0; b < bullets - 1; b++) {
@@ -551,6 +567,9 @@ bot.on("message", msg => {
 		msg.delete();
 	}
 	if (msg.content.startsWith('.infomercial')) {
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
 		var mod = msg.guild.roles.get("257745006511521803");
 		var member = msg.guild.member(userId);
 		if (!msg.member.roles.has("257745006511521803")) {
@@ -574,6 +593,9 @@ bot.on("message", msg => {
 			});
 	}
 	if (msg.content.startsWith(".stopinfo")) {
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
 		if (!msg.member.roles.has("257745006511521803")) {
 			return;
 		}
@@ -696,6 +718,9 @@ bot.on("message", msg => {
 		}
 	}
 	if(msg.content.startsWith(".colorme") || msg.content.startsWith(".colourme")) {
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
 		getColor(userId, function(err, result) {
 			curcolor = result.rows[0].color;
 			console.log("CurColor on command: " + curcolor);
@@ -824,7 +849,9 @@ bot.on("message", msg => {
 		msg.channel.send("Version: 1.5");
 	}
 	if (msg.content.startsWith(".profile")) {
-		console.log("hello");
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
 		var target;
 		var avatar;
 		var user;
@@ -1116,6 +1143,9 @@ bot.on("message", msg => {
 		}
 	}
 	if (msg.content.startsWith(".create_giveaway")) {
+		if (!servername.includes('Meet hot single dads')) {
+			return;
+		}
 		giveaway = true;
 		var args = msg.content.split(" ");
 		var timeleft = args[1];
