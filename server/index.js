@@ -117,7 +117,7 @@ bot.on("message", message => {
 	
 	
 	if (servername.includes('Meet hot single dads')) {
-		if (chnlname !== "bot_commands") {
+		if (chnlname !== "bot_commands" && chnlname !== "zen_counting") {
 			givenPoints.set(message.author.username, message.author.id);
 		}
 		
