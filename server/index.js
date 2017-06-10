@@ -120,6 +120,12 @@ bot.on("message", message => {
 		if (chnlname !== "bot_commands" && chnlname !== "zen_counting") {
 			givenPoints.set(message.author.username, message.author.id);
 		}
+		if (chnlname == "zen_counting") {
+			var isNum = /^\d+$/.test(message.content);
+			if (isNum == false) {
+				message.delete();
+			}
+		}
 		
 		getInfo(userId, function(err, result) {
 			if (err) {
