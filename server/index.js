@@ -1304,8 +1304,8 @@ bot.on("message", msg => {
 			var Image = Canvas.Image;
 			var canvas = new Canvas(320, 130);
 			var ctx = canvas.getContext('2d');
-			var out = fs.createWriteStream(__dirname + '/cockfight.png');
-			var stream = canvas.pngStream();
+			/*var out = fs.createWriteStream(__dirname + '/cockfight.png');
+			var stream = canvas.pngStream();*/
 			var img1 = new Image();
 			var img2 = new Image();
 			
@@ -1378,16 +1378,18 @@ bot.on("message", msg => {
 			}
 			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));
 			
-			stream.on('data', function(chunk){
+			/*stream.on('data', function(chunk){
 			  out.write(chunk);
 			});
 			
 			stream.on('end', function(){
 				console.log("Image saved to file.");
 				stream.end();
-			});
+			});*/
 			
-			msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: ["server/cockfight.png"]});
+			var cockImg = canvas.toBuffer();
+			
+			msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: [{attachment: cockImg, name: "cockfight.png"}] });
 		
 		const collector = msg.channel.createCollector(
 			m => m.content.startsWith(".bet"),
