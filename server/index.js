@@ -1378,15 +1378,6 @@ bot.on("message", msg => {
 			}
 			img1.src = fs.readFileSync(path.join(__dirname, 'chickens/chicken' + con1 + '.png'));
 			
-			/*stream.on('data', function(chunk){
-			  out.write(chunk);
-			});
-			
-			stream.on('end', function(){
-				console.log("Image saved to file.");
-				stream.end();
-			});*/
-			
 			var cockImg = canvas.toBuffer();
 			
 			msg.channel.send("Place your bets!\n>Chicken 1 *" + conditions1 + "*.\n>Chicken 2 *" + conditions2 + "*.\nBet on a chicken with `.bet <1 or 2>`", {files: [{attachment: cockImg, name: "cockfight.png"}] });
