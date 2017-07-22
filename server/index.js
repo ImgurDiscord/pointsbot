@@ -79,7 +79,7 @@ bot.on("ready", () => {
 
 bot.on("message", message => {
 	servername = message.guild.name;
-	if (servername.includes('Meet hot single dads')) {
+	if (servername.includes('Meet hot single')) {
 		var newr = message.guild.roles.find("name", "New");
 		var single = message.guild.roles.find("name", "Single");
 		var dad = message.guild.roles.find("name", "Dad");
@@ -98,7 +98,7 @@ bot.on("message", message => {
     userName = message.author.username;
     nickName = message.member.displayName;
 	
-	if (servername.includes('Meet hot single dads')) {
+	if (servername.includes('Meet hot single')) {
 		addUser(uLevel, uPoints, userId, function(err, result) {
 			if (err) {
 				console.log(err);
@@ -116,7 +116,7 @@ bot.on("message", message => {
 	var chnlname = message.channel.name;
 	
 	
-	if (servername.includes('Meet hot single dads')) {
+	if (servername.includes('Meet hot single')) {
 		if (chnlname !== "bot_commands" && chnlname !== "zen_counting") {
 			givenPoints.set(message.author.username, message.author.id);
 		}
@@ -330,7 +330,7 @@ bot.on("message", msg => {
         msg.channel.send("chong");
     }
     if (msg.content.startsWith(".ranks")) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
         msg.channel.send("```Ranks:\n-New: 0-249 points\n-Single: 250-499 points\n-Dad: 500-999 points\n-Single Dad: 1000-1999 points\n-Hot Single Dad: 2000-3999 points\n-Red Hot SIngle Dad: 4000+ points```");
@@ -362,7 +362,7 @@ bot.on("message", msg => {
         }
     }
     if (msg.content.startsWith(".leaders")) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
 
@@ -451,7 +451,7 @@ bot.on("message", msg => {
 		var bulletnum = numchance;
 		let member = msg.guild.member(userId);
 		var usr = msg.author.nickname;
-		if (servername.includes('Meet hot single dads')) {
+		if (servername.includes('Meet hot single')) {
 			var dead = msg.guild.roles.find("name", "Grounded");
 		}
 		
@@ -460,7 +460,7 @@ bot.on("message", msg => {
 			msg.channel.send(`:boom::gun: You've been shot!\nReloading...`);
 			bullets = 7;
 			
-			if (servername.includes('Meet hot single dads')) {
+			if (servername.includes('Meet hot single')) {
 				msg.member.addRole(dead);
 				msg.guild.member(userId).setNickname("DEAD " + usr);
 				setTimeout(function(){
@@ -573,7 +573,7 @@ bot.on("message", msg => {
 		msg.delete();
 	}
 	if (msg.content.startsWith('.infomercial')) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
 		var mod = msg.guild.roles.get("257745006511521803");
@@ -599,7 +599,7 @@ bot.on("message", msg => {
 			});
 	}
 	if (msg.content.startsWith(".stopinfo")) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
 		if (!msg.member.roles.has("257745006511521803")) {
@@ -724,7 +724,7 @@ bot.on("message", msg => {
 		}
 	}
 	if(msg.content.startsWith(".colorme") || msg.content.startsWith(".colourme")) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
 		getColor(userId, function(err, result) {
@@ -855,7 +855,7 @@ bot.on("message", msg => {
 		msg.channel.send("Version: 1.5");
 	}
 	if (msg.content.startsWith(".profile")) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
 		var target;
@@ -1149,7 +1149,7 @@ bot.on("message", msg => {
 		}
 	}
 	if (msg.content.startsWith(".create_giveaway")) {
-		if (!servername.includes('Meet hot single dads')) {
+		if (!servername.includes('Meet hot single')) {
 			return;
 		}
 		giveaway = true;
