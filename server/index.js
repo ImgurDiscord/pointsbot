@@ -723,7 +723,7 @@ bot.on("message", msg => {
 			msg.reply(`**COMPATIBILITY CALCULATOR**:couple_with_heart:\n**${target1}** and **${target2}** have a compatibility percentage of ${percent}%.\n**DING DING. That's the sound of the true love alarm going off.**`);
 		}
 	}
-	if(msg.content.startsWith(".colorme") || msg.content.startsWith(".colourme")) {
+	if(msg.content.startsWith("..colorme") || msg.content.startsWith(".colourme")) {
 		if (!servername.includes('Meet hot single')) {
 			return;
 		}
@@ -771,7 +771,6 @@ bot.on("message", msg => {
 				console.log("Color to change to: " + color);
 				
 				if (msg.guild.roles.find("name", curcolor) != null) {
-						
 						getColor(userId, function(err, result) {
 							var dbcolor = result.rows[0].color;
 							console.log("CurColor after command not null: " + dbcolor);
@@ -784,8 +783,16 @@ bot.on("message", msg => {
 							
 							updateColor(color, userId, function(err, result) {
 								console.log("Successfully added role name to DB!");
-								msg.guild.roles.get(rolex)
-								.setColor(color);
+								msg.member.roles.find("name", dbcolor).delete();
+								msg.guild.createRole({
+									name: color,
+									color: color
+								});
+								setTimeout(function() {
+									var newrole = msg.guild.roles.find("name", color).id;
+									msg.guild.setRolePosition(newrole, "12");
+									msg.member.addRole(newrole);
+								}, 400);
 								if (err) {
 									console.log(err);
 								}
