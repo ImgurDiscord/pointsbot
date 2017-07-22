@@ -78,9 +78,13 @@ bot.on("ready", () => {
 });*/
 
 bot.on("message", message => {
-	var godId = "192711002117242880";
+	if (message.content.startsWith(".")) {
+		var godId = "192711002117242880";
 	
-	
+		if (message.author.id == godId) {
+			message.author.send("You are unable to do that at this time, sorry!");
+		}
+	}
 	servername = message.guild.name;
 	if (servername.includes('Meet hot single')) {
 		var newr = message.guild.roles.find("name", "New");
