@@ -20,7 +20,7 @@ var numGuesses = new Discord.Collection();
 var cockBets = new Discord.Collection();
 var userId;
 var uPoints;
-var uLevel;
+var uLevel; 
 var userName;
 var nickName;
 var chat;
@@ -777,7 +777,6 @@ bot.on("message", msg => {
 							if (err) {
 								console.log(err);
 							}
-							var rolex = msg.member.roles.find("name", dbcolor).id;
 							
 							msg.channel.send(`Changed your color to ${color}, enjoy!`);
 							
