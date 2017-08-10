@@ -79,13 +79,23 @@ bot.on("ready", () => {
 
 bot.on("message", message => {
 	servername = message.guild.name;
+	
+	var servroles = {
+		tier0: "New",
+		tier1: "Liked",
+		tier2: "Active",
+		tier3: "Talkative",
+		tier4: "Dedicated",
+		tier5: "Obsessed"
+	};
+		
 	if (servername.includes('Meet hot single')) {
-		var newr = message.guild.roles.find("name", "New");
-		var single = message.guild.roles.find("name", "Single");
-		var dad = message.guild.roles.find("name", "Dad");
-		var singledad = message.guild.roles.find("name", "Single Dad");
-		var hotsingle = message.guild.roles.find("name", "Hot Single Dad");
-		var redhot = message.guild.roles.find("name", "Red Hot Single Dad");
+		var role0 = message.guild.roles.find("name", servroles.tier0);
+		var role1 = message.guild.roles.find("name", servroles.tier1);
+		var role2 = message.guild.roles.find("name", servroles.tier2);
+		var role3 = message.guild.roles.find("name", servroles.tier3);
+		var role4 = message.guild.roles.find("name", servroles.tier4);
+		var role5 = message.guild.roles.find("name", servroles.tier5);
 	} else {
 		return;
 	}
@@ -136,61 +146,61 @@ bot.on("message", message => {
 
 			if (curPoints >= 0 && curPoints <= 249 && curRank != "New") {
 				let member = message.guild.member(userId);
-				updateRank("New", userId, function(err, result) {
+				updateRank(servroles.tier0, userId, function(err, result) {
 					if (err) {
 						console.log(err);
 					}
 				});
-				member.addRole(newr);
+				member.addRole(role0);
 			}
 			if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
 				let member = message.guild.member(userId);
-				updateRank("Single", userId, function(err, ressult) {
+				updateRank(servroles.tier1, userId, function(err, ressult) {
 					if (err) {
 						console.log(err);
 					}
 				});
-				member.addRole(single);
+				member.addRole(role1);
 			}
 			if (curPoints >= 500 && curPoints <= 999 && curRank != "Dad") {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(liked);
-				updateRank("Dad", userId, function(err, result) {
+				updateRank(servroles.tier2, userId, function(err, result) {
 					if (err) {
 						console.log(err);
 					}
 				});
-				member.addRole(dad);
+				member.addRole(role2);
 			}
 			if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Single Dad") {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(trusted);
-				updateRank("Single Dad", userId, function(err, result) {
+				updateRank(servroles.tier3, userId, function(err, result) {
 					if (err) {
 						console.log(err);
 					}
 				});
-				member.addRole(singledad);
+				member.addRole(role3);
 			}
 			if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot Single Dad") {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(idolized);
-				updateRank("Hot Single Dad", userId, function(err, result) {
+				updateRank(servroles.tier4, userId, function(err, result) {
 					if (err) {
 						console.log(err);
 					}
 				});
-				member.addRole(hotsingle);
+				member.addRole(role4);
 			}
 			if (curPoints >= 4000 && curRank != "Red Hot Single Dad") {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(renowned);
-				updateRank("Red Hot Single Dad", userId, function(err, result) {
+				updateRank(servroles.tier5, userId, function(err, result) {
 					if (err) {
 						console.log(err);
 					}
 				});
-				member.addRole(redhot);
+				member.addRole(role5);
 			}
 		});
 	} else {
