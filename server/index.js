@@ -951,8 +951,8 @@ bot.on("message", msg => {
 				var Image = Canvas.Image;
 				var canvas = new Canvas(300, 120);
 				var ctx = canvas.getContext('2d');
-				var out = fs.createWriteStream(__dirname + '/text.png');
-				var stream = canvas.pngStream();
+				//var out = fs.createWriteStream(__dirname + '/text.png');
+				//var stream = canvas.pngStream();
 				var img = new Image();
 				
 				//Main BG
@@ -1152,15 +1152,15 @@ bot.on("message", msg => {
 				ctx.textAlign="left";
 				ctx.fillText(rank, 85, 70);*/
 				
-				stream.on('data', function(chunk){
+				/*stream.on('data', function(chunk){
 				  out.write(chunk);
 				});
 
 				stream.on('end', function(){
-				});
-
-				msg.channel.send("Profile for " + guy, {files: ["server/text.png"]});
-				
+				});*/
+				var profileImg = canvas.toBuffer();
+			
+				msg.channel.send("**"+guy.username+ "'s** profile:", {files: [{attachment: profileImg, name: "tcc-profile.png"}] });
 			});
 		}
 	}
