@@ -758,7 +758,7 @@ bot.on("message", msg => {
 			}
 			
 			if (!msg.member.roles.has("269838042221510657")) {
-					msg.channel.send("HEY. Only **Hot Single Dads** can use this command.");
+					msg.channel.send("HEY. Only **cool people** can use this command.");
 					return;
 				} else {
 				
