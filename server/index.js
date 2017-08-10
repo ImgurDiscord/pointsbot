@@ -77,10 +77,7 @@ bot.on("ready", () => {
 	member.send(`Welcome to the server, ${member}!\nFeel free to ask questions on the server if you have any.`);
 });*/
 
-bot.on("message", message => {
-	servername = message.guild.name;
-	
-	var servroles = {
+var servroles = {
 		tier0: "New",
 		tier1: "Liked",
 		tier2: "Active",
@@ -88,6 +85,9 @@ bot.on("message", message => {
 		tier4: "Dedicated",
 		tier5: "Obsessed"
 	};
+
+bot.on("message", message => {
+	servername = message.guild.name;
 		
 	if (servername.includes('Meet hot single')) {
 		var role0 = message.guild.roles.find("name", servroles.tier0);
@@ -343,7 +343,7 @@ bot.on("message", msg => {
 		if (!servername.includes('Meet hot single')) {
 			return;
 		}
-        msg.channel.send("```Ranks:\n-New: 0-249 points\n-Single: 250-499 points\n-Dad: 500-999 points\n-Single Dad: 1000-1999 points\n-Hot Single Dad: 2000-3999 points\n-Red Hot SIngle Dad: 4000+ points```");
+        msg.channel.send("```Ranks:\n-"+servroles.tier0+": 0-249 points\n-"+servroles.tier1+": 250-499 points\n-"+servroles.tier2+": 500-999 points\n-"+servroles.tier3+": 1000-1999 points\n-"+servroles.tier4+": 2000-3999 points\n-"+servroles.tier5+": 4000+ points```");
     }
     if (msg.content.startsWith(".roll")) {
         var mess = msg.content.split(' ');
@@ -919,22 +919,22 @@ bot.on("message", msg => {
 				var rank = result.rows[0].rank;
 				var points = result.rows[0].points;
 				
-				if (rank == "New") {
+				if (rank == servroles.tier1) {
 					todo = 249;
 					done = 0;
-				} else if (rank == "Single") {
+				} else if (rank == servroles.tier1) {
 					todo = 499;
 					done = 250;
-				} else if (rank == "Dad") {
+				} else if (rank == servroles.tier2) {
 					todo = 999;
 					done = 500;
-				} else if (rank == "Single Dad") {
+				} else if (rank == servroles.tier3) {
 					todo = 1999;
 					done = 1000;
-				} else if (rank == "Hot Single Dad") {
+				} else if (rank == servroles.tier4) {
 					todo = 3999;
 					done = 2000;
-				} else if (rank == "Red Hot Single Dad") {
+				} else if (rank == servroles.tier5) {
 					todo = "∞";
 					done = 4000;
 				}
@@ -951,8 +951,6 @@ bot.on("message", msg => {
 				var Image = Canvas.Image;
 				var canvas = new Canvas(300, 120);
 				var ctx = canvas.getContext('2d');
-				//var out = fs.createWriteStream(__dirname + '/text.png');
-				//var stream = canvas.pngStream();
 				var img = new Image();
 				
 				//Main BG
@@ -1011,12 +1009,12 @@ bot.on("message", msg => {
 				ctx.fill();
 				
 				img.onload = function() {
-							ctx.drawImage(img, 18, 25, 75, 75);
-						}
-						img.onerror = function(err) {
-							console.log(err);
-						}
-						img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
+					ctx.drawImage(img, 18, 25, 75, 75);
+				}
+				img.onerror = function(err) {
+					console.log(err);
+				}
+				img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
 				
 				//Shadow
 				var grd = ctx.createLinearGradient(0,0,64,0);
@@ -1095,63 +1093,6 @@ bot.on("message", msg => {
 				ctx.textAlign="left";
 				ctx.fillText(rank, 110, 65);
 				
-				/*
-				//Main BG
-				ctx.beginPath();
-				ctx.rect(0, 0, 300, 280);
-				ctx.fillStyle = "#565656";
-				ctx.fill();
-				
-				//Main Box Border
-				ctx.beginPath();
-				ctx.rect(10, 35, 280, 75);
-				ctx.fillStyle = "white";
-				ctx.fill();
-				
-				//Main Box BG
-				ctx.beginPath();
-				ctx.rect(15, 40, 270, 65);
-				ctx.fillStyle = "#AEAEAE";
-				ctx.fill();
-				
-				//Progress Bar Todo
-				ctx.beginPath();
-				ctx.rect(15, 80, 270, 25);
-				ctx.fillStyle = "#1C3E1D";
-				ctx.fill();
-				
-				//Progress Bar Done
-				ctx.beginPath();
-				ctx.rect(15, 80, 1 + ((270 / 100) * percent), 25);
-				ctx.fillStyle = "#416E3C";
-				ctx.fill();
-				
-				//Profile Image BG
-				ctx.beginPath();
-				ctx.rect(10, 10, 70, 70);
-				ctx.fillStyle = "white"; //#209433
-				ctx.fill();
-				
-				img.onload = function() {
-					ctx.drawImage(img, 15, 15, 60, 60);
-				}
-				img.onerror = function(err) {
-					console.log(err);
-				}
-				img.src = fs.readFileSync(path.join(__dirname, 'avatar.png'));
-				
-				ctx.fillStyle = "white";
-				ctx.font = '22px Arial';
-				ctx.fillText(user, 85, 30);
-				ctx.fillStyle = "#B3DDAA";
-				ctx.font = '14px Arial';
-				ctx.textAlign="center";
-				ctx.fillText(points + " / " + todo , 15 + (270 / 2), 97);
-				ctx.fillStyle = "white";
-				ctx.font = '25px Arial';
-				ctx.textAlign="left";
-				ctx.fillText(rank, 85, 70);*/
-				
 				/*stream.on('data', function(chunk){
 				  out.write(chunk);
 				});
@@ -1160,7 +1101,7 @@ bot.on("message", msg => {
 				});*/
 				var profileImg = canvas.toBuffer();
 			
-				msg.channel.send("**"+guy.username+ "'s** profile:", {files: [{attachment: profileImg, name: "tcc-profile.png"}] });
+				msg.channel.send("**"+guy.username+ "'s** profile:", {files: [{attachment: profileImg, name: "profile.png"}] });
 			});
 		}
 	}
