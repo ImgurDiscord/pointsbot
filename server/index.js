@@ -79,11 +79,11 @@ bot.on("ready", () => {
 
 var servroles = {
 		tier0: "New",
-		tier1: "Liked",
-		tier2: "Active",
-		tier3: "Talkative",
-		tier4: "Dedicated",
-		tier5: "Obsessed"
+		tier1: "Single",
+		tier2: "Hot",
+		tier3: "Single Dad",
+		tier4: "Hot Dad",
+		tier5: "Hot Single Dad"
 	};
 
 bot.on("message", message => {
@@ -144,7 +144,7 @@ bot.on("message", message => {
 			var curPoints = result.rows[0].points;
 			var curRank = result.rows[0].rank;
 
-			if (curPoints >= 0 && curPoints <= 249 && curRank != "New") {
+			if (curPoints >= 0 && curPoints <= 249 && curRank != servroles.tier0) {
 				let member = message.guild.member(userId);
 				updateRank(servroles.tier0, userId, function(err, result) {
 					if (err) {
@@ -153,7 +153,7 @@ bot.on("message", message => {
 				});
 				member.addRole(role0);
 			}
-			if (curPoints >= 250 && curPoints <= 499 && curRank != "Single") {
+			if (curPoints >= 250 && curPoints <= 499 && curRank != servroles.tier1) {
 				let member = message.guild.member(userId);
 				updateRank(servroles.tier1, userId, function(err, ressult) {
 					if (err) {
@@ -162,7 +162,7 @@ bot.on("message", message => {
 				});
 				member.addRole(role1);
 			}
-			if (curPoints >= 500 && curPoints <= 999 && curRank != "Dad") {
+			if (curPoints >= 500 && curPoints <= 999 && curRank != servroles.tier2) {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(liked);
 				updateRank(servroles.tier2, userId, function(err, result) {
@@ -172,7 +172,7 @@ bot.on("message", message => {
 				});
 				member.addRole(role2);
 			}
-			if (curPoints >= 1000 && curPoints <= 1999 && curRank != "Single Dad") {
+			if (curPoints >= 1000 && curPoints <= 1999 && curRank != servroles.tier3) {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(trusted);
 				updateRank(servroles.tier3, userId, function(err, result) {
@@ -182,7 +182,7 @@ bot.on("message", message => {
 				});
 				member.addRole(role3);
 			}
-			if (curPoints >= 2000 && curPoints <= 3999 && curRank != "Hot Single Dad") {
+			if (curPoints >= 2000 && curPoints <= 3999 && curRank != servroles.tier4) {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(idolized);
 				updateRank(servroles.tier4, userId, function(err, result) {
@@ -192,7 +192,7 @@ bot.on("message", message => {
 				});
 				member.addRole(role4);
 			}
-			if (curPoints >= 4000 && curRank != "Red Hot Single Dad") {
+			if (curPoints >= 4000 && curRank != servroles.tier5) {
 				let member = message.guild.member(userId);
 				//message.member.removeRole(renowned);
 				updateRank(servroles.tier5, userId, function(err, result) {
@@ -472,10 +472,8 @@ bot.on("message", msg => {
 			
 			if (servername.includes('Meet hot single')) {
 				msg.member.addRole(dead);
-				msg.guild.member(userId).setNickname("DEAD " + usr);
 				setTimeout(function(){
 					msg.member.removeRole(dead);
-					msg.guild.member(userId).setNickname(usr);
 				}, 300000);
 			}
 			
@@ -491,78 +489,7 @@ bot.on("message", msg => {
 			msg.channel.send("Reloading...");
 			bullets = 6;
 		}
-    }/*
-	if(msg.content.startsWith(".profile")) {
-		if(msg.mentions.users.first() == undefined) {
-			userId = msg.author.id;
-			getInfo(userId, function(err, result) {
-				var rank = result.rows[0].rank;
-				var points = result.rows[0].points;
-				
-				if (err) {
-					console.log(err);
-				}
-				msg.channel.send("", {embed: {
-					color: 1352973,
-					author: {
-						name: msg.member.displayName
-					},
-					description: '--------------\n',
-					fields: [
-						{
-						name: 'Rank:',
-						value: '```cs\n' + rank + '```'
-						},
-						{
-						name: 'Points:',
-						value: '```cs\n' + points + '```'
-						}
-					],
-					timestamp: new Date(),
-					footer: {
-						text: 'Giraffe'
-					},
-					thumbnail: {
-						url: msg.author.avatarURL
-					}
-				}});
-			});
-		} else {
-			userId = msg.mentions.users.first().id;
-			getInfo(userId, function(err, result) {
-				var rank = result.rows[0].rank;
-				var points = result.rows[0].points;
-				
-				if (err) {
-					console.log(err);
-				}
-				msg.channel.send("", {embed: {
-					color: 1352973,
-					author: {
-						name: msg.mentions.users.first().username
-					},
-					description: '--------------\n',
-					fields: [
-						{
-						name: 'Rank:',
-						value: '```http\n' + rank + '```'
-						},
-						{
-						name: 'Points:',
-						value: '```http\n' + points + '```'
-						}
-					],
-					timestamp: new Date(),
-					footer: {
-						text: 'Giraffe'
-					},
-					thumbnail: {
-						url: msg.mentions.users.first().avatarURL
-					}
-				}});
-			});
-		}
-	}*/
+    }
 	if (msg.content.startsWith(".avatar")) {
 		if(msg.mentions.users.first() == undefined) {
 			msg.channel.send(`:frame_photo: **${userName}'s Avatar:**\n${msg.author.avatarURL}`);
@@ -868,7 +795,7 @@ bot.on("message", msg => {
 		msg.reply("\n:8ball: " + response);
 	}
 	if(msg.content.startsWith(".ver")) { 
-		msg.channel.send("Version: 1.5");
+		msg.channel.send("Version: 1.6");
 	}
 	if (msg.content.startsWith(".profile")) {
 		if (!servername.includes('Meet hot single')) {
@@ -1093,12 +1020,6 @@ bot.on("message", msg => {
 				ctx.textAlign="left";
 				ctx.fillText(rank, 110, 65);
 				
-				/*stream.on('data', function(chunk){
-				  out.write(chunk);
-				});
-
-				stream.on('end', function(){
-				});*/
 				var profileImg = canvas.toBuffer();
 			
 				msg.channel.send("**"+guy.username+ "'s** profile:", {files: [{attachment: profileImg, name: "profile.png"}] });
