@@ -22,7 +22,7 @@
     "an-array-of-english-words": "^1.2.0",
     "babel": "^5.8.21",
     "body-parser": "^1.0.1",
-    "canvas": "^1.6.5",
+    "canvas": "^1.6.6",
     "cat-facts": "^1.0.2",
     "cleverbot.io": "^1.0.4",
     "discord.js": "^11.1.0",

@@ -1067,7 +1067,7 @@ bot.on("message", msg => {
 			difference = Number(difference);
 		}
 		
-		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\n@everyone Guess a number between ${range} and you might win a *special* prize!\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} left to submit an answer.`).then((sent) => {setTimeout(() =>{var cur = new Date(); var min = cur.getMinutes(); var hour = cur.getHours(); sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands with .num [number]\nYou have ${minleft} left to submit an answer.~~\n\`GIVEAWAY ENDED AT ${hour + ":" + min + " EST"}\``)},timeleft)});
+		bot.channels.get("257470062326317057").send(`\`GIVEAWAY\`\nGuess a number between ${range} and you might win a *special* prize!\nEnter your answer in #bot_commands with \`.num [number]\`\nYou have ${minleft} left to submit an answer.`).then((sent) => {setTimeout(() =>{var cur = new Date(); var min = cur.getMinutes(); var hour = cur.getHours(); sent.edit(`\`GIVEAWAY OVER\`\n~~Guess a number between ${range}.\nEnter your answer in #bot_commands with .num [number]\nYou have ${minleft} left to submit an answer.~~\n\`GIVEAWAY ENDED AT ${hour + ":" + min + " EST"}\``)},timeleft)});
 		
 		const collector = bot.channels.get("257525917876748289").createCollector(
 			m => m.content.startsWith(".num"),
